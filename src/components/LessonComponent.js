@@ -17,7 +17,7 @@ const LessonComponent = (props) => {
             >
                 <View style={styles.contentContainer}>
                     <View style={{width: '100%', height: '50%', paddingVertical: 16}}>
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline'}}>
+                        <View style={styles.level_seeDetailContainer}>
                             <View style={styles.levelContainer}>
                                 <Text style={styles.textLevel}>{lessons.level}</Text>
                             </View>
@@ -25,7 +25,7 @@ const LessonComponent = (props) => {
                                 style={styles.seeDetailContainer}
                                 onPress={handleNav}
                             >
-                                <Text style={styles.textSeeDetail}>See detail {">"}</Text>
+                                <Text style={styles.textSeeDetail}>See detail</Text>
                             </TouchableOpacity>
                         </View>
                         
@@ -70,8 +70,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
 
     },
+    level_seeDetailContainer: {
+        flexDirection: 'row', 
+        height: 30,
+        justifyContent: 'space-between', 
+        alignItems: 'baseline',
+
+        // backgroundColor: 'pink'
+    },
     levelContainer: {
-        width: 80,
+        width: 100,
         height: 20,
         paddingHorizontal: 8,
         alignContent: 'center',
@@ -92,20 +100,26 @@ const styles = StyleSheet.create({
         width: 'auto',
         color: 'white',
         fontSize: 11,
+        fontWeight: '700'
     },
     textSeeDetail: {
         color: Colors.primaryPupple,
-        fontSize: 11
+        fontSize: 12,
+        fontWeight: '700'
     },
     textName: {
         fontSize: 22,
-        fontWeight: '600',
+        fontWeight: '800',
         color: 'black'
     },
     textChoreo: {
-        color: 'black'
+        color: 'black',
+        fontWeight: '700'
+
     },
     textInstructor: {
-        color: 'black'
+        color: 'black',
+        fontWeight: '700'
+
     },
 })

@@ -1,8 +1,11 @@
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Colors from "../values/colors";
 
 const Lesson2Component = (props) => {
     const {
-        lessons
+        lessons,
+        handleNav,
+
     } = props;
 
     return (
@@ -13,7 +16,12 @@ const Lesson2Component = (props) => {
                     style={styles.background}
                 >
                     <View style={styles.contentContainer}>
-                        <Text style={styles.textName}>{lessons.lessonName}</Text>                        
+                        <Text style={styles.textName}>{lessons.lessonName}</Text>     
+                        <TouchableOpacity
+                            onPress={handleNav}
+                        >
+                            <Text style={styles.textSeeDetail}>See Detail</Text>
+                        </TouchableOpacity>                   
                     </View>
                 </ImageBackground>
             </View>
@@ -41,7 +49,7 @@ export default Lesson2Component;
 
 const styles = StyleSheet.create({
     container: {
-        width: 330,
+        width: 340,
         // height: 210,
         marginRight: 8,
         overflow: 'hidden',
@@ -50,7 +58,7 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
         resizeMode: 'contain', // 'cover', 'contain', 'stretch', 'repeat', 'center'
-        justifyContent: 'center', // 'center', 'flex-start', 'flex-end', 'space-between', 'space-around'
+        justifyContent: 'flex-start', // 'center', 'flex-start', 'flex-end', 'space-between', 'space-around'
         width: '100%',
         height: '100%',
 
@@ -65,11 +73,14 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         width: '100%',
-        height: '100%',
-        // justifyContent: 'flex-end',
+        // height: '50%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         paddingHorizontal: 16,
         paddingVertical: 16,
-        // backgroundColor: 'pink'
+
+        // backgroundColor: 'rgba(255, 255, 255, 0.7)',
     },
     container2: {
         flexDirection: 'row',
@@ -85,7 +96,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8
     },
     levelContainer: {
-        width: 80,
+        width: 100,
         height: 20,
         paddingHorizontal: 8,
         alignContent: 'center',
@@ -117,23 +128,31 @@ const styles = StyleSheet.create({
         marginRight: 8,
         backgroundColor: 'black'
     },
+    textSeeDetail: {
+        fontSize: 12,
+        fontWeight: '700',
+        color: Colors.primaryPupple
+    },
     textLevel: {
         width: 'auto',
         color: 'white',
-        fontSize: 11
+        fontSize: 11,
+        fontWeight: '700'
     },
     textName: {
         fontSize: 22,
-        fontWeight: '600',
-        color: 'black'
+        fontWeight: '800',
+        color: 'black',
     },
     textCategory: {
         color: 'white',
-        fontSize: 11
+        fontSize: 11,
+        fontWeight: '700'
     },
     textInstructor: {
         color: 'white',
-        fontSize: 11
+        fontSize: 11,
+        fontWeight: '700'
     },
     textTime: {
         color: 'black',

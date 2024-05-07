@@ -5,6 +5,7 @@ import MyHeader from "../../../components/MyHeader";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LessonComponent from "../../../components/LessonComponent";
 import Lesson2Component from "../../../components/Lesson2Component";
+import Lesson from "../../Lesson";
 
 const todayLesson = "Today Lessons";
 const seeAll = "See All";
@@ -22,6 +23,10 @@ const HomeMainView = (props) => {
 
     };
 
+    const handleNavDetailLesson = () => {
+        navigation.navigate('Lesson');
+    }
+
     return(
         <SafeAreaView style={styles.container}>
             <MyHeader{...propsHeader} />
@@ -34,11 +39,16 @@ const HomeMainView = (props) => {
                     </TouchableOpacity>
                 </View>
 
+                {/* LESSON CỤM ĐẦU */}
                 <View style={styles.contentContainer}>
                     <View style={styles.lessons1Container}>
                         <FlatList
                             data={lessons}
-                            renderItem={({item, index}) => <LessonComponent lessons={item} />}
+                            renderItem={({item, index}) => 
+                                <LessonComponent 
+                                    lessons={item} 
+                                    handleNav={handleNavDetailLesson}
+                                />}
                             horizontal
                             showsHorizontalScrollIndicator={false}
                         />

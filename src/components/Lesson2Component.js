@@ -13,7 +13,7 @@ const Lesson2Component = (props) => {
                     style={styles.background}
                 >
                     <View style={styles.contentContainer}>
-                            <Text style={styles.textName}>{lessons.lessonName}</Text>                        
+                        <Text style={styles.textName}>{lessons.lessonName}</Text>                        
                     </View>
                 </ImageBackground>
             </View>
@@ -42,7 +42,7 @@ export default Lesson2Component;
 const styles = StyleSheet.create({
     container: {
         width: 330,
-        // height: 200,
+        // height: 210,
         marginRight: 8,
         overflow: 'hidden',
         // backgroundColor: 'pink'
@@ -59,14 +59,14 @@ const styles = StyleSheet.create({
     },
     container1: {
         width: '100%',
-        height: 180,
+        height: 190,
         borderRadius: 10,
         overflow: 'hidden'
     },
     contentContainer: {
         width: '100%',
         height: '100%',
-        justifyContent: 'flex-end',
+        // justifyContent: 'flex-end',
         paddingHorizontal: 16,
         paddingVertical: 16,
         // backgroundColor: 'pink'

@@ -16,10 +16,63 @@ import Schedule from "./screens/Schedule";
 import Account from "./screens/Account";
 import Splash from "./screens/Splash";
 import Colors from "./values/colors";
+import Lesson from "./screens/Lesson";
+import Program from "./screens/Program";
+import Instructor from "./screens/Instructor";
 
 
 const Stack = createNativeStackNavigator();
+const ChildStack = createNativeStackNavigator();
+
 const BottomTab = createBottomTabNavigator();
+
+function HomeStack() {
+    return (
+        <ChildStack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+            headerShown: false
+        }}
+        >
+            <ChildStack.Screen 
+                name="Home" 
+                component={Home}
+            />
+            <ChildStack.Screen 
+                name="Lesson" 
+                component={Lesson} 
+                options={{
+                    
+                }}
+            />
+            <ChildStack.Screen 
+                name="Program" 
+                component={Program} 
+            />
+        </ChildStack.Navigator>
+    )
+}
+
+function LibraryStack() {
+    return(
+        <ChildStack.Navigator
+        initialRouteName="Library"
+        screenOptions={{
+            headerShown: false
+        }}
+        >
+            <ChildStack.Screen name="Library" component={Library}/>
+            <ChildStack.Screen name="Lesson" component={Lesson} />
+            <ChildStack.Screen name="Program" component={Program} />
+            <ChildStack.Screen name="Instructor" component={Instructor} />
+
+        </ChildStack.Navigator>
+    )
+}
+
+function AccountStack() {
+
+}
 
 function MyBottomTab() {
   //console.log("IN BOTTOM TAB FUNCTION");
@@ -29,13 +82,23 @@ function MyBottomTab() {
           screenOptions={{headerShown: false, tabBarShowLabel: false}}
       >
           <BottomTab.Screen 
-              name="Home" 
-              component={Home} 
-              options={{tabBarIcon:({focused}) => {return <Ionicons name="home-outline" size={24} color={focused ? Colors.primaryPupple : 'black'} />}}}
+              name="HomeStack" 
+              component={HomeStack} 
+            //   options={{tabBarIcon:({focused}) => {return <Ionicons name="home-outline" size={24} color={focused ? Colors.primaryPupple : 'black'} />}}}
+            options={({ route }) => ({
+                tabBarIcon: ({ focused }) => (
+                  <Ionicons 
+                    name="home-outline" 
+                    size={24} 
+                    color={focused ? Colors.primaryPupple : 'black'} 
+                  />
+                ),
+                // tabBarVisible: route.state && route.state.index !== 0 // Ẩn thanh tab bar khi đang ở màn hình con đầu tiên của HomeStack
+            })}
           />
           <BottomTab.Screen 
-              name="Library" 
-              component={Library} 
+              name="LibraryStack" 
+              component={LibraryStack} 
               options={{tabBarIcon:({focused}) => {return <Ionicons name="albums-outline" size={24} color={focused ? Colors.primaryPupple : 'black'} />}}}
           />
           <BottomTab.Screen 
@@ -46,7 +109,11 @@ function MyBottomTab() {
           <BottomTab.Screen 
               name="Account" 
               component={Account} 
-              options={{tabBarIcon:({focused}) => {return <Ionicons name="person-outline" size={24} color={focused ? Colors.primaryPupple : 'black'} />}}}
+              options={{
+                tabBarIcon:({focused}) => {return <Ionicons name="person-outline" size={24} color={focused ? Colors.primaryPupple : 'black'} />}
+                
+            
+            }}
           />                      
       </BottomTab.Navigator>
   );
@@ -60,9 +127,5 @@ export default function App() {
               <Stack.Screen name="MyBottomTab" component={MyBottomTab}/>
           </Stack.Navigator>
       </NavigationContainer>        
-      
-      // <View>
-      //   <Text>Home</Text>
-      // </View>
   )
 }

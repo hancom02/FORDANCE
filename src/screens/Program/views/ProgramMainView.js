@@ -1,15 +1,15 @@
 import { Text, View } from "react-native";
 
-const AccountMainView = (props) => {
+const ProgramMainView = (props) => {
     const {
         navigation,
         user
     } = props;
     return(
         <View>
-            <Text>Account Main View</Text>
+            <Text>Program Main View</Text>
         </View>
     )
 }
 
-export default AccountMainView;
+export default ProgramMainView;

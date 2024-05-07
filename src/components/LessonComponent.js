@@ -1,8 +1,10 @@
-import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
+import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Colors from "../values/colors";
 
 const LessonComponent = (props) => {
     const {
-        lessons
+        lessons,
+        handleNav,
     } = props;
 
 
@@ -15,9 +17,18 @@ const LessonComponent = (props) => {
             >
                 <View style={styles.contentContainer}>
                     <View style={{width: '100%', height: '50%', paddingVertical: 16}}>
-                        <View style={styles.levelContainer}>
-                            <Text style={styles.textLevel}>{lessons.level}</Text>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline'}}>
+                            <View style={styles.levelContainer}>
+                                <Text style={styles.textLevel}>{lessons.level}</Text>
+                            </View>
+                            <TouchableOpacity 
+                                style={styles.seeDetailContainer}
+                                onPress={handleNav}
+                            >
+                                <Text style={styles.textSeeDetail}>See detail {">"}</Text>
+                            </TouchableOpacity>
                         </View>
+                        
                         <Text style={styles.textName}>{lessons.lessonName}</Text>
                     </View>
 
@@ -36,7 +47,7 @@ export default LessonComponent;
 const styles = StyleSheet.create({
     container: {
         width: 340,
-        height: 180,
+        height: 190,
         marginRight: 8,
         borderRadius: 10,
         borderWidth: 0,
@@ -70,10 +81,21 @@ const styles = StyleSheet.create({
         marginBottom: 8,
         backgroundColor: 'orange'
     },
+    seeDetailContainer: {
+        width: '26%',
+        height: '50%',
+        alignItems: 'flex-end',
+
+        // backgroundColor: 'white'
+    },
     textLevel: {
         width: 'auto',
         color: 'white',
         fontSize: 11,
+    },
+    textSeeDetail: {
+        color: Colors.primaryPupple,
+        fontSize: 11
     },
     textName: {
         fontSize: 22,

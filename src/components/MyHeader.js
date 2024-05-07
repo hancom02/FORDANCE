@@ -24,7 +24,7 @@ export default MyHeader;
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: 78,
+        height: 70,
         backgroundColor: 'white',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.5,
         shadowRadius: 5,
-        elevation: 4,
+        elevation: 10,
         // backgroundColor: Colors.primaryPupple
     },
     text: {

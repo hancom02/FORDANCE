@@ -11,7 +11,7 @@ const HomeContainer = (props) => {
             lessonName: "Ballet Basic",
             category: "Ballet",
             instructor: "Ngoc Han",
-            level: 'Beginner',
+            level: 'BEGINNER',
             timeDuring: 16,
             image: 'https://img.freepik.com/premium-photo/dance-ballet-studio-with-woman-dancer-training-practicing-dancing-performance-recital-rehearsal-artistic-perform-technique-with-young-female-school-production-art_590464-81910.jpg'
 
@@ -20,7 +20,7 @@ const HomeContainer = (props) => {
             lessonName: 'The Boy Is Mine',
             category: "Chogreophy",
             instructor: "Redy",
-            level: "Intermediate",
+            level: "INTERMEDIATE",
             timeDuring: 16,
             image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
         },
@@ -28,7 +28,7 @@ const HomeContainer = (props) => {
             lessonName: 'The Boy Is Mine',
             category: "Chogreophy",
             instructor: "Redy",
-            level: "Intermediate",
+            level: "INTERMEDIATE",
             timeDuring: 16,
             image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
 
@@ -40,7 +40,7 @@ const HomeContainer = (props) => {
             programName: "Ballet Basic",
             category: "Ballet",
             instructor: "Ngoc Han",
-            level: 'Beginner',
+            level: 'BEGINNER',
             lessonAmount: 15,
             image: 'https://img.freepik.com/premium-photo/dance-ballet-studio-with-woman-dancer-training-practicing-dancing-performance-recital-rehearsal-artistic-perform-technique-with-young-female-school-production-art_590464-81910.jpg'
 
@@ -49,7 +49,7 @@ const HomeContainer = (props) => {
             programName: 'The Boy Is Mine',
             category: "Chogreophy",
             instructor: "Redy",
-            level: "Intermediate",
+            level: "INTERMEDIATE",
             lessonAmount: 8,
             image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
         },
@@ -57,7 +57,7 @@ const HomeContainer = (props) => {
             programName: 'The Boy Is Mine',
             category: "Chogreophy",
             instructor: "Redy",
-            level: "Intermediate",
+            level: "INTERMEDIATE",
             lessonAmount: 5,
             image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
 
@@ -66,31 +66,14 @@ const HomeContainer = (props) => {
 
     const saveLessons = [
         {
-            lessonName: "Ballet Basic",
-            category: "Ballet",
-            instructor: "Ngoc Han",
-            level: 'Beginner',
-            timeDuring: 16,
-            image: 'https://img.freepik.com/premium-photo/dance-ballet-studio-with-woman-dancer-training-practicing-dancing-performance-recital-rehearsal-artistic-perform-technique-with-young-female-school-production-art_590464-81910.jpg'
-
-        },
-        {
             lessonName: 'The Boy Is Mine',
             category: "Chogreophy",
             instructor: "Redy",
-            level: "Intermediate",
+            level: "INTERMEDIATE",
             timeDuring: 16,
             image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
         },
-        {
-            lessonName: 'The Boy Is Mine',
-            category: "Chogreophy",
-            instructor: "Redy",
-            level: "Intermediate",
-            timeDuring: 16,
-            image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
-
-        },
+        
     ];
 
     const propsHome = {

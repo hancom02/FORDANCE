@@ -5,19 +5,29 @@ const Lesson2Component = (props) => {
         lessons
     } = props;
 
+
     return (
         <View style={styles.container}>
             <View style={styles.container1}>
                 <ImageBackground
-                    source={{uri: lessons.image}}
+                    source={{ uri: lessons.image }}
                     style={styles.background}
                 >
                     <View style={styles.contentContainer}>
+<<<<<<< Updated upstream
                         <Text style={styles.textName}>{lessons.lessonName}</Text>                        
+=======
+                        <Text style={styles.textName}>{lessons.lessonName}</Text>
+                        <TouchableOpacity
+                            onPress={handleNav}
+                        >
+                            <Text style={styles.textSeeDetail}>See Detail</Text>
+                        </TouchableOpacity>
+>>>>>>> Stashed changes
                     </View>
                 </ImageBackground>
             </View>
-            
+
             <View style={styles.container2}>
                 <View style={styles.levelContainer}>
                     <Text style={styles.textLevel}>{lessons.level}</Text>

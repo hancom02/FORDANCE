@@ -9,15 +9,19 @@ import Lesson2Component from "../../../components/Lesson2Component";
 //VIEW
 import ProgramMainView from "../../Program/views/ProgramMainView";
 import InstructorMainView from "../../Instructor/views/InstructorMainView";
+import CategoryMainView from "../../Category/views/CategoryMainView";
+import Category from "../../Category";
 
 const LibraryMainView = (props) => {
     const {
         navigation,
         lessons,
+        categories,
     } = props;
 
+
     const handleNavDetailLesson = () => {
-        navigation.navigate('Lesson', { tabBarVisible: false });
+        navigation.navigate('Category', { tabBarVisible: false });
     }
 
     const [content, setContent] = useState("Classes"); // State để xác định nội dung hiện tại
@@ -47,7 +51,7 @@ const LibraryMainView = (props) => {
                     </View>
                 }
                 {content === "Programs" && <ProgramMainView />}
-                {/* {/* {content === "Categories" && <CategoriesMainView />} */}
+                {content === "Categories" && <CategoryMainView categories={categories} navigation={navigation} />}
                 {content === "Instructors" && <InstructorMainView />}
             </View>
         </SafeAreaView >

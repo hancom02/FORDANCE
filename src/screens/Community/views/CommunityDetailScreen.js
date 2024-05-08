@@ -51,6 +51,7 @@ const CommunityDetailScreen = (props) => {
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>Community</Text>
             </View>
+            <View style={styles.separator} />
             <FlatList
                 data={comments}
                 renderItem={renderItem}
@@ -87,14 +88,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 20,
-        shadowColor: '#000000',
-        shadowOffset: {
-            width: 0,
-            height: 0
-        },
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
-
+        height: 30,
     },
     backButton: {
     },
@@ -115,6 +109,11 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius: 20,
         marginRight: 10,
+    },
+    separator: {
+        height: 1,
+        backgroundColor: 'lightgray',
+        marginBottom: 10,
     },
     commentContent: {
         flex: 1,

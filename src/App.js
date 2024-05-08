@@ -20,6 +20,8 @@ import Lesson from "./screens/Lesson";
 import Program from "./screens/Program";
 import Instructor from "./screens/Instructor";
 import Community from "./screens/Community"
+import Category from "./screens/Category";
+import CategoryDetail from "./screens/Category/views/CategoryDetail";
 
 
 const Stack = createNativeStackNavigator();
@@ -52,6 +54,18 @@ function HomeStack() {
             />
         </ChildStack.Navigator>
     )
+}
+
+function CategoriesStack() {
+    <ChildStack.Navigator
+        initialRouteName="Category"
+        screenOptions={{
+            headerShown: false
+        }}
+    >
+        <ChildStack.Screen name="Category" component={Category} />
+        <ChildStack.Screen name="CategoryDetail" component={CategoryDetail} />
+    </ChildStack.Navigator>
 }
 
 function LibraryStack() {
@@ -131,6 +145,8 @@ export default function App() {
                 <Stack.Screen name="MyBottomTab" component={MyBottomTab} />
                 <Stack.Screen name="Lesson" component={Lesson} />
                 <Stack.Screen name="Community" component={Community} />
+                <Stack.Screen name="Category" component={Category} />
+                <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
             </Stack.Navigator>
         </NavigationContainer>
     )

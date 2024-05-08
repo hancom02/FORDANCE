@@ -3,12 +3,18 @@ import MyHeader from "../../../components/MyHeader";
 
 // ICON
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+// COMPONENT
 import LessonComponent from "../../../components/LessonComponent";
 import Lesson2Component from "../../../components/Lesson2Component";
 import Lesson from "../../Lesson";
+import Colors from "../../../values/colors";
+import ProgramComponent from "../../../components/ProgramComponent";
 
 const todayLesson = "Today Lessons";
 const seeAll = "See All";
+const danceprogram = "Dance Programs";
+const saveLesson = "Save Lessons";
 
 const HomeMainView = (props) => {
     const {
@@ -25,6 +31,10 @@ const HomeMainView = (props) => {
 
     const handleNavDetailLesson = () => {
         navigation.navigate('Lesson');
+    }
+
+    const handleNavDetailProgram = () => {
+        navigation.navigate('Program');
     }
 
     return(
@@ -55,39 +65,68 @@ const HomeMainView = (props) => {
                     </View>
                 </View>
 
+                {/* LESSON CỤM 2 */}
                 <View style={styles.todayLessonsContainer}>
-                    <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 16}}>
-                        <Text>{todayLesson}</Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', paddingBottom: 16, paddingRight: 16}}>
+                        <Text style={styles.textTitle}>{todayLesson}</Text>
                         <TouchableOpacity>
-                            <Text>{seeAll}</Text>
+                            <Text style={styles.textSeeAll}>{seeAll}</Text>
                         </TouchableOpacity>
                     </View>
 
                     <View>
                             <FlatList
                                 data={lessons}
-                                renderItem={({item, index}) => <Lesson2Component lessons={item} />}
+                                renderItem={({item, index}) => 
+                                <Lesson2Component 
+                                    lessons={item} 
+                                    handleNav={handleNavDetailLesson}
+                                />}
                                 horizontal
                                 showsHorizontalScrollIndicator={false}
                             />
                     </View>
                 </View>
 
+                {/* PROGRAM LIST */}
                 <View style={styles.todayLessonsContainer}>
-                    <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 16}}>
-                        <Text>{todayLesson}</Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', paddingBottom: 16, paddingRight: 16}}>
+                        <Text style={styles.textTitle}>{danceprogram}</Text>
                         <TouchableOpacity>
-                            <Text>{seeAll}</Text>
+                            <Text style={styles.textSeeAll}>{seeAll}</Text>
                         </TouchableOpacity>
                     </View>
 
                     <View>
-                            <FlatList
-                                data={lessons}
-                                renderItem={({item, index}) => <Lesson2Component lessons={item} />}
-                                horizontal
-                                showsHorizontalScrollIndicator={false}
-                            />
+                        <FlatList
+                            data={programs}
+                            renderItem={({item, index}) => <ProgramComponent program={item} handleNav={handleNavDetailProgram}/>}
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                </View>
+
+                {/* SAVE LESSON */}
+                <View>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', paddingBottom: 16, paddingRight: 16}}>
+                        <Text style={styles.textTitle}>{saveLesson}</Text>
+                        <TouchableOpacity>
+                            <Text style={styles.textSeeAll}>{seeAll}</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View>
+                        <FlatList
+                            data={saveLessons}
+                            renderItem={({item, index}) => 
+                                <Lesson2Component 
+                                    lessons={item} 
+                                    handleNav={handleNavDetailLesson}
+                                />}
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                        />
                     </View>
                 </View>
                 
@@ -108,7 +147,7 @@ const styles = StyleSheet.create({
     },
     scrollContainer: {
         paddingBottom: 60,
-        paddingHorizontal: 16,
+        paddingLeft: 16,
     },
     searchContainer: {
         width: '100%',
@@ -123,14 +162,25 @@ const styles = StyleSheet.create({
     },
     lessons1Container: {
         width: '100%',
-        paddingBottom: 28,
+        paddingBottom: 40,
     },
     todayLessonsContainer: {
         width: '100%',
-        paddingBottom: 28,
+        paddingBottom: 40,
 
         // backgroundColor: 'pink'
     },
+    textTitle: {
+        color: 'black',
+        fontSize: 20,
+        fontWeight: '800'
+
+    },
+    textSeeAll: {
+        color: Colors.primaryPupple,
+        fontSize: 14,
+        fontWeight: '800'
+    }
 
 
 })

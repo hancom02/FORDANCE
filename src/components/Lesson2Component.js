@@ -16,7 +16,7 @@ const Lesson2Component = (props) => {
                     style={styles.background}
                 >
                     <View style={styles.contentContainer}>
-                        <Text style={styles.textName}>{lessons.lessonName}</Text>
+                        <Text style={styles.textName}>{lessons.lessonName}</Text>     
                         <TouchableOpacity
                             onPress={handleNav}
                         >

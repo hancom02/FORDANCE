@@ -1,8 +1,10 @@
 import React from 'react';
-import LessonMainView from "./views/LessonmainView";
+import CommunityDetailScreen from "./views/CommunityDetailScreen";
 
-const LessonContainer = (props) => {
-    const { navigation, } = props;
+const CommunityContainer = (props) => {
+    const {
+        navigation,
+    } = props;
 
     const comments = [
         {
@@ -22,13 +24,13 @@ const LessonContainer = (props) => {
             }]
         },
     ];
-    const propsLesson = {
-        navigation,
-        comments,
-    };
 
-
-    return <LessonMainView {...propsLesson} />;
+    return (
+        <CommunityDetailScreen
+            comments={comments}
+            navigation={navigation}
+        />
+    );
 }
 
-export default LessonContainer;
+export default CommunityContainer;

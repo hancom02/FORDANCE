@@ -1,11 +1,27 @@
+import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, ScrollView } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from "../values/colors";
 
 const LibraryHeader = (props) => {
-    const {
+    const { onButtonPress } = props;
+    const [selectedButton, setSelectedButton] = useState('Classes');
 
-    } = props;
+    const renderButton = (buttonName) => {
+        const isSelected = selectedButton === buttonName;
+        return (
+            <TouchableOpacity
+                key={buttonName}
+                style={[styles.button, isSelected && styles.selectedButton]}
+                onPress={() => {
+                    setSelectedButton(buttonName);
+                    onButtonPress(buttonName);
+                }}
+            >
+                <Text style={[styles.buttonText, isSelected && styles.selectedButtonText]}>{buttonName}</Text>
+            </TouchableOpacity>
+        );
+    };
 
     return (
         <View style={styles.container}>
@@ -13,34 +29,26 @@ const LibraryHeader = (props) => {
                 <Text style={styles.text}>LOGO</Text>
                 <View style={styles.iconContainer}>
                     <TouchableOpacity style={{ marginRight: 15 }} >
-                        <Ionicons name="notifications-outline" size={27} />
+                        <Ionicons name="notifications-outline" size={27} color='black' />
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <Ionicons name="search-outline" size={27} />
+                        <Ionicons name="search-outline" size={27} color='black' />
                     </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.pageContainer}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.button}>
-                            <Text style={styles.buttonText}>Classes</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button}>
-                            <Text style={styles.buttonText}>Programs</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button}>
-                            <Text style={styles.buttonText}>Categories</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button}>
-                            <Text style={styles.buttonText}>Instructors</Text>
-                        </TouchableOpacity>
+                        {renderButton("Classes")}
+                        {renderButton("Programs")}
+                        {renderButton("Categories")}
+                        {renderButton("Instructors")}
                     </View>
                 </ScrollView>
             </View>
         </View>
-    )
-}
+    );
+};
 
 export default LibraryHeader;
 
@@ -63,7 +71,6 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 4,
     },
-
     logoContainer: {
         width: '100%',
         flex: 2,
@@ -75,39 +82,38 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         marginBottom: 10
-
     },
-
     buttonContainer: {
         flexDirection: 'row',
         alignItems: 'center'
     },
-
     button: {
         paddingHorizontal: 10,
         paddingVertical: 5,
         marginHorizontal: 5,
-        borderWidth: 1,
+        borderWidth: 0.5,
         borderRadius: 5,
         borderColor: 'grey',
     },
-
     buttonText: {
         color: 'black',
         textTransform: 'uppercase',
         fontWeight: '700',
         fontSize: 14,
-
     },
-
+    selectedButton: {
+        backgroundColor: Colors.primaryPupple,
+        borderColor: 'white'
+    },
+    selectedButtonText: {
+        color: 'white',
+    },
     iconContainer: {
         flexDirection: 'row',
     },
-
     text: {
         fontSize: 20,
         fontWeight: '700',
         color: 'black',
-
     }
-})
+});

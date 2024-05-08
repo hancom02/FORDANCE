@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         backgroundColor: Colors.primaryPupple,
         textTransform: 'uppercase',
+        fontSize: 11,
         paddingHorizontal: 5,
         marginRight: 5
     },
@@ -102,6 +103,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         textTransform: 'uppercase',
         paddingHorizontal: 5,
+        fontSize: 11,
         marginRight: 5
     },
     flatlistContainer: {

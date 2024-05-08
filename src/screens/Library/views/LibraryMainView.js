@@ -21,7 +21,7 @@ const LibraryMainView = (props) => {
 
 
     const handleNavDetailLesson = () => {
-        navigation.navigate('Category', { tabBarVisible: false });
+        navigation.navigate('Lesson', { tabBarVisible: false });
     }
 
     const [content, setContent] = useState("Classes"); // State để xác định nội dung hiện tại

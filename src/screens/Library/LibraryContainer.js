@@ -190,12 +190,90 @@ const LibraryContainer = (props) => {
         },
 
     ]
+    const instructors = [
+        {
+            instructorName: "Lip J",
+            goals: [
+                "Goal A",
+                "Goal B"
+            ],
+            introduce: "Introduce...........................................................................................................",
+            instructorImage: 'https://i.ytimg.com/vi/5tZ7OaEbQBk/sddefault.jpg',
+            instructorCoverImage: 'https://i.ytimg.com/vi/5tZ7OaEbQBk/sddefault.jpg',
+            lessons: [
+                {
+                    lessonName: 'How to do catfish',
+                    totalTime: '1:15',
+                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    lesonsVideo: ' ',
+                },
+                {
+                    lessonName: 'How to do catfish',
+                    totalTime: '1:15',
+                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    lesonsVideo: ' ',
+                },
+
+            ]
+        },
+        {
+            instructorName: "Redy",
+            goals: [
+                "Goal A",
+                "Goal B"
+            ],
+            introduce: ".........................................................",
+            instructorImage: 'https://new1m.s3.ap-northeast-2.amazonaws.com/teachers/profile/152_240213001705817.jpg',
+            instructorCoverImage: 'https://new1m.s3.ap-northeast-2.amazonaws.com/teachers/profile/152_240213001705817.jpg',
+            lessons: [
+                {
+                    lessonName: 'How to do catfish',
+                    totalTime: '1:15',
+                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    lesonsVideo: ' ',
+                },
+                {
+                    lessonName: 'How to do catfish',
+                    totalTime: '1:15',
+                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    lesonsVideo: ' ',
+                },
+
+            ]
+        },
+        {
+            instructorName: "Lip J",
+            goals: [
+                "Goal A",
+                "Goal B"
+            ],
+            introduce: ".........................................................",
+            instructorImage: 'https://i.ytimg.com/vi/5tZ7OaEbQBk/sddefault.jpg',
+            instructorCoverImage: 'https://i.ytimg.com/vi/5tZ7OaEbQBk/sddefault.jpg',
+            lessons: [
+                {
+                    lessonName: 'How to do catfish',
+                    totalTime: '1:15',
+                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    lesonsVideo: ' ',
+                },
+                {
+                    lessonName: 'How to do catfish',
+                    totalTime: '1:15',
+                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    lesonsVideo: ' ',
+                },
+
+            ]
+        }
+    ]
 
     const propsLibrary = {
         navigation,
         lessons,
         programs,
         categories,
+        instructors
 
     };
 

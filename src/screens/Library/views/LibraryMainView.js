@@ -13,6 +13,7 @@ import CategoryMainView from "../../Category/views/CategoryMainView";
 import Category from "../../Category";
 import ProgramComponent from "../../../components/ProgramComponent";
 import WiderProgramComponent from "../../../components/WiderProgramComponent";
+import InstructorComponent from "../../../components/InstructorComponent";
 
 const LibraryMainView = (props) => {
     const {
@@ -20,6 +21,8 @@ const LibraryMainView = (props) => {
         lessons,
         programs,
         categories,
+        instructors, 
+
     } = props;
 
 
@@ -37,13 +40,17 @@ const LibraryMainView = (props) => {
         });
     }
 
-    const [content, setContent] = useState("Classes"); // State để xác định nội dung hiện tại
+    const handleNavDetailInstructor = () => {
+        navigation.navigate('Instructor')
+    }
+
+    const [content, setContent] = useState("Lessons"); // State để xác định nội dung hiện tại
 
     return (
         <SafeAreaView style={styles.container}>
             <LibraryHeader onButtonPress={setContent} />
             <View style={styles.contentContainer}>
-                {content === "Classes" &&
+                {content === "Lessons" &&
                     <View style={styles.libraryContainer}>
                         <Text style={styles.text}>Classes</Text>
                         <View style={styles.classesContainer}>
@@ -87,7 +94,9 @@ const LibraryMainView = (props) => {
 
                 }
                 {content === "Categories" && <CategoryMainView categories={categories} navigation={navigation} />}
-                {content === "Instructors" && <InstructorMainView />}
+                {content === "Instructors" && 
+                    <InstructorMainView instructors={instructors} navigation={navigation}/>
+                }
             </View>
         </SafeAreaView >
     );
@@ -111,7 +120,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
     },
-
     text: {
         position: "absolute",
         top: 0,
@@ -139,5 +147,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
 
         // backgroundColor: 'pink'
-    }
+    },
+    instructorContainer: {
+        flex: 1,
+        // flexDirection: 'column',
+        paddingHorizontal: 16,
+        marginTop: 70,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        // backgroundColor: 'pink'
+    },
 });

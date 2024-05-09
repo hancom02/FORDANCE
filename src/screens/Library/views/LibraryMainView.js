@@ -11,17 +11,30 @@ import ProgramMainView from "../../Program/views/ProgramMainView";
 import InstructorMainView from "../../Instructor/views/InstructorMainView";
 import CategoryMainView from "../../Category/views/CategoryMainView";
 import Category from "../../Category";
+import ProgramComponent from "../../../components/ProgramComponent";
+import WiderProgramComponent from "../../../components/WiderProgramComponent";
 
 const LibraryMainView = (props) => {
     const {
         navigation,
         lessons,
+        programs,
         categories,
     } = props;
 
 
     const handleNavDetailLesson = () => {
         navigation.navigate('Lesson', { tabBarVisible: false });
+    }
+
+    const handleNavDetailProgram = (
+            programData
+        ) => {
+        // console.log("PROGRAM DATA AFTER PROPS FROM LIBRARY MAIN VIEW: ", programData);
+        navigation.navigate('Program', { 
+            tabBarVisible: false, 
+            program: programData
+        });
     }
 
     const [content, setContent] = useState("Classes"); // State để xác định nội dung hiện tại
@@ -50,7 +63,29 @@ const LibraryMainView = (props) => {
                         </View>
                     </View>
                 }
-                {content === "Programs" && <ProgramMainView />}
+                {content === "Programs" && 
+                    <View style={styles.libraryContainer}>
+                        <Text style={styles.text}>Programs</Text>
+                        <View style={styles.programsContainer}>
+                            <FlatList 
+                                data={programs}
+                                renderItem={({item, index})  =>
+                                    <View key={index} style={{ marginBottom: 24 }}>
+                                        <WiderProgramComponent
+                                            program={item}
+                                            handleNav={() => handleNavDetailProgram(
+                                                programData=item
+                                            )}
+
+                                        />
+                                    </View>
+                                } 
+                                showsVerticalScrollIndicator={false}
+                            />
+                        </View>
+                    </View>
+
+                }
                 {content === "Categories" && <CategoryMainView categories={categories} navigation={navigation} />}
                 {content === "Instructors" && <InstructorMainView />}
             </View>
@@ -95,4 +130,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    programsContainer: {
+        flex: 1,
+        paddingHorizontal: 16,
+        marginTop: 70,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        // backgroundColor: 'pink'
+    }
 });

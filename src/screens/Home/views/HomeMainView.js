@@ -33,9 +33,15 @@ const HomeMainView = (props) => {
         navigation.navigate('Lesson');
     }
 
-    const handleNavDetailProgram = () => {
-        navigation.navigate('Program');
-    }
+    const handleNavDetailProgram = (
+        programData
+    ) => {
+    // console.log("PROGRAM DATA AFTER PROPS FROM LIBRARY MAIN VIEW: ", programData);
+    navigation.navigate('Program', { 
+        tabBarVisible: false, 
+        program: programData
+    });
+}
 
     return(
         <SafeAreaView style={styles.container}>
@@ -100,7 +106,7 @@ const HomeMainView = (props) => {
                     <View>
                         <FlatList
                             data={programs}
-                            renderItem={({item, index}) => <ProgramComponent program={item} handleNav={handleNavDetailProgram}/>}
+                            renderItem={({item, index}) => <ProgramComponent program={item} handleNav={() => handleNavDetailProgram(programData=item)}/>}
                             horizontal
                             showsHorizontalScrollIndicator={false}
                         />

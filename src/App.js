@@ -68,69 +68,57 @@ function HomeStack() {
     )
 }
 
-function CategoriesStack() {
-    <ChildStack.Navigator
-        initialRouteName="Category"
-        screenOptions={{
-            headerShown: false
-        }}
-    >
-        <ChildStack.Screen name="Category" component={Category} />
-        <ChildStack.Screen name="CategoryDetail" component={CategoryDetail} />
-    </ChildStack.Navigator>
-}
-
 function LibraryTopTabNavigator() {
     return (
 
-                <LibraryTopTab.Navigator
-                    screenOptions={{
-                        tabBarStyle: [styles.containerStyle],
-                        // tabBarIndicatorStyle: styles.childIndicator,
-                        tabBarLabelStyle: styles.label,
-                        tabBarActiveTintColor: 'white',
-                        tabBarInactiveTintColor: 'black'
-                    }}
-                >
-                    <LibraryTopTab.Screen 
-                        options={{
-                            tabBarIndicatorStyle: [styles.childIndicator, {
-                                marginLeft: 8,
-                                paddingRight: 32
-                            },]
-                        }}
-                        name="Lesson" 
-                        component={LessonsSubView} 
-                    />
-                    <LibraryTopTab.Screen 
-                        options={{
-                            tabBarIndicatorStyle: [styles.childIndicator, {
-                                marginLeft: 6
-                            },]
-                        }}
-                        name="Program" 
-                        component={ProgramsSubView} 
-                    />
-                    <LibraryTopTab.Screen 
-                        options={{
-                            tabBarIndicatorStyle: [styles.childIndicator, {
-                                marginLeft: 6
-                            },]
-                        }}
-                        name="Category" 
-                        component={CategoriesSubView} 
-                    />
-                    <LibraryTopTab.Screen 
-                        options={{
-                            tabBarIndicatorStyle: [styles.childIndicator, {
-                                marginLeft: 0,
-                                marginRight: 16
-                            }],
-                        }}
-                        name="Instructor" 
-                        component={InstructorsSubView} 
-                    />
-                </LibraryTopTab.Navigator>
+        <LibraryTopTab.Navigator
+            screenOptions={{
+                tabBarStyle: [styles.containerStyle],
+                // tabBarIndicatorStyle: styles.childIndicator,
+                tabBarLabelStyle: styles.label,
+                tabBarActiveTintColor: 'white',
+                tabBarInactiveTintColor: 'black'
+            }}
+        >
+            <LibraryTopTab.Screen 
+                options={{
+                    tabBarIndicatorStyle: [styles.childIndicator, {
+                        marginLeft: 8,
+                        paddingRight: 32
+                    },]
+                }}
+                name="Lesson" 
+                component={LessonsSubView} 
+            />
+            <LibraryTopTab.Screen 
+                options={{
+                    tabBarIndicatorStyle: [styles.childIndicator, {
+                        marginLeft: 6
+                    },]
+                }}
+                name="Program" 
+                component={ProgramsSubView} 
+            />
+            <LibraryTopTab.Screen 
+                options={{
+                    tabBarIndicatorStyle: [styles.childIndicator, {
+                        marginLeft: 6
+                    },]
+                }}
+                name="Category" 
+                component={CategoriesSubView} 
+            />
+            <LibraryTopTab.Screen 
+                options={{
+                    tabBarIndicatorStyle: [styles.childIndicator, {
+                        marginLeft: 0,
+                        marginRight: 16
+                    }],
+                }}
+                name="Instructor" 
+                component={InstructorsSubView} 
+            />
+        </LibraryTopTab.Navigator>
     );
 }
 
@@ -140,6 +128,56 @@ function LibraryStack() {
         initialRouteName="Library"
         screenOptions={{
             // headerShown: false
+        }}
+    >
+        <ChildStack.Screen name="Category" component={Category} />
+        <ChildStack.Screen name="CategoryDetail" component={CategoryDetail} />
+    </ChildStack.Navigator>
+    )
+}
+
+
+function LibraryStack2() {
+    return(
+        <ChildStack.Navigator
+        initialRouteName="Library"
+        screenOptions={{
+            // headerShown: false
+        }}
+        >
+            <ChildStack.Screen 
+                name="Library" 
+                component={LibraryTopTabNavigator}
+                options={{
+                    header: () => <LibraryHeader2/>
+                }}
+            />
+        </ChildStack.Navigator>
+    )
+}
+
+function LibraryStack3() {
+    return (
+        <ChildStack.Navigator
+            initialRouteName="Library"
+            screenOptions={{
+                headerShown: false
+            }}
+        >
+            <ChildStack.Screen name="Library" component={Library} />
+            <ChildStack.Screen name="Lesson" component={Lesson} options={{ tabBarVisible: false }} />
+            <ChildStack.Screen name="Program" component={Program} />
+            <ChildStack.Screen name="Instructor" component={Instructor} />
+
+        </ChildStack.Navigator>
+    )
+}
+
+function CategoriesStack() {
+    <ChildStack.Navigator
+        initialRouteName="Category"
+        screenOptions={{
+            headerShown: false
         }}
     >
         <ChildStack.Screen name="Category" component={Category} />
@@ -176,7 +214,7 @@ function MyBottomTab() {
 
             <BottomTab.Screen
                 name="LibraryStack"
-                component={LibraryStack}
+                component={LibraryStack3}
                 options={{ tabBarIcon: ({ focused }) => { return <Ionicons name="albums-outline" size={24} color={focused ? Colors.primaryPupple : 'black'} /> } }}
             />
 

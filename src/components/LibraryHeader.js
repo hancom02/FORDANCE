@@ -5,7 +5,7 @@ import Colors from "../values/colors";
 
 const LibraryHeader = (props) => {
     const { onButtonPress } = props;
-    const [selectedButton, setSelectedButton] = useState('Classes');
+    const [selectedButton, setSelectedButton] = useState('Lessons');
 
     const renderButton = (buttonName) => {
         const isSelected = selectedButton === buttonName;
@@ -26,7 +26,7 @@ const LibraryHeader = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.logoContainer}>
-                <Text style={styles.text}>LOGO</Text>
+                <Text style={styles.text}>FORDANCE</Text>
                 <View style={styles.iconContainer}>
                     <TouchableOpacity style={{ marginRight: 15 }} >
                         <Ionicons name="filter-outline" size={27} color='black' />
@@ -39,7 +39,7 @@ const LibraryHeader = (props) => {
             <View style={styles.pageContainer}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     <View style={styles.buttonContainer}>
-                        {renderButton("Classes")}
+                        {renderButton("Lessons")}
                         {renderButton("Programs")}
                         {renderButton("Categories")}
                         {renderButton("Instructors")}

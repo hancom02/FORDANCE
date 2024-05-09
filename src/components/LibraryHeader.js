@@ -29,7 +29,7 @@ const LibraryHeader = (props) => {
                 <Text style={styles.text}>LOGO</Text>
                 <View style={styles.iconContainer}>
                     <TouchableOpacity style={{ marginRight: 15 }} >
-                        <Ionicons name="notifications-outline" size={27} color='black' />
+                        <Ionicons name="filter-outline" size={27} color='black' />
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Ionicons name="search-outline" size={27} color='black' />

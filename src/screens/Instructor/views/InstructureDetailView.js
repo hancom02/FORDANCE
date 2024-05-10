@@ -12,11 +12,16 @@ const InstructorDetailView = (props) => {
 
     const { instructor } = route.params;
 
-    console.log("INSTRUCTOR IN DETAIL SCREEN: ", instructor);
+    // console.log("INSTRUCTOR IN DETAIL SCREEN: ", instructor);
+
+    const handleNavDetailLesson = () => {
+        console.log("IN handleNavDetailLesson")
+        navigation.navigate('Lesson')
+    }
 
     const renderItem = ({item, index}) => {
         return(
-            <TouchableOpacity key={index} style={styles.componentContainer}>
+            <TouchableOpacity key={index} style={styles.componentContainer} onPress={() => handleNavDetailLesson()}>
                 <Image style={styles.imageComponent} source={{uri: item.lessonImage}}/>
 
                 <View style={{}}>
@@ -44,7 +49,7 @@ const InstructorDetailView = (props) => {
                     </Text>
                 </View>
                 <View style={styles.classesContainer}>
-                    <Text style={styles.textRecentClasses}>RECENT CLASSES</Text>
+                    <Text style={styles.textRecentClasses}>RECENT LESSONS</Text>
 
                     <View style={{width: '100%', paddingTop: 16}}>
                         <FlatList 

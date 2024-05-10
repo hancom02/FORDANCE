@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, TouchableOpacity, FlatList } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, FlatList, Button, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React, { useState } from 'react';
@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 
 import Colors from "../../../values/colors"
 import CommunityComponent from "../../../components/CommunityComponent";
+import VideoPlayer from "./VideoPalyer";
 
 const LessonMainView = (props) => {
     const {
@@ -19,9 +20,21 @@ const LessonMainView = (props) => {
     const Level = 'Beginner';
     const Style = 'Ballet';
     const Time = '10';
+    const ImageLesson = 'https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg';
+
+    const [isShowVideo, setIsShowVideo] = useState(false);
 
     const handleNavigateCommunityDetail = () => {
         navigation.navigate('Community');
+    }
+
+    const handleNavVideoPlayer = () => {
+        console.log("NAV TO VIDEO PLAYER");
+
+        setIsShowVideo(true);
+        <VideoPlayer 
+            isShowVideo={isShowVideo}
+        />
     }
 
     return (
@@ -29,10 +42,13 @@ const LessonMainView = (props) => {
             <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
                 <Ionicons name="arrow-back" size={24} color="black" />
             </TouchableOpacity>
+
             <View style={styles.videoContainer}>
-                <View style={styles.video}>
-                </View>
+                {/* <View style={styles.video}>
+                </View> */}
+                <Image style={styles.video} source={{uri: ImageLesson}}/>
             </View>
+
             <View style={styles.iconContainer}>
                 <TouchableOpacity style={[styles.icon, { marginLeft: 16 }]}>
                     <Ionicons name="heart-outline" size={30} color={Colors.primaryPupple} />
@@ -47,16 +63,18 @@ const LessonMainView = (props) => {
                     <Ionicons name="share-social-outline" size={30} color={Colors.primaryPupple} />
                 </TouchableOpacity>
             </View>
+
             <View style={styles.container2}>
                 <Text style={styles.textName}>{LessonName}</Text>
                 <View style={styles.instructorContainer}>
                     <View style={styles.circle}></View>
                     <View style={styles.instructorInfo}>
                         <Text style={styles.textName}>{InstructorName}</Text>
-                        <Text style={styles.instructorSubtitle}>{DancerName}</Text>
+                        {/* <Text style={styles.instructorSubtitle}>{DancerName}</Text> */}
                     </View>
                 </View>
             </View>
+
             <View style={styles.infoContainer}>
                 <View style={[styles.info, { alignItems: 'flex-start' }]}>
                     <View style={{ flexDirection: 'column', }}>
@@ -78,6 +96,7 @@ const LessonMainView = (props) => {
                 </View>
 
             </View>
+
             <View style={styles.communityContainer}>
                 <View style={styles.container}>
                     <View style={styles.header}>
@@ -89,6 +108,13 @@ const LessonMainView = (props) => {
                     <CommunityComponent comments={comments} />
                 </View>
             </View>
+
+           <TouchableOpacity style={styles.joinClassContainer} onPress={() => handleNavVideoPlayer()}>
+                <Text style={styles.textJoinLesson}>JOIN LESSON</Text>
+           </TouchableOpacity>
+
+           {/* RENDER VIDEOPLAYER */}
+           {isShowVideo && <VideoPlayer onClose={() => setIsShowVideo(false)}/>}
         </SafeAreaView>
 
     )
@@ -110,7 +136,7 @@ const styles = StyleSheet.create({
     video: {
         width: '100%',
         height: 200,
-        backgroundColor: 'blue',
+        // backgroundColor: 'blue',
     },
     iconContainer: {
         width: '100%',
@@ -125,8 +151,12 @@ const styles = StyleSheet.create({
     instructorContainer: {
         flexDirection: 'row',
         marginTop: 20,
+        paddingBottom: 16,
         borderColor: 'grey',
         borderBottomWidth: 0.5,
+        alignItems: 'center',
+
+        // backgroundColor: 'green'
     },
     circle: {
         width: 60,
@@ -134,7 +164,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         backgroundColor: 'grey',
         marginRight: 20,
-        marginBottom: 10
+        // marginBottom: 10
     },
 
     instructorSubtitle: {
@@ -160,6 +190,9 @@ const styles = StyleSheet.create({
     },
     instructorInfo: {
         flexDirection: 'column',
+        justifyContent: 'center',
+
+        // backgroundColor: 'pink'
     },
 
     infoContainer: {
@@ -209,9 +242,25 @@ const styles = StyleSheet.create({
         color: 'black'
     },
     joinHere: {
-        color: 'blue',
+        color: Colors.primaryPupple,
         fontWeight: 'bold',
         textTransform: 'uppercase',
+    },
+    joinClassContainer: {
+        height: 50,
+        marginHorizontal: 16,
+        marginBottom: 16,
+        backgroundColor: Colors.primaryPupple,
+        borderRadius: 3,
+
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    textJoinLesson: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 16,
+        letterSpacing: 2
     },
 })
 

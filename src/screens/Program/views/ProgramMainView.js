@@ -101,7 +101,7 @@ const ProgramMainView = (props) => {
                                     <SmallerLessonComponent
                                     lesson={item}
                                     index={index+1}
-                                    handleNav={() => handleNavDetailLesson}
+                                    handleNav={() => handleNavDetailLesson()}
                                 />
                                 </View>
                             }

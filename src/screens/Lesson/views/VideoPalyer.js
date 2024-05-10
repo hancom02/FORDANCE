@@ -5,7 +5,7 @@ const VideoPlayer = (props) => {
         onClose
     } = props;
 
-    console.log("IN VIDEO PLAYER");
+    // console.log("IN VIDEO PLAYER");
 
     return (
         <Modal

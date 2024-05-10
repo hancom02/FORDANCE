@@ -15,11 +15,14 @@ const todayLesson = "Today Lessons";
 const seeAll = "See All";
 const danceprogram = "Dance Programs";
 const saveLesson = "Save Lessons";
+const danceLesson = 'Dance Lessons'
 
 const HomeMainView = (props) => {
     const {
         navigation,
         lessons,
+        todayLessons,
+        danceLessons, 
         programs,
         saveLessons
         
@@ -82,7 +85,30 @@ const HomeMainView = (props) => {
 
                     <View>
                             <FlatList
-                                data={lessons}
+                                data={todayLessons}
+                                renderItem={({item, index}) => 
+                                <Lesson2Component 
+                                    lessons={item} 
+                                    handleNav={handleNavDetailLesson}
+                                />}
+                                horizontal
+                                showsHorizontalScrollIndicator={false}
+                            />
+                    </View>
+                </View>
+
+                {/* LESSON CỤM 3 */}
+                <View style={styles.todayLessonsContainer}>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', paddingBottom: 16, paddingRight: 16}}>
+                        <Text style={styles.textTitle}>{danceLesson}</Text>
+                        <TouchableOpacity>
+                            <Text style={styles.textSeeAll}>{seeAll}</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View>
+                            <FlatList
+                                data={danceLessons}
                                 renderItem={({item, index}) => 
                                 <Lesson2Component 
                                     lessons={item} 

@@ -25,17 +25,95 @@ const HomeContainer = (props) => {
             image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
         },
         {
+            lessonName: 'Khmer Folk Dance',
+            category: "Folk Dance",
+            instructor: "Hoa Nhung",
+            level: "BASIC",
+            timeDuring: 16,
+            image: "https://images.baodantoc.vn/uploads/2020/Th%C3%A1ng_11/Ng%C3%A0y%209/DSCN9218.JPG"
+
+        },
+    ]
+
+    const todayLessons = [
+        {
+            lessonName: 'Khmer Folk Dance',
+            category: "Folk Dance",
+            instructor: "Hoa Nhung",
+            level: "BASIC",
+            timeDuring: 16,
+            image: "https://images.baodantoc.vn/uploads/2020/Th%C3%A1ng_11/Ng%C3%A0y%209/DSCN9218.JPG"
+        },
+        {
             lessonName: 'The Boy Is Mine',
             category: "Chogreophy",
             instructor: "Redy",
             level: "INTERMEDIATE",
             timeDuring: 16,
             image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
+        },
+    ]
 
+    const danceLessons = [
+        {
+            lessonName: 'Naughty Boy',
+            category: "Breaking",
+            instructor: "Loi Choi",
+            level: "ADVANCED",
+            timeDuring: 16,
+            image: "https://t3.ftcdn.net/jpg/05/98/71/10/360_F_598711013_QsPD9pZZU5LGEuPtqtdvgQKRuO2rV07k.jpg"
+        },
+        {
+            lessonName: 'How to do plete',
+            category: "Ballet",
+            instructor: "Lisa",
+            level: "INTERMEDIATE",
+            timeDuring: 16,
+            image: "https://www.commercialappeal.com/gcdn/presto/2019/10/18/PMCA/a511454f-ba76-47ae-98a0-845cd0d1925a-101719CollageDanceCollective05.jpg?width=700&height=467&fit=crop&format=pjpg&auto=webp"
+        },
+        {
+            lessonName: 'Naughty Boy',
+            category: "Breaking",
+            instructor: "Loi Choi",
+            level: "ADVANCED",
+            timeDuring: 16,
+            image: "https://t3.ftcdn.net/jpg/05/98/71/10/360_F_598711013_QsPD9pZZU5LGEuPtqtdvgQKRuO2rV07k.jpg"
+        },
+        {
+            lessonName: 'How to do plete',
+            category: "Ballet",
+            instructor: "Lisa",
+            level: "INTERMEDIATE",
+            timeDuring: 16,
+            image: "https://www.commercialappeal.com/gcdn/presto/2019/10/18/PMCA/a511454f-ba76-47ae-98a0-845cd0d1925a-101719CollageDanceCollective05.jpg?width=700&height=467&fit=crop&format=pjpg&auto=webp"
         },
     ]
 
     const programs = [
+        {
+            programName: 'Vietnamese Folk Dance',
+            category: "Folk Dance",
+            instructor: "Diem Hoa",
+            instructorImage: 'https://hoinghesimua.vn/wp-content/uploads/2023/07/tuyeet-minh-16894019515362059533221.jpg',
+            level: "INTERMEDIATE",
+            lessonAmount: 5,
+            image: "https://www.bienphong.com.vn/images/media//730/2022/3/19/60962250pm_duyen-no-voi-nghe-thuat1.jpg",
+
+            lessons: [
+                {
+                    lessonName: 'How to do plete',
+                    totalTime: '1:15',
+                    lessonImage: 'https://toquoc.mediacdn.vn/Upload/Article/Langkinh/2016/6/14/rez_674_maxresdefault3.jpg',
+                    lesonsVideo: ' ',
+                },
+                {
+                    lessonName: 'How to do catfish',
+                    totalTime: '1:15',
+                    lessonImage: 'https://toquoc.mediacdn.vn/Upload/Article/Langkinh/2016/6/14/rez_674_maxresdefault3.jpg',
+                    lesonsVideo: ' ',
+                },
+            ]
+        },
         {
             programName: "Ballet Basic",
             category: "Ballet",
@@ -91,38 +169,14 @@ const HomeContainer = (props) => {
             ]
         },
         {
-            programName: 'The Boy Is Mine',
-            category: "Chogreophy",
+            programName: 'Simple Track 3th',
+            category: "Wacking",
             instructor: "Redy",
             instructorImage: 'https://new1m.s3.ap-northeast-2.amazonaws.com/teachers/profile/152_240213001705817.jpg',
             level: "INTERMEDIATE",
             lessonAmount: 8,
-            image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593",
+            image: "https://file.hstatic.net/200000656851/file/waacking_la_gi_d52dc1411e9f49b8929dc2d74717f573_grande.jpg",
             
-            lessons: [
-                {
-                    lessonName: 'How to do plete',
-                    totalTime: '1:15',
-                    lessonImage: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
-                    lesonsVideo: ' ',
-                },
-                {
-                    lessonName: 'How to do catfish',
-                    totalTime: '1:15',
-                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
-                    lesonsVideo: ' ',
-                },
-            ]
-        },
-        {
-            programName: 'The Boy Is Mine',
-            category: "Chogreophy",
-            instructor: "Redy",
-            instructorImage: 'https://i.ytimg.com/vi/5tZ7OaEbQBk/sddefault.jpg',
-            level: "INTERMEDIATE",
-            lessonAmount: 5,
-            image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593",
-
             lessons: [
                 {
                     lessonName: 'How to do plete',
@@ -155,6 +209,8 @@ const HomeContainer = (props) => {
     const propsHome = {
         navigation,
         lessons,
+        todayLessons,
+        danceLessons,
         programs,
         saveLessons
 

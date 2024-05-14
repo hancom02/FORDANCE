@@ -3,9 +3,9 @@ import { StyleSheet, Text, TouchableOpacity, View, ScrollView } from "react-nati
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from "../values/colors";
 
-const LibraryHeader = (props) => {
+const ProgramDetailHeader = (props) => {
     const { onButtonPress } = props;
-    const [selectedButton, setSelectedButton] = useState('Lessons');
+    const [selectedButton, setSelectedButton] = useState('Overview');
 
     const renderButton = (buttonName) => {
         const isSelected = selectedButton === buttonName;
@@ -25,42 +25,28 @@ const LibraryHeader = (props) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.logoContainer}>
-                <Text style={styles.text}>FORDANCE</Text>
-                <View style={styles.iconContainer}>
-                    <TouchableOpacity style={{ marginRight: 15 }} >
-                        <Ionicons name="filter-outline" size={27} color='black' />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Ionicons name="search-outline" size={27} color='black' />
-                    </TouchableOpacity>
-                </View>
-            </View>
             <View style={styles.pageContainer}>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                    <View style={styles.buttonContainer}>
-                        {renderButton("Lessons")}
-                        {renderButton("Programs")}
-                        {renderButton("Categories")}
-                        {renderButton("Instructors")}
-                    </View>
-                </ScrollView>
+                <View style={styles.buttonContainer}>
+                    {renderButton("Overview")}
+                    {renderButton("Lessons")}
+                </View>
             </View>
         </View>
     );
 };
 
-export default LibraryHeader;
+export default ProgramDetailHeader;
 
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: 120,
-        backgroundColor: 'white',
+        height: 40,
+        // marginTop: 200,
+        backgroundColor: 'black',
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: 16,
+        // paddingHorizontal: 16,
         borderColor: 'grey',
         shadowColor: '#000000',
         shadowOffset: {
@@ -71,39 +57,43 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 4,
     },
-    logoContainer: {
-        width: '100%',
-        flex: 2,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
     pageContainer: {
         flex: 1,
         flexDirection: 'row',
-        marginBottom: 10
+        // marginBottom: 10,
+
+        // backgroundColor: 'pink'
     },
     buttonContainer: {
+        width: '100%',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'space-around',
+
+        // backgroundColor: 'green'
     },
     button: {
-        paddingHorizontal: 10,
+        // paddingHorizontal: 10,
+        width: '50%',
         paddingVertical: 5,
         marginHorizontal: 5,
-        borderWidth: 0.5,
-        borderRadius: 5,
-        borderColor: 'grey',
+        alignItems: 'center'
+        // borderWidth: 0.5,
+        // borderRadius: 5,
+        // borderColor: 'grey',
+
+        // backgroundColor: 'orange'
     },
     buttonText: {
-        color: 'black',
-        textTransform: 'uppercase',
+        color: 'grey',
+        // textTransform: 'uppercase',
         fontWeight: '700',
         fontSize: 14,
     },
     selectedButton: {
-        backgroundColor: Colors.primaryPupple,
-        borderColor: 'white'
+        // backgroundColor: 'white',
+        borderBottomWidth: 1,
+        borderColor: 'white',
     },
     selectedButtonText: {
         color: 'white',

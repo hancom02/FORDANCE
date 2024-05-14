@@ -13,7 +13,7 @@ const MyHeader = (props) => {
         <View style={styles.container}>
             <Text style={styles.text}>FORDANCE</Text>
             <TouchableOpacity>
-                <Ionicons name="notifications-outline" size={27} />
+                <Ionicons name="notifications-outline" size={27} color='black'/>
             </TouchableOpacity>
         </View>
     )

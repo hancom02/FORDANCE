@@ -15,11 +15,14 @@ const todayLesson = "Today Lessons";
 const seeAll = "See All";
 const danceprogram = "Dance Programs";
 const saveLesson = "Save Lessons";
+const danceLesson = 'Dance Lessons'
 
 const HomeMainView = (props) => {
     const {
         navigation,
         lessons,
+        todayLessons,
+        danceLessons, 
         programs,
         saveLessons
         
@@ -33,9 +36,15 @@ const HomeMainView = (props) => {
         navigation.navigate('Lesson');
     }
 
-    const handleNavDetailProgram = () => {
-        navigation.navigate('Program');
-    }
+    const handleNavDetailProgram = (
+        programData
+    ) => {
+    // console.log("PROGRAM DATA AFTER PROPS FROM LIBRARY MAIN VIEW: ", programData);
+    navigation.navigate('Program', { 
+        tabBarVisible: false, 
+        program: programData
+    });
+}
 
     return(
         <SafeAreaView style={styles.container}>
@@ -76,7 +85,30 @@ const HomeMainView = (props) => {
 
                     <View>
                             <FlatList
-                                data={lessons}
+                                data={todayLessons}
+                                renderItem={({item, index}) => 
+                                <Lesson2Component 
+                                    lessons={item} 
+                                    handleNav={handleNavDetailLesson}
+                                />}
+                                horizontal
+                                showsHorizontalScrollIndicator={false}
+                            />
+                    </View>
+                </View>
+
+                {/* LESSON CỤM 3 */}
+                <View style={styles.todayLessonsContainer}>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', paddingBottom: 16, paddingRight: 16}}>
+                        <Text style={styles.textTitle}>{danceLesson}</Text>
+                        <TouchableOpacity>
+                            <Text style={styles.textSeeAll}>{seeAll}</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View>
+                            <FlatList
+                                data={danceLessons}
                                 renderItem={({item, index}) => 
                                 <Lesson2Component 
                                     lessons={item} 
@@ -100,7 +132,7 @@ const HomeMainView = (props) => {
                     <View>
                         <FlatList
                             data={programs}
-                            renderItem={({item, index}) => <ProgramComponent program={item} handleNav={handleNavDetailProgram}/>}
+                            renderItem={({item, index}) => <ProgramComponent program={item} handleNav={() => handleNavDetailProgram(programData=item)}/>}
                             horizontal
                             showsHorizontalScrollIndicator={false}
                         />

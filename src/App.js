@@ -1,9 +1,9 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 //NAVIGATION
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {NavigationContainer} from "@react-navigation/native"
-import {createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native"
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 //ICON
@@ -32,6 +32,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import MyHeader from "./components/MyHeader";
 import LibraryHeader2 from "./components/LibraryHeader2";
 import InstructorDetailView from "./screens/Instructor/views/InstructureDetailView";
+import AccountProgressView from "./screens/Account/views/AccountProgressView";
+import AccountSettingView from "./screens/Account/views/AccountSettingView";
+import AccountMainView from "./screens/Account/views/AccountMainView";
 
 
 const Stack = createNativeStackNavigator();
@@ -81,76 +84,77 @@ function LibraryTopTabNavigator() {
                 tabBarInactiveTintColor: 'black'
             }}
         >
-            <LibraryTopTab.Screen 
+            <LibraryTopTab.Screen
                 options={{
                     tabBarIndicatorStyle: [styles.childIndicator, {
                         marginLeft: 8,
                         paddingRight: 32
                     },]
                 }}
-                name="Lesson" 
-                component={LessonsSubView} 
+                name="Lesson"
+                component={LessonsSubView}
             />
-            <LibraryTopTab.Screen 
+            <LibraryTopTab.Screen
                 options={{
                     tabBarIndicatorStyle: [styles.childIndicator, {
                         marginLeft: 6
                     },]
                 }}
-                name="Program" 
-                component={ProgramsSubView} 
+                name="Program"
+                component={ProgramsSubView}
             />
-            <LibraryTopTab.Screen 
+            <LibraryTopTab.Screen
                 options={{
                     tabBarIndicatorStyle: [styles.childIndicator, {
                         marginLeft: 6
                     },]
                 }}
-                name="Category" 
-                component={CategoriesSubView} 
+                name="Category"
+                component={CategoriesSubView}
             />
-            <LibraryTopTab.Screen 
+            <LibraryTopTab.Screen
                 options={{
                     tabBarIndicatorStyle: [styles.childIndicator, {
                         marginLeft: 0,
                         marginRight: 16
                     }],
                 }}
-                name="Instructor" 
-                component={InstructorsSubView} 
+                name="Instructor"
+                component={InstructorsSubView}
             />
         </LibraryTopTab.Navigator>
     );
 }
 
+
 function LibraryStack() {
-    return(
+    return (
         <ChildStack.Navigator
-        initialRouteName="Library"
-        screenOptions={{
-            // headerShown: false
-        }}
-    >
-        <ChildStack.Screen name="Category" component={Category} />
-        <ChildStack.Screen name="CategoryDetail" component={CategoryDetail} />
-    </ChildStack.Navigator>
+            initialRouteName="Library"
+            screenOptions={{
+                // headerShown: false
+            }}
+        >
+            <ChildStack.Screen name="Category" component={Category} />
+            <ChildStack.Screen name="CategoryDetail" component={CategoryDetail} />
+        </ChildStack.Navigator>
     )
 }
 
 
 function LibraryStack2() {
-    return(
+    return (
         <ChildStack.Navigator
-        initialRouteName="Library"
-        screenOptions={{
-            // headerShown: false
-        }}
+            initialRouteName="Library"
+            screenOptions={{
+                // headerShown: false
+            }}
         >
-            <ChildStack.Screen 
-                name="Library" 
+            <ChildStack.Screen
+                name="Library"
                 component={LibraryTopTabNavigator}
                 options={{
-                    header: () => <LibraryHeader2/>
+                    header: () => <LibraryHeader2 />
                 }}
             />
         </ChildStack.Navigator>
@@ -187,8 +191,15 @@ function CategoriesStack() {
 }
 
 function AccountStack() {
-
+    return (
+        <Stack.Navigator initialRouteName="Account" screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Account" component={AccountMainView} />
+            <Stack.Screen name="Progress" component={AccountProgressView} />
+            <Stack.Screen name="Setting" component={AccountSettingView} />
+        </Stack.Navigator>
+    )
 }
+
 
 function MyBottomTab() {
     //console.log("IN BOTTOM TAB FUNCTION");
@@ -230,7 +241,6 @@ function MyBottomTab() {
                 options={{
                     tabBarIcon: ({ focused }) => { return <Ionicons name="person-outline" size={24} color={focused ? Colors.primaryPupple : 'black'} /> }
 
-
                 }}
             />
         </BottomTab.Navigator>
@@ -249,6 +259,7 @@ export default function App() {
                 <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
                 <Stack.Screen name="Instructor" component={Instructor} />
                 <Stack.Screen name="InstructorDetailView" component={InstructorDetailView} />
+                <Stack.Screen name="AccountStack" component={AccountStack} />
             </Stack.Navigator>
         </NavigationContainer>
     )
@@ -256,18 +267,18 @@ export default function App() {
 
 const styles = StyleSheet.create({
     label: {
-      fontWeight: '600'
+        fontWeight: '600'
     },
     indicator: {
-      backgroundColor: Colors.primaryPupple,
-      borderRadius: 6,
-    //   borderWidth: 0.5,
-    //   borderColor: 'grey',
-      position: 'absolute',
-      zIndex: -1,
-      bottom: '15%',
-      height: '70%',
-      width: '100%'
+        backgroundColor: Colors.primaryPupple,
+        borderRadius: 6,
+        //   borderWidth: 0.5,
+        //   borderColor: 'grey',
+        position: 'absolute',
+        zIndex: -1,
+        bottom: '15%',
+        height: '70%',
+        width: '100%'
     },
     childIndicator: {
         backgroundColor: Colors.primaryPupple,
@@ -280,19 +291,19 @@ const styles = StyleSheet.create({
         // marginTop: 4,
     },
     containerStyle: {
-    //   backgroundColor: 'pink',
-      width: '100%',
-    //   height: 80,
-      alignSelf: 'center',
-    //   borderRadius: 8,
-      overflow: 'scroll',
-    //   marginTop: 16,
-    //   marginLeft: 16,
-    //   paddingHorizontal: 16,
-    marginHorizontal: 16,
-    // paddingVertical: 8,
-    // marginBottom: 16,
-    shadowColor: '#000000',
+        //   backgroundColor: 'pink',
+        width: '100%',
+        //   height: 80,
+        alignSelf: 'center',
+        //   borderRadius: 8,
+        overflow: 'scroll',
+        //   marginTop: 16,
+        //   marginLeft: 16,
+        //   paddingHorizontal: 16,
+        marginHorizontal: 16,
+        // paddingVertical: 8,
+        // marginBottom: 16,
+        shadowColor: '#000000',
         shadowOffset: {
             width: 0,
             height: 0
@@ -301,5 +312,5 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 10,
     },
-    
-  });
+
+});

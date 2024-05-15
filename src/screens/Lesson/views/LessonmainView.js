@@ -32,7 +32,7 @@ const LessonMainView = (props) => {
         // console.log("NAV TO VIDEO PLAYER");
 
         setIsShowVideo(true);
-        <VideoPlayer 
+        <VideoPlayer
             isShowVideo={isShowVideo}
         />
     }
@@ -46,7 +46,7 @@ const LessonMainView = (props) => {
             <View style={styles.videoContainer}>
                 {/* <View style={styles.video}>
                 </View> */}
-                <Image style={styles.video} source={{uri: ImageLesson}}/>
+                <Image style={styles.video} source={{ uri: ImageLesson }} />
             </View>
 
             <View style={styles.iconContainer}>
@@ -60,7 +60,7 @@ const LessonMainView = (props) => {
                     <Ionicons name="calendar-clear-outline" size={30} color={Colors.primaryPupple} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.icon}>
-                    <Ionicons name="share-social-outline" size={30} color={Colors.primaryPupple} />
+                    <Ionicons name="arrow-redo-outline" size={30} color={Colors.primaryPupple} />
                 </TouchableOpacity>
             </View>
 
@@ -109,12 +109,12 @@ const LessonMainView = (props) => {
                 </View>
             </View>
 
-           <TouchableOpacity style={styles.joinClassContainer} onPress={() => handleNavVideoPlayer()}>
+            <TouchableOpacity style={styles.joinClassContainer} onPress={() => handleNavVideoPlayer()}>
                 <Text style={styles.textJoinLesson}>JOIN LESSON</Text>
-           </TouchableOpacity>
+            </TouchableOpacity>
 
-           {/* RENDER VIDEOPLAYER */}
-           {isShowVideo && <VideoPlayer onClose={() => setIsShowVideo(false)}/>}
+            {/* RENDER VIDEOPLAYER */}
+            {isShowVideo && <VideoPlayer onClose={() => setIsShowVideo(false)} />}
         </SafeAreaView>
 
     )

@@ -35,6 +35,8 @@ import InstructorDetailView from "./screens/Instructor/views/InstructureDetailVi
 import AccountProgressView from "./screens/Account/views/AccountProgressView";
 import AccountSettingView from "./screens/Account/views/AccountSettingView";
 import AccountMainView from "./screens/Account/views/AccountMainView";
+import AccoutSubView from "./screens/Account/views/AccountSubView";
+import DancePreference from "./screens/Account/views/DancePreference";
 
 
 const Stack = createNativeStackNavigator();
@@ -195,10 +197,25 @@ function AccountStack() {
         <Stack.Navigator initialRouteName="Account" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Account" component={AccountMainView} />
             <Stack.Screen name="Progress" component={AccountProgressView} />
-            <Stack.Screen name="Setting" component={AccountSettingView} />
+            <Stack.Screen name="AccountSetting" component={AccountSettingStack} />
         </Stack.Navigator>
     )
 }
+
+function AccountSettingStack() {
+    return (
+        <Stack.Navigator
+            initialRouteName="AccountSetting"
+            screenOptions={{ headerShown: false }}
+        >
+            <Stack.Screen name="AccountSetting" component={AccountSettingView} />
+            <Stack.Screen name="DancePreference" component={DancePreference} />
+            <Stack.Screen name="SubView" component={AccoutSubView} />
+        </Stack.Navigator>
+    )
+}
+
+
 
 
 function MyBottomTab() {
@@ -259,7 +276,10 @@ export default function App() {
                 <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
                 <Stack.Screen name="Instructor" component={Instructor} />
                 <Stack.Screen name="InstructorDetailView" component={InstructorDetailView} />
-                <Stack.Screen name="AccountStack" component={AccountStack} />
+                <Stack.Screen name="Account" component={AccountStack} />
+                <Stack.Screen name="SubView" component={AccoutSubView} />
+                <Stack.Screen name="DancePreference" component={DancePreference} />
+                {/*<Stack.Screen name="AccountSetting" component={AccountSettingStack} /> */}
             </Stack.Navigator>
         </NavigationContainer>
     )

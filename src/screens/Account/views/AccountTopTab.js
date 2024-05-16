@@ -6,7 +6,13 @@ import AccountSettingView from './AccountSettingView';
 
 const AccountTopTab = createMaterialTopTabNavigator();
 
-function AccountTopTabs() {
+function AccountTopTabs(props) {
+    const {
+        navigation,
+        categories,
+    } = props;
+
+
     return (
         <AccountTopTab.Navigator
             screenOptions={{
@@ -29,6 +35,7 @@ function AccountTopTabs() {
             <AccountTopTab.Screen
                 name="AccountSettingView"
                 component={AccountSettingView}
+                initialParams={{ props }}
                 options={{
                     tabBarLabel: 'Account',
                     tabBarAccessibilityLabel: 'true',

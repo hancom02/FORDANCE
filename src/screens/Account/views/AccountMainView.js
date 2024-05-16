@@ -11,8 +11,13 @@ import AccountTopTabs from './AccountTopTab';
 import Colors from "../../../values/colors"
 
 const AccountMainView = (props) => {
-    const { navigation, user } = props;
+    const {
+        navigation,
+        user,
+        categories,
+    } = props;
 
+    // console.log("Data: ", categories);
     const UserName = "Username";
 
     return (

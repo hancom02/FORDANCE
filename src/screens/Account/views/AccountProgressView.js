@@ -27,6 +27,14 @@ const AccountProgressView = (props) => {
                 <View style={styles.innerContainer}>
                     <TouchableOpacity style={styles.touchItem}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Ionicons name="bag-check-outline" size={30} color="black" style={{ marginHorizontal: 10, }} />
+                            <Text style={styles.bottomText}>Purchased Lessons</Text>
+                        </View>
+                        <Ionicons name="chevron-forward-outline" size={20} color="black" />
+                    </TouchableOpacity>
+                    <View style={styles.divider} />
+                    <TouchableOpacity style={styles.touchItem}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Ionicons name="heart-outline" size={30} color="black" style={{ marginHorizontal: 10, }} />
                             <Text style={styles.bottomText}>Favourites</Text>
                         </View>
@@ -95,7 +103,7 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between', // Căn giữa văn bản và icon
+        justifyContent: 'space-between',
     },
     bottomText: {
         fontSize: 16,

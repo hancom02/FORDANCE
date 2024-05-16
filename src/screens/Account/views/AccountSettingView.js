@@ -17,6 +17,14 @@ const AccountSettingView = (props) => {
         navigation.navigate('DancePreference');
     }
 
+    const handleNavFeedback = () => {
+        navigation.navigate('Feedback');
+    }
+
+    const handleNavIntroduce = () => {
+        navigation.navigate('Introduce');
+    }
+
     const classJoined = 8;
     const lessonCompleted = 10;
 
@@ -42,13 +50,13 @@ const AccountSettingView = (props) => {
             <View style={styles.touchContainer}>
                 <Text style={styles.textHeader}>About Application</Text>
                 <View style={styles.innerContainer}>
-                    <TouchableOpacity style={styles.touchItem}>
+                    <TouchableOpacity style={styles.touchItem} onPress={handleNavIntroduce}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Text style={styles.bottomText}>Introduce</Text>
                         </View>
                         <Ionicons name="chevron-forward-outline" size={20} color="black" />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.touchItem}>
+                    <TouchableOpacity style={styles.touchItem} onPress={handleNavFeedback}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Text style={styles.bottomText}>Feedback</Text>
                         </View>

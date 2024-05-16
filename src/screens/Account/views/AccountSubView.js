@@ -17,6 +17,10 @@ const AccoutSubView = (props) => {
     const handleEditAvatar = () => {
     };
 
+    const handleNavSetName = () => {
+        navigation.navigate('SetName');
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -35,7 +39,7 @@ const AccoutSubView = (props) => {
             <View style={styles.touchContainer}>
                 <Text style={styles.textHeader}>Username</Text>
                 <View style={styles.innerContainer}>
-                    <TouchableOpacity style={styles.touchItem}>
+                    <TouchableOpacity style={styles.touchItem} onPress={handleNavSetName}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Text style={styles.bottomText}>@{userName}</Text>
                         </View>

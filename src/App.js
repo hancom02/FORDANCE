@@ -37,6 +37,9 @@ import AccountSettingView from "./screens/Account/views/AccountSettingView";
 import AccountMainView from "./screens/Account/views/AccountMainView";
 import AccoutSubView from "./screens/Account/views/AccountSubView";
 import DancePreference from "./screens/Account/views/DancePreference";
+import IntroduceView from "./screens/Account/views/IntroduceView";
+import FeedbackView from "./screens/Account/views/FeedbackView";
+import SetUserNameView from "./screens/Account/views/SetUserNameView";
 
 
 const Stack = createNativeStackNavigator();
@@ -279,7 +282,9 @@ export default function App() {
                 <Stack.Screen name="Account" component={AccountStack} />
                 <Stack.Screen name="SubView" component={AccoutSubView} />
                 <Stack.Screen name="DancePreference" component={DancePreference} />
-                {/*<Stack.Screen name="AccountSetting" component={AccountSettingStack} /> */}
+                <Stack.Screen name="Introduce" component={IntroduceView} />
+                <Stack.Screen name="Feedback" component={FeedbackView} />
+                <Stack.Screen name="SetName" component={SetUserNameView} />
             </Stack.Navigator>
         </NavigationContainer>
     )

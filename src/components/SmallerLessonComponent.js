@@ -7,7 +7,7 @@ const SmallerLessonComponent = (props) => {
         handleNav
     } = props;
 
-    console.log("LESSON IN SMALL COMPONENT: ,", lesson);
+    // console.log("LESSON IN SMALL COMPONENT: ,", lesson);
 
     return(
         <TouchableOpacity style={styles.container} onPress={handleNav}>

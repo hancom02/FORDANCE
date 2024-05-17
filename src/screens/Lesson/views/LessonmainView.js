@@ -32,9 +32,6 @@ const LessonMainView = (props) => {
         // console.log("NAV TO VIDEO PLAYER");
 
         setIsShowVideo(true);
-        <VideoPlayer
-            isShowVideo={isShowVideo}
-        />
     }
 
     return (

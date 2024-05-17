@@ -21,7 +21,7 @@ const ProgramMainView = (props) => {
 
     } = props;
 
-    // console.log("PROGRAM IN DETAIL SCREEN: ", program);
+    console.log("PROGRAM IN DETAIL SCREEN: ", program);
 
     const handleNavDetailLesson = () => {
         navigation.navigate('Lesson')

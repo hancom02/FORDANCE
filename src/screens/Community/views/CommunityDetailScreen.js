@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: 'lightgray',
         marginBottom: 10,
+        elevation: 3,
     },
     commentContent: {
         flex: 1,

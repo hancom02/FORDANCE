@@ -32,6 +32,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import MyHeader from "./components/MyHeader";
 import LibraryHeader2 from "./components/LibraryHeader2";
 import InstructorDetailView from "./screens/Instructor/views/InstructureDetailView";
+import Search from "./screens/Search";
 
 
 const Stack = createNativeStackNavigator();
@@ -249,6 +250,7 @@ export default function App() {
                 <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
                 <Stack.Screen name="Instructor" component={Instructor} />
                 <Stack.Screen name="InstructorDetailView" component={InstructorDetailView} />
+                <Stack.Screen name="Search" component={Search} />
             </Stack.Navigator>
         </NavigationContainer>
     )

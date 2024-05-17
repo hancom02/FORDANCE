@@ -9,6 +9,7 @@ import Colors from "../../../values/colors";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SmallerLessonComponent from "../../../components/SmallerLessonComponent";
+import Search from "../../Search";
 
 
 const scheduleFor = "Schedule for: ";
@@ -25,6 +26,7 @@ const ScheduleMainView = (props) => {
     const startDate = getFormatedDate(today.setDate(today.getDate() + 1), 'YYYY/MM/DD');
 
     const [date, setDate] = useState('2024/05/17');
+    const [isShowSearch, setShowSearch] = useState(false);
 
     const handleChangeDate = ({propDate}) => {
         setDate(propDate)
@@ -32,6 +34,11 @@ const ScheduleMainView = (props) => {
 
     const handleNavDetailLesson = () => {
         navigation.navigate('Lesson')
+    }
+
+    const handleNavSearch = () => {
+        console.log("ON PRESS ICON SEARCH IN SCHEDULE")
+        setShowSearch(true);
     }
 
     return(
@@ -49,7 +56,7 @@ const ScheduleMainView = (props) => {
             <View style={styles.scheduleContainer}>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 16}}>
                     <Text style={styles.textTitle}>{scheduleFor} {date}</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={handleNavSearch}>
                         <Ionicons name="add-outline" size={28} color='black'/>
                     </TouchableOpacity>
                 </View>
@@ -72,6 +79,9 @@ const ScheduleMainView = (props) => {
                     />
                 </View>
             </View>
+
+            {/* RENDER SEARCH */}
+           {isShowSearch && <Search navigation={navigation} onClose={() => setShowSearch(false)}/>}
         </View>
     )
 }

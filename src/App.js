@@ -41,6 +41,10 @@ import DancePreference from "./screens/Account/views/DancePreference";
 import IntroduceView from "./screens/Account/views/IntroduceView";
 import FeedbackView from "./screens/Account/views/FeedbackView";
 import SetUserNameView from "./screens/Account/views/SetUserNameView";
+import Login from "./screens/Login";
+import InstructorManage from "./screens/InstructorManage";
+import InstructorAccount from "./screens/InstructorAccount";
+import { useState } from "react";
 
 
 const Stack = createNativeStackNavigator();
@@ -219,10 +223,7 @@ function AccountSettingStack() {
     )
 }
 
-
-
-
-function MyBottomTab() {
+function MyStudentBottomTab() {
     //console.log("IN BOTTOM TAB FUNCTION");
 
     return (
@@ -268,25 +269,76 @@ function MyBottomTab() {
     );
 }
 
+function MyInstructorBottomTab() {
+    return (
+        <BottomTab.Navigator
+            screenOptions={{ headerShown: false, tabBarShowLabel: false }}
+        >
+            <BottomTab.Screen
+                name="InstructorManage"
+                component={InstructorManage}
+                //   options={{tabBarIcon:({focused}) => {return <Ionicons name="home-outline" size={24} color={focused ? Colors.primaryPupple : 'black'} />}}}
+                options={({ route }) => ({
+                    tabBarIcon: ({ focused }) => (
+                        <Ionicons
+                            name="home-outline"
+                            size={24}
+                            color={focused ? Colors.primaryPupple : 'black'}
+                        />
+                    ),
+                    // tabBarVisible: route.state && route.state.index !== 0 // Ẩn thanh tab bar khi đang ở màn hình con đầu tiên của HomeStack
+                })}
+            />
+            <BottomTab.Screen
+                name="InstructorAccount"
+                component={InstructorAccount}
+                options={{ tabBarIcon: ({ focused }) => { return <Ionicons name="albums-outline" size={24} color={focused ? Colors.primaryPupple : 'black'} /> } }}
+            />
+        </BottomTab.Navigator>
+    );
+}
+
 export default function App() {
+    const [selectedRole, setSelectedRole] = useState(null);
+    const handleRoleSelection = (role) => {
+        setSelectedRole(role);
+    };
+
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Splash" component={Splash} />
-                <Stack.Screen name="MyBottomTab" component={MyBottomTab} />
-                <Stack.Screen name="Lesson" component={Lesson} />
-                <Stack.Screen name="Community" component={Community} />
-                <Stack.Screen name="Category" component={Category} />
-                <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
-                <Stack.Screen name="Instructor" component={Instructor} />
-                <Stack.Screen name="InstructorDetailView" component={InstructorDetailView} />
-                <Stack.Screen name="Search" component={Search} />
-                <Stack.Screen name="Account" component={AccountStack} />
-                <Stack.Screen name="SubView" component={AccoutSubView} />
-                <Stack.Screen name="DancePreference" component={DancePreference} />
-                <Stack.Screen name="Introduce" component={IntroduceView} />
-                <Stack.Screen name="Feedback" component={FeedbackView} />
-                <Stack.Screen name="SetName" component={SetUserNameView} />
+                <Stack.Screen name="Login">
+                    {(props) => <Login {...props} onSelectRole={handleRoleSelection} />}
+                </Stack.Screen>
+
+                {console.log("ROLE AFTER LOGIN SCREEN: ", selectedRole)}
+
+                {selectedRole === 'student' ? (
+                    <>
+                        <Stack.Screen name="MyStudentBottomTab" component={MyStudentBottomTab} />
+                        <Stack.Screen name="Lesson" component={Lesson} />
+                        <Stack.Screen name="Community" component={Community} />
+                        <Stack.Screen name="Category" component={Category} />
+                        <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
+                        <Stack.Screen name="Instructor" component={Instructor} />
+                        <Stack.Screen name="InstructorDetailView" component={InstructorDetailView} />
+                        <Stack.Screen name="Search" component={Search} />
+                        <Stack.Screen name="Account" component={AccountStack} />
+                        <Stack.Screen name="SubView" component={AccoutSubView} />
+                        <Stack.Screen name="DancePreference" component={DancePreference} />
+                        <Stack.Screen name="Introduce" component={IntroduceView} />
+                        <Stack.Screen name="Feedback" component={FeedbackView} />
+                        <Stack.Screen name="SetName" component={SetUserNameView} />
+                    </>
+                ) : selectedRole === 'instructor' ? (
+                    <>
+                        <Stack.Screen name="MyInstructorBottomTab" component={MyInstructorBottomTab} />
+                        <Stack.Screen name="Program" component={Program} />
+                        <Stack.Screen name="Lesson" component={Lesson} />
+
+                    </>
+                ) : null}
             </Stack.Navigator>
         </NavigationContainer>
     )

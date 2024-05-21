@@ -292,7 +292,7 @@ function MyInstructorBottomTab() {
             <BottomTab.Screen
                 name="InstructorAccount"
                 component={InstructorAccount}
-                options={{ tabBarIcon: ({ focused }) => { return <Ionicons name="albums-outline" size={24} color={focused ? Colors.primaryPupple : 'black'} /> } }}
+                options={{ tabBarIcon: ({ focused }) => { return <Ionicons name="person-outline" size={24} color={focused ? Colors.primaryPupple : 'black'} /> } }}
             />
         </BottomTab.Navigator>
     );

@@ -11,6 +11,7 @@ import MyInstructorBottomTab from "./navigation/MyInstructorBottomTab";
 import Lesson from './screens/Lesson';
 import Program from './screens/Program';
 import InstructorAccountMainView from './screens/InstructorAccount/views/InstructorAccountMainView';
+import InstructorDetailView from './screens/Instructor/views/InstructureDetailView';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,7 +37,7 @@ export default function App() {
                         <Stack.Screen name="AccountStack" component={AccountStack} />
                         <Stack.Screen name="Lesson" component={Lesson} />
                         <Stack.Screen name="Program" component={Program} />
-                        <Stack.Screen name="InstructorDetailView" component={InstructorAccountMainView} />
+                        <Stack.Screen name="InstructorDetailView" component={InstructorDetailView} />
                     </>
                 ) : selectedRole === 'instructor' ? (
                     <>

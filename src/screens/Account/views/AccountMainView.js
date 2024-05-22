@@ -17,7 +17,6 @@ const AccountMainView = (props) => {
         categories,
     } = props;
 
-    // console.log("Data: ", categories);
     const UserName = "Username";
 
     return (

@@ -1,5 +1,5 @@
 import AccountMainView from "./views/AccountMainView";
-import AccountSubView from "./views/AccountSubView";
+import AccountSubView from "./views/SettingSubview/AccountSubView";
 import { View } from "react-native";
 
 const AccountContainer = (props) => {
@@ -7,7 +7,6 @@ const AccountContainer = (props) => {
         navigation,
 
     } = props;
-
 
     const categories = [
         { name: 'Hip Hop' },
@@ -23,8 +22,8 @@ const AccountContainer = (props) => {
     ]
 
     const user = {
-        name: "",
-        email: "",
+        name: "1",
+        email: "2",
     }
     const propsAccount = {
         navigation,

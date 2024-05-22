@@ -5,11 +5,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const AccountProgressView = (props) => {
     const {
         navigation,
-        user
     } = props;
 
     const classJoined = 8;
     const lessonCompleted = 10;
+
+    const handleNavPurchasedLessons = () => {
+        navigation.navigate('PurchasedLessons');
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -25,7 +28,7 @@ const AccountProgressView = (props) => {
             </View>
             <View style={styles.touchContainer}>
                 <View style={styles.innerContainer}>
-                    <TouchableOpacity style={styles.touchItem}>
+                    <TouchableOpacity style={styles.touchItem} onPress={handleNavPurchasedLessons}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Ionicons name="bag-check-outline" size={30} color="black" style={{ marginHorizontal: 10, }} />
                             <Text style={styles.bottomText}>Purchased Lessons</Text>

@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import AccountTopTabs from "../../../navigation/AccountTopTab";
 
 
 const AccountSettingView = (props) => {
@@ -25,6 +24,10 @@ const AccountSettingView = (props) => {
 
     const handleNavIntroduce = () => {
         navigation.navigate('Introduce');
+    }
+
+    const handleNavLogout = () => {
+        navigation.navigate('Login');
     }
 
     const classJoined = 8;
@@ -65,7 +68,7 @@ const AccountSettingView = (props) => {
                         </View>
                         <Ionicons name="chevron-forward-outline" size={20} color="black" />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.touchItem}>
+                    <TouchableOpacity style={styles.touchItem} onPress={handleNavLogout}>
                         <View>
                             <Text style={styles.bottomText}>Log out</Text>
                         </View>

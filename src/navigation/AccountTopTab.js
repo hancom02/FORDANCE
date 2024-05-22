@@ -20,7 +20,7 @@ function AccountTopTabs() {
             }}
         >
             <AccountTopTab.Screen
-                name="AccountProgressView"
+                name="AccountProgress"
                 component={AccountProgressView}
                 options={{
                     tabBarLabel: 'My Progress',
@@ -28,7 +28,7 @@ function AccountTopTabs() {
                 }}
             />
             <AccountTopTab.Screen
-                name="AccountSettingView"
+                name="AccountSetting"
                 component={AccountSettingView}
                 options={{
                     tabBarLabel: 'Account',

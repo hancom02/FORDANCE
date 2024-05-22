@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AccountTopTabs from "../../../navigation/AccountTopTab";
 
 
 const AccountSettingView = (props) => {
@@ -11,6 +12,7 @@ const AccountSettingView = (props) => {
 
     const handleNavAccountSetting = () => {
         navigation.navigate('SubView');
+
     }
 
     const handleNavDancePreference = () => {
@@ -29,6 +31,7 @@ const AccountSettingView = (props) => {
     const lessonCompleted = 10;
 
     return (
+
         <SafeAreaView style={styles.container}>
             <View style={styles.touchContainer}>
                 <Text style={styles.textHeader}>Account Setting</Text>

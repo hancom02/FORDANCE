@@ -97,14 +97,14 @@ const DownloadView = (props) => {
                     <FlatList
                         data={lessons}
                         renderItem={({ item }) => (
-                            <View style={{ marginBottom: 16, width: '100%' }}>
+                            <View style={{ marginBottom: 16, width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <SmallerLessonComponent
                                     lesson={item}
 
                                 // handleNav={() => handleNavDetailLesson()}
                                 />
                                 <TouchableOpacity style={styles.deleteButton} onPress={() => handleMoreOptions(item)}>
-                                    <Text style={{ fontSize: 20, color: 'black', marginRight: 10, height: 50 }}>...</Text>
+                                    <Ionicons name="ellipsis-vertical-outline" size={20} color="black" />
                                 </TouchableOpacity>
                             </View>
                         )}
@@ -168,11 +168,9 @@ const styles = StyleSheet.create({
     },
     deleteButton: {
         position: 'absolute',
-        width: 50,
-        right: 20,
-        top: 15,
-        justifyContent: 'center',
-        alignItems: 'center'
+        width: 30,
+        right: 0,
+        top: 25
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
@@ -189,7 +187,7 @@ const styles = StyleSheet.create({
         width: width,
         backgroundColor: 'white',
         borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
+        borderTopRadius: 10,
         padding: 20,
         alignItems: 'center',
         elevation: 5,

@@ -9,14 +9,14 @@ const Lesson2Component = (props) => {
     } = props;
 
     return (
-        <View style={styles.container}>
+        <View>
             <View style={styles.container1}>
                 <ImageBackground
                     source={{ uri: lessons.image }}
                     style={styles.background}
                 >
                     <View style={styles.contentContainer}>
-                        <Text style={styles.textName}>{lessons.lessonName}</Text>     
+                        <Text style={styles.textName}>{lessons.lessonName}</Text>
                         <TouchableOpacity
                             onPress={handleNav}
                         >

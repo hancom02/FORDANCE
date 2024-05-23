@@ -1,6 +1,4 @@
 import AccountMainView from "./views/AccountMainView";
-import AccountSubView from "./views/SettingSubview/AccountSubView";
-import { View } from "react-native";
 
 const AccountContainer = (props) => {
     const {
@@ -31,9 +29,7 @@ const AccountContainer = (props) => {
         categories,
     };
 
-    return (
-        <AccountMainView {...propsAccount} />
-    )
+    return <AccountMainView{...propsAccount} />
 }
 
 export default AccountContainer;

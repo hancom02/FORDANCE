@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, SafeAreaView, StyleSheet, FlatList } from "react-native";
+import { Text, View, SafeAreaView, StyleSheet, Dimensions, FlatList } from "react-native";
 
 import LibraryHeader from "../../../components/LibraryHeader";
 
@@ -10,6 +10,9 @@ import Lesson2Component from "../../../components/Lesson2Component";
 import InstructorMainView from "../../Instructor/views/InstructorMainView";
 import CategoryMainView from "../../Category/views/CategoryMainView";
 import WiderProgramComponent from "../../../components/WiderProgramComponent";
+
+const { width, height } = Dimensions.get('window');
+const imgWidth = width * 0.9;
 
 const LibraryMainView = (props) => {
     const {
@@ -53,7 +56,7 @@ const LibraryMainView = (props) => {
                             <FlatList
                                 data={lessons}
                                 renderItem={({ item, index }) =>
-                                    <View style={{ marginBottom: 25 }}>
+                                    <View style={{ marginBottom: 20, width: imgWidth }}>
                                         <Lesson2Component
                                             lessons={item}
                                             handleNav={handleNavDetailLesson}

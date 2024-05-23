@@ -10,7 +10,7 @@ const ChildStack = createNativeStackNavigator();
 
 function LibraryStack() {
     return (
-        <ChildStack.Navigator initialRouteName="Library">
+        <ChildStack.Navigator initialRouteName="Library" screenOptions={{ headerShown: false }}>
             <ChildStack.Screen name="Library" component={Library} />
             <ChildStack.Screen name="Category" component={Category} />
             <ChildStack.Screen name="CategoryDetail" component={CategoryDetail} />

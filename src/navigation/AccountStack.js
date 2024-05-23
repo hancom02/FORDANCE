@@ -8,6 +8,7 @@ import AccoutSubView from '../screens/Account/views/SettingSubview/AccountSubVie
 import IntroduceView from '../screens/Account/views/SettingSubview/IntroduceView';
 import FeedbackView from '../screens/Account/views/SettingSubview/FeedbackView';
 import PurchasedLessonsView from '../screens/Account/views/ProgressSubview/PurchasedLessonsView';
+import HistoryView from '../screens/Account/views/ProgressSubview/HistoryView';
 
 const ChildStack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ function AccountStack() {
             <ChildStack.Screen name="Introduce" component={IntroduceView} />
             <ChildStack.Screen name="Feedback" component={FeedbackView} />
             <ChildStack.Screen name="PurchasedLessons" component={PurchasedLessonsView} />
+            <ChildStack.Screen name="History" component={HistoryView} />
         </ChildStack.Navigator>
     );
 }

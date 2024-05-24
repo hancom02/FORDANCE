@@ -6,7 +6,7 @@ import Colors from '../../../values/colors';
 const CategoryDetail = ({ route, navigation }) => {
     const { category, categoriesItems } = route.params;
 
-    // console.log('Categories:', categoriesItems);
+    //console.log('Categories:', categoriesItems);
     const renderItem = ({ item }) => (
         <TouchableOpacity style={styles.itemContainer}>
             <ImageBackground
@@ -14,7 +14,9 @@ const CategoryDetail = ({ route, navigation }) => {
                 style={styles.itemImage}
                 resizeMode="cover"
             >
+                <Text style={styles.itemName}>{item.name}</Text>
             </ImageBackground>
+
             <View style={styles.itemContent}>
                 <Text style={styles.itemLevel}>{item.level}</Text>
                 <Text style={styles.itemText}>{item.instructor}</Text>
@@ -78,6 +80,7 @@ const styles = StyleSheet.create({
         height: 200,
         borderRadius: 10,
         overflow: 'hidden',
+        justifyContent: 'flex-end',
     },
     itemContent: {
         flexDirection: 'row',
@@ -88,13 +91,16 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 10,
     },
     itemLevel: {
+        width: 100,
         color: 'white',
+        textAlign: 'center',
         fontWeight: 'bold',
         backgroundColor: Colors.primaryPupple,
         textTransform: 'uppercase',
         fontSize: 11,
         paddingHorizontal: 5,
-        marginRight: 5
+        marginRight: 5,
+        borderRadius: 5,
     },
 
     itemText: {
@@ -104,11 +110,23 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
         paddingHorizontal: 5,
         fontSize: 11,
-        marginRight: 5
+        marginRight: 5,
+        borderRadius: 5
     },
     flatlistContainer: {
         paddingTop: 10,
     },
+    itemName: {
+        margin: 5,
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: 'black',
+        // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderRadius: 5,
+        alignSelf: 'flex-start',
+    }
 });
 
 export default CategoryDetail;

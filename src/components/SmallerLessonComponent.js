@@ -9,10 +9,10 @@ const SmallerLessonComponent = (props) => {
 
     // console.log("LESSON IN SMALL COMPONENT: ,", lesson);
 
-    return(
+    return (
         <TouchableOpacity style={styles.container} onPress={handleNav}>
             <Text style={styles.textIndex}>{index}</Text>
-            <Image style={styles.image} source={{uri: lesson.lessonImage}}/>
+            <Image style={styles.image} source={{ uri: lesson.lessonImage }} />
             <View>
                 <Text style={styles.textLessonName}>{lesson.lessonName}</Text>
                 <Text style={styles.textTime}>{lesson.totalTime}</Text>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         fontSize: 17,
         fontWeight: 'bold',
         color: 'black',
-        paddingHorizontal: 16,
+        paddingHorizontal: 10
     },
     textLessonName: {
         fontSize: 17,

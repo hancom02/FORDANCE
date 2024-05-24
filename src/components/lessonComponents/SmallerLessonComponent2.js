@@ -22,10 +22,10 @@ const SmallerLessonComponent2 = (props) => {
     //     setisShowMoreAction(false);
     // }
 
-    return(
+    return (
         <TouchableOpacity style={styles.container} onPress={handleNav}>
             <View style={styles.firstContainer}>
-                <Image style={styles.image} source={{uri: lesson.lessonImage}}/>
+                <Image style={styles.image} source={{ uri: lesson.lessonImage }} />
                 <View style={styles.textContentContainer}>
                     <Text numberOfLines={2} ellipsizeMode='tail' style={styles.textLessonName}>{lesson.lessonName}</Text>
                     <Text style={styles.textTime}>{lesson.totalTime}</Text>
@@ -48,13 +48,13 @@ export default SmallerLessonComponent2;
 
 const styles = StyleSheet.create({
     container: {
-        width: Dimensions.get('window').width*0.94,
+        width: Dimensions.get('window').width * 0.94,
         height: 104,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
 
-        // backgroundColor: 'pink'
+        //backgroundColor: 'pink'
     },
     firstContainer: {
         width: '90%',

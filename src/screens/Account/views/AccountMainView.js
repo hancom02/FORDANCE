@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import AccountProgressView from './AccountProgressView';
 import AccountSettingView from './AccountSettingView';
-import AccountTopTabs from './AccountTopTab';
+import AccountTopTabs from '../../../navigation/AccountTopTab';
 
 import Colors from "../../../values/colors"
 
@@ -17,7 +17,6 @@ const AccountMainView = (props) => {
         categories,
     } = props;
 
-    // console.log("Data: ", categories);
     const UserName = "Username";
 
     return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, SafeAreaView, StyleSheet, FlatList } from "react-native";
+import { Text, View, SafeAreaView, StyleSheet, Dimensions, FlatList } from "react-native";
 
 import LibraryHeader from "../../../components/LibraryHeader";
 
@@ -7,13 +7,12 @@ import LibraryHeader from "../../../components/LibraryHeader";
 import Lesson2Component from "../../../components/Lesson2Component";
 
 //VIEW
-import ProgramMainView from "../../Program/views/ProgramMainView";
 import InstructorMainView from "../../Instructor/views/InstructorMainView";
 import CategoryMainView from "../../Category/views/CategoryMainView";
-import Category from "../../Category";
-import ProgramComponent from "../../../components/ProgramComponent";
 import WiderProgramComponent from "../../../components/WiderProgramComponent";
-import InstructorComponent from "../../../components/InstructorComponent";
+
+const { width, height } = Dimensions.get('window');
+const imgWidth = width * 0.9;
 
 const LibraryMainView = (props) => {
     const {
@@ -21,7 +20,7 @@ const LibraryMainView = (props) => {
         lessons,
         programs,
         categories,
-        instructors, 
+        instructors,
 
     } = props;
 
@@ -31,11 +30,11 @@ const LibraryMainView = (props) => {
     }
 
     const handleNavDetailProgram = (
-            programData
-        ) => {
+        programData
+    ) => {
         // console.log("PROGRAM DATA AFTER PROPS FROM LIBRARY MAIN VIEW: ", programData);
-        navigation.navigate('Program', { 
-            tabBarVisible: false, 
+        navigation.navigate('Program', {
+            tabBarVisible: false,
             program: programData
         });
     }
@@ -57,7 +56,7 @@ const LibraryMainView = (props) => {
                             <FlatList
                                 data={lessons}
                                 renderItem={({ item, index }) =>
-                                    <View style={{ marginBottom: 25 }}>
+                                    <View style={{ marginBottom: 20, width: imgWidth }}>
                                         <Lesson2Component
                                             lessons={item}
                                             handleNav={handleNavDetailLesson}
@@ -70,23 +69,23 @@ const LibraryMainView = (props) => {
                         </View>
                     </View>
                 }
-                {content === "Programs" && 
+                {content === "Programs" &&
                     <View style={styles.libraryContainer}>
                         <Text style={styles.text}>Programs</Text>
                         <View style={styles.programsContainer}>
-                            <FlatList 
+                            <FlatList
                                 data={programs}
-                                renderItem={({item, index})  =>
+                                renderItem={({ item, index }) =>
                                     <View key={index} style={{ marginBottom: 24 }}>
                                         <WiderProgramComponent
                                             program={item}
                                             handleNav={() => handleNavDetailProgram(
-                                                programData=item
+                                                programData = item
                                             )}
 
                                         />
                                     </View>
-                                } 
+                                }
                                 showsVerticalScrollIndicator={false}
                             />
                         </View>
@@ -94,8 +93,8 @@ const LibraryMainView = (props) => {
 
                 }
                 {content === "Categories" && <CategoryMainView categories={categories} navigation={navigation} />}
-                {content === "Instructors" && 
-                    <InstructorMainView instructors={instructors} navigation={navigation}/>
+                {content === "Instructors" &&
+                    <InstructorMainView instructors={instructors} navigation={navigation} />
                 }
             </View>
         </SafeAreaView >

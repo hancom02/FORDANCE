@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, ScrollV
 import React, { useState } from 'react';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Colors from "../../../values/colors";
+import Colors from "../../../../values/colors";
 
 const { width, height } = Dimensions.get('window');
 

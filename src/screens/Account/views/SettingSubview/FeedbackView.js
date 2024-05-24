@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, TextInput } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faFaceLaughBeam, faFaceGrin, faFaceMeh, faFaceFrownOpen, faFaceAngry } from '@fortawesome/free-regular-svg-icons';
-import Colors from '../../../values/colors';
+import Colors from '../../../../values/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const FeedbackView = (props) => {

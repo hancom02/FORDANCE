@@ -1,15 +1,76 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import ProgramMainView from "../../Program/views/ProgramMainView";
 
 
 const AccountProgressView = (props) => {
     const {
         navigation,
-        user
     } = props;
 
+    //DATA
     const classJoined = 8;
     const lessonCompleted = 10;
+    const lessons = [
+        {
+            lessonName: "Ballet Basic",
+            category: "Ballet",
+            instructor: "Ngoc Han",
+            instructorImage: 'https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg',
+            level: 'BEGINNER',
+            timeDuring: 16,
+            image: 'https://img.freepik.com/premium-photo/dance-ballet-studio-with-woman-dancer-training-practicing-dancing-performance-recital-rehearsal-artistic-perform-technique-with-young-female-school-production-art_590464-81910.jpg',
+            progress: 0.5,
+        },
+        {
+            lessonName: 'The Boy Is Mine',
+            category: "Chogreophy",
+            instructor: "Redy",
+            level: "INTERMEDIATE",
+            timeDuring: 16,
+            image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593",
+            process: 1,
+        },
+        {
+            lessonName: 'Kpop basic',
+            category: "Kpop",
+            instructor: "Lip J",
+            level: "ADVANCED",
+            timeDuring: 10,
+            image: "https://i0.wp.com/ononestudios.com/wp-content/uploads/2022/07/allkpop_1644246173_blackpink-how-you-like-that-dance-performance-video-2-55-screenshot.png?fit=1024%2C576&ssl=1",
+            progress: 0.5,
+        },
+        {
+            lessonName: 'Kpop Intermediate',
+            category: "Kpop",
+            instructor: "Lip J",
+            level: "ADVANCED",
+            timeDuring: 10,
+            image: "https://i0.wp.com/ononestudios.com/wp-content/uploads/2022/07/allkpop_1644246173_blackpink-how-you-like-that-dance-performance-video-2-55-screenshot.png?fit=1024%2C576&ssl=1",
+            progress: 0.95,
+        },
+        {
+            lessonName: 'Kpop Advanced',
+            category: "Kpop",
+            instructor: "Lip J",
+            level: "ADVANCED",
+            timeDuring: 10,
+            image: "https://i0.wp.com/ononestudios.com/wp-content/uploads/2022/07/allkpop_1644246173_blackpink-how-you-like-that-dance-performance-video-2-55-screenshot.png?fit=1024%2C576&ssl=1",
+            progress: 0.7,
+        },
+    ]
+
+    const handleNavPurchasedLessons = () => {
+        navigation.navigate('PurchasedLessons', { lessons });
+    }
+
+    const handleNavHistory = () => {
+        navigation.navigate('History', { lessons });
+    }
+
+    const handleNavDownload = () => {
+        navigation.navigate('Download');
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -25,7 +86,7 @@ const AccountProgressView = (props) => {
             </View>
             <View style={styles.touchContainer}>
                 <View style={styles.innerContainer}>
-                    <TouchableOpacity style={styles.touchItem}>
+                    <TouchableOpacity style={styles.touchItem} onPress={handleNavPurchasedLessons}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Ionicons name="bag-check-outline" size={30} color="black" style={{ marginHorizontal: 10, }} />
                             <Text style={styles.bottomText}>Purchased Lessons</Text>
@@ -41,7 +102,7 @@ const AccountProgressView = (props) => {
                         <Ionicons name="chevron-forward-outline" size={20} color="black" />
                     </TouchableOpacity>
                     <View style={styles.divider} />
-                    <TouchableOpacity style={styles.touchItem}>
+                    <TouchableOpacity style={styles.touchItem} onPress={handleNavHistory}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Ionicons name="time-outline" size={30} color="black" style={{ marginHorizontal: 10, }} />
                             <Text style={styles.bottomText}>History</Text>
@@ -49,7 +110,7 @@ const AccountProgressView = (props) => {
                         <Ionicons name="chevron-forward-outline" size={20} color="black" />
                     </TouchableOpacity>
                     <View style={styles.divider} />
-                    <TouchableOpacity style={styles.touchItem}>
+                    <TouchableOpacity style={styles.touchItem} onPress={handleNavDownload}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Ionicons name="cloud-download-outline" size={30} color="black" style={{ marginHorizontal: 10, }} />
                             <Text style={styles.bottomText}>Download</Text>

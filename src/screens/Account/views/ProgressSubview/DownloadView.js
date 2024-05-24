@@ -104,7 +104,7 @@ const DownloadView = (props) => {
                                 // handleNav={() => handleNavDetailLesson()}
                                 />
                                 <TouchableOpacity style={styles.deleteButton} onPress={() => handleMoreOptions(item)}>
-                                    <Ionicons name="ellipsis-vertical-outline" size={20} color="black" />
+                                    <Ionicons name="ellipsis-vertical" size={20} color="black" />
                                 </TouchableOpacity>
                             </View>
                         )}

@@ -63,6 +63,7 @@ export {
     getFirestore,
     collection,
     doc,
+    updateDoc,
     getDocs,
     getDoc,
     addDoc,

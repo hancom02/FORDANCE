@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, firebaseDatabase, firestore, getDocs } from "../../firebase/firebaseConfig";
+import { collection, firebaseDatabase, firestore, getDocs } from "../../firebase/firebaseConnect";
 import HomeMainView from "./views/HomeMainView";
 
 const HomeContainer = (props) => {

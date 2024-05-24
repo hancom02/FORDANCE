@@ -68,12 +68,21 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
+// compileSdkVersion rootProject.ext.compileSdkVersion
+// compileSdkVersion 34
+// minSdkVersion rootProject.ext.minSdkVersion
+// minSdkVersion 23
+// targetSdkVersion rootProject.ext.targetSdkVersion
+// targetSdkVersion 34
+
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     namespace "com.fordance"
+
     defaultConfig {
         applicationId "com.fordance"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -101,6 +110,10 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    // compileOptions {
+    //     sourceCompatibility JavaVersion.VERSION_16
+    //     targetCompatibility JavaVersion.VERSION_16
+    // }
 }
 
 dependencies {
@@ -122,3 +135,5 @@ dependencies {
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { collection, firebaseDatabase, firestore, getDocs } from "../../firebase/firebaseConfig";
 import HomeMainView from "./views/HomeMainView";
 
 const HomeContainer = (props) => {
@@ -206,14 +208,27 @@ const HomeContainer = (props) => {
         
     ];
 
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        // Fetch data from Firestore
+        const fetchData = async () => {
+        const snapshot = await firebaseDatabase.collection("lessons").get();
+        const dataList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setData(dataList);
+        };
+
+        fetchData();
+    }, []);
+
     const propsHome = {
         navigation,
         lessons,
         todayLessons,
         danceLessons,
         programs,
-        saveLessons
-
+        saveLessons,
+        data,
     };
 
     return <HomeMainView{...propsHome} />

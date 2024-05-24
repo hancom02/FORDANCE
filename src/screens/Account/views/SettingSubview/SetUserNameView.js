@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Colors from "../../../values/colors";
+import Colors from "../../../../values/colors";
 
 const SetUserNameView = (props) => {
     const { navigation } = props;

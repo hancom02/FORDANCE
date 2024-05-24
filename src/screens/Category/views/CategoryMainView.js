@@ -12,7 +12,7 @@ const CategoryMainView = (props) => {
         return (
             <TouchableOpacity
                 style={styles.categoryItem}
-                onPress={() => navigation.navigate('CategoryDetail', { category: item.category, categoriesItems: item.categoriesItems })}
+                onPress={() => navigation.navigate('CategoryDetail', { category: item.category, categoriesItems: item.categoriesItems, })}
             >
                 <ImageBackground
                     source={{ uri: item.image }}
@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
         height: 200,
         marginBottom: 20,
-        borderRadius: 10, // Giá trị borderRadius nhỏ hơn
-        overflow: 'hidden', // Đảm bảo bo góc hình ảnh
+        borderRadius: 10,
+        overflow: 'hidden',
     },
     imageBackground: {
         flex: 1,

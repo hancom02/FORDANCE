@@ -1,17 +1,12 @@
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import AccountProgressView from './AccountProgressView';
-import AccountSettingView from './AccountSettingView';
+import AccountProgressView from '../screens/Account/views/AccountProgressView';
+import AccountSettingView from '../screens/Account/views/AccountSettingView';
 
 const AccountTopTab = createMaterialTopTabNavigator();
 
-function AccountTopTabs(props) {
-    const {
-        navigation,
-        categories,
-    } = props;
-
+function AccountTopTabs() {
 
     return (
         <AccountTopTab.Navigator
@@ -25,7 +20,7 @@ function AccountTopTabs(props) {
             }}
         >
             <AccountTopTab.Screen
-                name="AccountProgressView"
+                name="AccountProgress"
                 component={AccountProgressView}
                 options={{
                     tabBarLabel: 'My Progress',
@@ -33,9 +28,8 @@ function AccountTopTabs(props) {
                 }}
             />
             <AccountTopTab.Screen
-                name="AccountSettingView"
+                name="AccountSetting"
                 component={AccountSettingView}
-                initialParams={{ props }}
                 options={{
                     tabBarLabel: 'Account',
                     tabBarAccessibilityLabel: 'true',

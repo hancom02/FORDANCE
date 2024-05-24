@@ -5,6 +5,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from "../values/colors";
 import InstructorManage from "../screens/InstructorManage";
 import InstructorAccount from "../screens/InstructorAccount";
+import InstructorSchedule from '../screens/InstructorSchedule';
+import InstructorSettingStack from './InstructorSettingStack';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -21,9 +23,19 @@ function MyInstructorBottomTab() {
                 })}
             />
             <BottomTab.Screen
+                name="InstructorSchedule"
+                component={InstructorSchedule}
+                options={{ tabBarIcon: ({ focused }) => (<Ionicons name="calendar-outline" size={24} color={focused ? Colors.primaryPupple : 'black'} />) }}
+            />
+            <BottomTab.Screen
                 name="InstructorAccount"
                 component={InstructorAccount}
                 options={{ tabBarIcon: ({ focused }) => (<Ionicons name="person-outline" size={24} color={focused ? Colors.primaryPupple : 'black'} />) }}
+            />
+            <BottomTab.Screen
+                name="InstructorSettingStack"
+                component={InstructorSettingStack}
+                options={{ tabBarIcon: ({ focused }) => (<Ionicons name="settings-outline" size={24} color={focused ? Colors.primaryPupple : 'black'} />) }}
             />
         </BottomTab.Navigator>
     );

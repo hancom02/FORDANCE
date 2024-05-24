@@ -1,22 +1,10 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-
-const AccountSettingView = (props) => {
+const InstructorSettingMainView = (props) => {
     const {
-        navigation,
-        categories,
+        navigation
     } = props;
-
-
-    const handleNavAccountSetting = () => {
-        navigation.navigate('SubView');
-
-    }
-
-    const handleNavDancePreference = () => {
-        navigation.navigate('DancePreference');
-    }
 
     const handleNavFeedback = () => {
         navigation.navigate('Feedback');
@@ -26,32 +14,12 @@ const AccountSettingView = (props) => {
         navigation.navigate('Introduce');
     }
 
-    const handleNavLogout = () => {
-        navigation.navigate('Login');
-    }
-
-    const classJoined = 8;
-    const lessonCompleted = 10;
-
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.touchContainer}>
-                <Text style={styles.textHeader}>Account Setting</Text>
-                <View style={styles.innerContainer}>
-                    <TouchableOpacity style={styles.touchItem} onPress={handleNavDancePreference}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Text style={styles.bottomText}>Dance Preference</Text>
-                        </View>
-                        <Ionicons name="chevron-forward-outline" size={20} color="black" />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.touchItem} onPress={handleNavAccountSetting}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Text style={styles.bottomText}>Account Setting</Text>
-                        </View>
-                        <Ionicons name="chevron-forward-outline" size={20} color="black" />
-                    </TouchableOpacity>
-                </View>
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>Setting</Text>
             </View>
+            <View style={styles.separator} />
             <View style={styles.touchContainer}>
                 <Text style={styles.textHeader}>About Application</Text>
                 <View style={styles.innerContainer}>
@@ -67,7 +35,7 @@ const AccountSettingView = (props) => {
                         </View>
                         <Ionicons name="chevron-forward-outline" size={20} color="black" />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.touchItem} onPress={handleNavLogout}>
+                    <TouchableOpacity style={styles.touchItem}>
                         <View>
                             <Text style={styles.bottomText}>Log out</Text>
                         </View>
@@ -84,6 +52,35 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: 'white',
     },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginHorizontal: 20,
+        marginVertical: 10,
+        height: 30,
+    },
+    headerTitle: {
+        flex: 1,
+        textAlign: 'center',
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: 'black',
+        textTransform: 'uppercase',
+        alignSelf: 'center',
+    },
+    textHeader: {
+        marginBottom: 10,
+        fontSize: 25,
+        fontWeight: 'bold',
+        color: 'black',
+    },
+    separator: {
+        height: 1,
+        backgroundColor: 'lightgray',
+        marginBottom: 10,
+        elevation: 3,
+    },
     boldText: {
         fontSize: 25,
         fontWeight: 'bold',
@@ -96,7 +93,7 @@ const styles = StyleSheet.create({
     touchContainer: {
         flexDirection: 'column',
         paddingHorizontal: 16,
-        marginTop: 40,
+        marginTop: 30,
     },
     innerContainer: {
         marginHorizontal: 16,
@@ -121,5 +118,4 @@ const styles = StyleSheet.create({
         color: 'black',
     },
 });
-
-export default AccountSettingView;
+export default InstructorSettingMainView;

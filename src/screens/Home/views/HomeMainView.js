@@ -24,9 +24,12 @@ const HomeMainView = (props) => {
         todayLessons,
         danceLessons, 
         programs,
-        saveLessons
-        
+        saveLessons,
+        data
+         
     } = props;
+
+    console.log("FETCH DATA LESSONS: ", data);
 
     const propsHeader = {
 

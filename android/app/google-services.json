@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "620378991871",
+    "project_id": "fordance-8ac11",
+    "storage_bucket": "fordance-8ac11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620378991871:android:62399531dedcbac74e70ca",
+        "android_client_info": {
+          "package_name": "com.fordance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "620378991871-7vv919su868hl6gptcddj74gnk8avsht.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fordance",
+            "certificate_hash": "dd5599426828ff24455bc5814515da41f7d10538"
+          }
+        },
+        {
+          "client_id": "620378991871-be0lb9capn34hea790regr0cigt3nd4j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_DYUlFAEQN0wLBVnRQxT-ddo-T40-fPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "620378991871-be0lb9capn34hea790regr0cigt3nd4j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

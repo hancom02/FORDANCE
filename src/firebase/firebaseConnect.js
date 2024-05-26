@@ -5,11 +5,22 @@ import {initializeApp, getApps } from '@react-native-firebase/app';
 import firestore, {
     getFirestore, 
     collection, 
+
     doc, 
-    updateDoc,
     getDoc, 
     getDocs, 
     addDoc,
+    updateDoc,
+    deleteDoc,
+
+    deleteField,
+
+    orderBy,
+    where,
+    limit,
+    and,
+    or,
+    
 } from '@react-native-firebase/firestore'
 
 // import {
@@ -58,6 +69,7 @@ if (!getApps().length) {
 }
 
 const firebaseDatabase = firestore();
+// console.log("FIREBASE DBR", firebaseDatabase)
 
 export {
     getFirestore,
@@ -67,6 +79,13 @@ export {
     getDocs,
     getDoc,
     addDoc,
+    deleteDoc,
+    deleteField,
+    orderBy,
+    where,
+    limit,
+    and,
+    or,
     firebaseDatabase,
 }
 

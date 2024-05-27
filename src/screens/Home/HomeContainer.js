@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { collection, firebaseDatabase, firestore, getDocs } from "../../firebase/firebaseConnect";
 import HomeMainView from "./views/HomeMainView";
+import { fetchAllLessons } from "../../redux/slices/lessonSlice";
+import { useSelector } from "react-redux";
 
 const HomeContainer = (props) => {
     const { 
+        dispatch,
         navigation,
         route
     } = props;
@@ -208,27 +211,37 @@ const HomeContainer = (props) => {
         
     ];
 
-    const [data, setData] = useState([]);
+    // const [data, setData] = useState([]);
+
+    // useEffect(() => {
+    //     // Fetch data from Firestore
+    //     const fetchData = async () => {
+    //         const snapshot = await firebaseDatabase.collection("lessons").get();
+    //         const snapshot2 = await firebaseDatabase.collection('lessons').doc("").delete();
+    //         const dataList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    //     setData(dataList);
+    //     };
+
+    //     fetchData();
+    // }, []);
+    // console.log("FETCH DATA LESSONS: ", data);
+
+    //Dùng useSelector để trỏ vào state trong store
+    const { allLessons, loading, error } = useSelector((state) => state.lesson);
 
     useEffect(() => {
-        // Fetch data from Firestore
-        const fetchData = async () => {
-        const snapshot = await firebaseDatabase.collection("lessons").get();
-        const dataList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setData(dataList);
-        };
-
-        fetchData();
-    }, []);
+        dispatch(fetchAllLessons()); //dùng dispatch để gửi actions vào reducer của lessonSlice
+    }, [dispatch]);
 
     const propsHome = {
+        dispatch,
         navigation,
         lessons,
         todayLessons,
         danceLessons,
         programs,
         saveLessons,
-        data,
+        allLessons,
     };
 
     return <HomeMainView{...propsHome} />

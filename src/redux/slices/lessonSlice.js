@@ -1,22 +1,17 @@
 import { createAsyncThunk, createSlice }  from "@reduxjs/toolkit";
 import { firebaseDatabase } from "../../firebase/firebaseConnect";
 import { readDataFirestore } from "../../firebase/firebaseController";
+import { act } from "react";
 
 // Hàm fetchAllLessons sử dụng createAsyncThunk để lấy tất cả các lesson
-const fetchAllLessons = createAsyncThunk('lesson/fetchAll', async (_, { rejectWithValue }) => {
-    console.log('lessons fetch all createAsyncThunk')
-
-    try {
-        const lessons = await readDataFirestore('lessons');
-
-        // console.log("LESSON AFTER FETCH IN SLICE: ",lessons);
-
-        return lessons;
-    } catch (error) {
-        return rejectWithValue(error.message);
-    }
+export const fetchAllLessons = createAsyncThunk('lesson/fetchAll', async (_, { rejectWithValue, dispatch }) => {
+        try {
+            const lessons = await readDataFirestore('lessons');
+            dispatch(setAllLessons(lessons)); //đẩy action fetchAllLessons vào reducer mới được xử lý
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }    
 });
-
 
 // const favLessonByUserId = () => createAsyncThunk('song/reactHeartSong', async ({ lessonId, userId }, { rejectWithValue }) => {
 //     //logic
@@ -26,6 +21,7 @@ const lessonSlice = createSlice({
     name: 'lesson',
     initialState: {
         lesson: null,
+        allLessons: null,
         isFav: false,
         dowload: false,
         join: false,
@@ -37,6 +33,9 @@ const lessonSlice = createSlice({
     reducers: { //danh sách các reducer sẽ dùng cho nội bộ đối tượng lesson
         setLesson: (state, action) => {
             state.lesson = action.payload
+        },
+        setAllLessons: (state, action) => {
+            state.allLessons = action.payload
         },
         addLesson(state, action) {
             // Xử lý thêm lesson vào danh sách
@@ -68,13 +67,9 @@ const lessonSlice = createSlice({
     },
 });
 
-export {
-    fetchAllLessons,
-
-}
-
 export const {
     setLesson, 
+    setAllLessons,
     addLesson, 
     updateLesson, 
     removeLesson, 

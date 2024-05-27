@@ -10,6 +10,9 @@ import Lesson2Component from "../../../components/Lesson2Component";
 import Lesson from "../../Lesson";
 import Colors from "../../../values/colors";
 import ProgramComponent from "../../../components/ProgramComponent";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchAllLessons } from "../../../redux/slices/lessonSlice";
 
 const todayLesson = "Today Lessons";
 const seeAll = "See All";
@@ -22,16 +25,20 @@ const imgWidth = width * 0.8;
 
 const HomeMainView = (props) => {
     const {
+        dispatch,
         navigation,
         lessons,
         todayLessons,
         danceLessons,
         programs,
         saveLessons,
-        data
+        allLessons,
+        // data,
+        
     } = props;
 
-    console.log("FETCH DATA LESSONS: ", data);
+    console.log("FETCH DATA LESSONS REDUX IN MAINVIEW: ", allLessons);
+
 
     const propsHeader = {
 

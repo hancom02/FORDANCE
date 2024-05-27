@@ -23,6 +23,7 @@ const readDataFirestore = async (collectionName) => {
         // console.log("FIREBASE DB IN FIREBASE CONTROLLER: ", firebaseDatabase)
 
         const querySnapshot = await firebaseDatabase.collection(collectionName).get();
+        //Chuyển data về dạng map
         const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         
         // console.log("DATA AFTER READ DB: ", data)

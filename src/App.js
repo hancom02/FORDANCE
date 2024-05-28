@@ -12,6 +12,8 @@ import Lesson from './screens/Lesson';
 import Program from './screens/Program';
 import InstructorAccountMainView from './screens/InstructorAccount/views/InstructorAccountMainView';
 import InstructorDetailView from './screens/Instructor/views/InstructureDetailView';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,29 +24,31 @@ export default function App() {
     };
 
     return (
-        <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="Splash" component={Splash} />
-                <Stack.Screen name="Login">
-                    {(props) => <Login {...props} onSelectRole={handleRoleSelection} />}
-                </Stack.Screen>
+        <Provider store={store}>
+            <NavigationContainer>
+                <Stack.Navigator screenOptions={{ headerShown: false }}>
+                    <Stack.Screen name="Splash" component={Splash} />
+                    <Stack.Screen name="Login">
+                        {(props) => <Login {...props} onSelectRole={handleRoleSelection} />}
+                    </Stack.Screen>
 
-                {selectedRole === 'student' ? (
-                    <>
-                        <Stack.Screen name="MyStudentBottomTab" component={MyStudentBottomTab} />
-                        <Stack.Screen name="HomeStack" component={HomeStack} />
-                        <Stack.Screen name="LibraryStack" component={LibraryStack} />
-                        <Stack.Screen name="AccountStack" component={AccountStack} />
-                        <Stack.Screen name="Lesson" component={Lesson} />
-                        <Stack.Screen name="Program" component={Program} />
-                        <Stack.Screen name="InstructorDetailView" component={InstructorDetailView} />
-                    </>
-                ) : selectedRole === 'instructor' ? (
-                    <>
-                        <Stack.Screen name="MyInstructorBottomTab" component={MyInstructorBottomTab} />
-                    </>
-                ) : null}
-            </Stack.Navigator>
-        </NavigationContainer>
+                    {selectedRole === 'student' ? (
+                        <>
+                            <Stack.Screen name="MyStudentBottomTab" component={MyStudentBottomTab} />
+                            <Stack.Screen name="HomeStack" component={HomeStack} />
+                            <Stack.Screen name="LibraryStack" component={LibraryStack} />
+                            <Stack.Screen name="AccountStack" component={AccountStack} />
+                            <Stack.Screen name="Lesson" component={Lesson} />
+                            <Stack.Screen name="Program" component={Program} />
+                            <Stack.Screen name="InstructorDetailView" component={InstructorDetailView} />
+                        </>
+                    ) : selectedRole === 'instructor' ? (
+                        <>
+                            <Stack.Screen name="MyInstructorBottomTab" component={MyInstructorBottomTab} />
+                        </>
+                    ) : null}
+                </Stack.Navigator>
+            </NavigationContainer>
+        </Provider>
     );
 }

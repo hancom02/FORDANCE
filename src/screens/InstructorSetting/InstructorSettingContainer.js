@@ -1,4 +1,4 @@
-import InstructorSettingMainView from "./views/InstructorSettingMainView";
+import InstructorSettingMainView from "./views/InstructorMainView";
 
 const InstructorSettingContainer = (props) => {
     const {

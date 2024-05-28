@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import ProgramMainView from "../../Program/views/ProgramMainView";
-
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 
 const AccountProgressView = (props) => {
     const {
@@ -72,6 +72,10 @@ const AccountProgressView = (props) => {
         navigation.navigate('Download');
     }
 
+    const handleNavOfflineBooking = () => {
+        navigation.navigate('Offline Booking');
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.classInfoContainer}>
@@ -90,6 +94,14 @@ const AccountProgressView = (props) => {
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Ionicons name="bag-check-outline" size={30} color="black" style={{ marginHorizontal: 10, }} />
                             <Text style={styles.bottomText}>Purchased Lessons</Text>
+                        </View>
+                        <Ionicons name="chevron-forward-outline" size={20} color="black" />
+                    </TouchableOpacity>
+                    <View style={styles.divider} />
+                    <TouchableOpacity style={styles.touchItem} onPress={handleNavOfflineBooking}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <FontAwesomeIcon icon={faAddressBook} size={30} color="black" style={{ marginHorizontal: 10, }} />
+                            <Text style={styles.bottomText}>Offline Booking</Text>
                         </View>
                         <Ionicons name="chevron-forward-outline" size={20} color="black" />
                     </TouchableOpacity>

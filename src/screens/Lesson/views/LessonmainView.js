@@ -7,6 +7,8 @@ import React, { useState } from 'react';
 import Colors from "../../../values/colors"
 import CommunityComponent from "../../../components/CommunityComponent";
 import VideoPlayer from "./VideoPalyer";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 
 const LessonMainView = (props) => {
     const {
@@ -55,6 +57,9 @@ const LessonMainView = (props) => {
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.icon}>
                     <Ionicons name="calendar-clear-outline" size={30} color={Colors.primaryPupple} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.icon}>
+                    <FontAwesomeIcon icon={faAddressBook} size={25} color={Colors.primaryPupple} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.icon}>
                     <Ionicons name="arrow-redo-outline" size={30} color={Colors.primaryPupple} />

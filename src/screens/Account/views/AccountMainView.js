@@ -1,11 +1,7 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-import AccountProgressView from './AccountProgressView';
-import AccountSettingView from './AccountSettingView';
 import AccountTopTabs from '../../../navigation/AccountTopTab';
 
 import Colors from "../../../values/colors"

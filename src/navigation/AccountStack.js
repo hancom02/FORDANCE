@@ -10,6 +10,7 @@ import FeedbackView from '../screens/Account/views/SettingSubview/FeedbackView';
 import PurchasedLessonsView from '../screens/Account/views/ProgressSubview/PurchasedLessonsView';
 import HistoryView from '../screens/Account/views/ProgressSubview/HistoryView';
 import DownloadView from '../screens/Account/views/ProgressSubview/DownloadView';
+import OfflineBookingView from '../screens/Account/views/ProgressSubview/OfflineBookingView';
 
 const ChildStack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ function AccountStack() {
             <ChildStack.Screen name="PurchasedLessons" component={PurchasedLessonsView} />
             <ChildStack.Screen name="History" component={HistoryView} />
             <ChildStack.Screen name="Download" component={DownloadView} />
+            <ChildStack.Screen name="Offline Booking" component={OfflineBookingView} />
         </ChildStack.Navigator>
     );
 }

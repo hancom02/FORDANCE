@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import React from 'react';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Colors from "../../../../values/colors";
 
 const AccoutSubView = (props) => {
     const { navigation } = props;

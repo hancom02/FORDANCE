@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { collection, firebaseDatabase, firestore, getDocs } from "../../firebase/firebaseConnect";
 import HomeMainView from "./views/HomeMainView";
 import { fetchAllLessons } from "../../redux/slices/lessonSlice";
+import { fetchAllPrograms } from "../../redux/slices/programSlice";
 import { useSelector } from "react-redux";
 
 const HomeContainer = (props) => {
-    const { 
+    const {
         dispatch,
         navigation,
         route
@@ -181,7 +182,7 @@ const HomeContainer = (props) => {
             level: "INTERMEDIATE",
             lessonAmount: 8,
             image: "https://file.hstatic.net/200000656851/file/waacking_la_gi_d52dc1411e9f49b8929dc2d74717f573_grande.jpg",
-            
+
             lessons: [
                 {
                     lessonName: 'How to do plete',
@@ -208,7 +209,7 @@ const HomeContainer = (props) => {
             timeDuring: 16,
             image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
         },
-        
+
     ];
 
     // const [data, setData] = useState([]);
@@ -227,10 +228,14 @@ const HomeContainer = (props) => {
     // console.log("FETCH DATA LESSONS: ", data);
 
     //Dùng useSelector để trỏ vào state trong store
-    const { allLessons, loading, error } = useSelector((state) => state.lesson);
+    //const { allLessons, loading, error } = useSelector((state) => state.lesson);
+
+    const { allLessons, loading: lessonsLoading, error: lessonsError } = useSelector((state) => state.lesson);
+    const { allPrograms, loading: programsLoading, error: programsError } = useSelector((state) => state.program);
 
     useEffect(() => {
         dispatch(fetchAllLessons()); //dùng dispatch để gửi actions vào reducer của lessonSlice
+        dispatch(fetchAllPrograms());
     }, [dispatch]);
 
     const propsHome = {
@@ -242,6 +247,9 @@ const HomeContainer = (props) => {
         programs,
         saveLessons,
         allLessons,
+        allPrograms,
+        loading: lessonsLoading || programsLoading,
+        error: lessonsError || programsError,
     };
 
     return <HomeMainView{...propsHome} />

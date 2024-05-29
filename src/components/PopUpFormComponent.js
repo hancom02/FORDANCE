@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 
 const PopUpFormComponent = (props) => {
-    const { handleSubmit, } = props;
+    const { handleSubmit, offlinelessons } = props;
     const [instructorName, setInstructorName] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');

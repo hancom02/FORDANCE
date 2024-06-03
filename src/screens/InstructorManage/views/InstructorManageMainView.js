@@ -15,7 +15,7 @@ const InstructorManageMainView = (props) => {
         navigation,
         myLessons,
         myPrograms,
-    }  = props;
+    } = props;
 
     // console.log("MY LESSONS: ", myLessons);
     // console.log("MY PROGRAMS: ", myPrograms);
@@ -46,18 +46,22 @@ const InstructorManageMainView = (props) => {
     }
 
     const handleNavDetailProgram = (
-            programData
-        ) => {
+        programData
+    ) => {
         // console.log("PROGRAM DATA AFTER PROPS FROM LIBRARY MAIN VIEW: ", programData);
-        navigation.navigate('Program', { 
-            tabBarVisible: false, 
+        navigation.navigate('Program', {
+            tabBarVisible: false,
             program: programData
         });
     }
 
+    const handleNavPostLesson = () => {
+        navigation.navigate('PostClassFirst');
+    }
+
     return (
         <SafeAreaView style={styles.container}>
-            <ManageHeader onPressButton={setContent} />
+            <ManageHeader onPressButton={setContent} onPressPostClass={handleNavPostLesson} />
             <View style={styles.contentContainer}>
                 {content === "My Lessons" &&
                     <View style={styles.manageContainer}>
@@ -66,7 +70,7 @@ const InstructorManageMainView = (props) => {
                             <FlatList
                                 data={myLessons}
                                 renderItem={({ item, index }) =>
-                                    <View style={{ marginBottom: 16, width: '100%',}}>
+                                    <View style={{ marginBottom: 16, width: '100%', }}>
                                         <View>
                                             <SmallerLessonComponent2
                                                 lesson={item}
@@ -88,22 +92,22 @@ const InstructorManageMainView = (props) => {
                         </View>
                     </View>
                 }
-                {content === "My Programs" && 
+                {content === "My Programs" &&
                     <View style={styles.manageContainer}>
                         <Text style={styles.text}>{MyPrograms}</Text>
                         <View style={styles.programsContainer}>
-                            <FlatList 
+                            <FlatList
                                 data={myPrograms}
-                                renderItem={({item, index})  =>
-                                    <View key={index} style={{ marginBottom: 24, width: '100%'}}>
+                                renderItem={({ item, index }) =>
+                                    <View key={index} style={{ marginBottom: 24, width: '100%' }}>
                                         <WiderProgramComponent
                                             program={item}
                                             handleNav={() => handleNavDetailProgram(
-                                                programData=item
+                                                programData = item
                                             )}
                                         />
                                     </View>
-                                } 
+                                }
                                 showsVerticalScrollIndicator={false}
                             />
                         </View>
@@ -177,12 +181,12 @@ const styles = StyleSheet.create({
         // backgroundColor: 'pink'
     },
     lessonMoreContainer: {
-        position: 'absolute', 
+        position: 'absolute',
         height: '200%',
         width: '50%',
-        top: 0, 
-        left: '50%', 
-        right: 0, 
+        top: 0,
+        left: '50%',
+        right: 0,
         bottom: 0,
     }
 });

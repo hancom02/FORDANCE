@@ -45,6 +45,8 @@ export default function App() {
                     ) : selectedRole === 'instructor' ? (
                         <>
                             <Stack.Screen name="MyInstructorBottomTab" component={MyInstructorBottomTab} />
+                            <Stack.Screen name="Lesson" component={Lesson} />
+                            <Stack.Screen name="Program" component={Program} />
                         </>
                     ) : null}
                 </Stack.Navigator>

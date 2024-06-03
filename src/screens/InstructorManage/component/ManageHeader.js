@@ -1,4 +1,4 @@
-import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View, Modal } from "react-native";
 import Colors from "../../../values/colors";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -8,9 +8,40 @@ const { useState } = require("react")
 const ManageHeader = (props) => {
     const {
         onPressButton,
+        onPressPostClass
     } = props;
 
     const [selectedButton, setSelectedButton] = useState("My Lessons");
+    const [showPopUpPost, setShowPopUpPost] = useState(false);
+    const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
+    const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
+
+    const handleCloseModal = () => {
+        setShowPopUpPost(false);
+    }
+
+    const handleOpenModal = (event) => {
+        const { pageX, pageY } = event.nativeEvent;
+        const screenWidth = Dimensions.get('window').width;
+        const screenHeight = Dimensions.get('window').height;
+        const modalWidth = 200; // ước lượng kích thước modal
+        const modalHeight = 100; // ước lượng kích thước modal
+
+        let adjustedX = pageX;
+        let adjustedY = pageY;
+
+        // Điều chỉnh vị trí modal nếu nó bị tràn ra ngoài màn hình
+        if (pageX + modalWidth > screenWidth) {
+            adjustedX = screenWidth - modalWidth - 10; // 10 là khoảng cách padding
+        }
+        if (pageY + modalHeight > screenHeight) {
+            adjustedY = screenHeight - modalHeight - 10; // 10 là khoảng cách padding
+        }
+
+        setButtonPosition({ x: adjustedX, y: adjustedY });
+        setModalPosition({ x: adjustedX, y: adjustedY });
+        setShowPopUpPost(true);
+    };
 
     const renderButton = (buttonName) => {
         const isSelected = selectedButton === buttonName;
@@ -28,13 +59,44 @@ const ManageHeader = (props) => {
         );
     };
 
-    return(
+    return (
         <View style={styles.container}>
             <View style={styles.logoContainer}>
                 <Text style={styles.text}>MANAGE</Text>
                 <View style={styles.iconContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={(event) => handleOpenModal(event)}>
                         <Ionicons name="add-circle-outline" size={28} color='black' />
+                        {showPopUpPost &&
+                            <Modal
+                                visible={true}
+                                animationType="fade"
+                                transparent={true}
+                            >
+                                <TouchableOpacity style={styles.overlay} onPress={handleCloseModal} />
+                                <View style={[styles.modalContainer, { top: modalPosition.y, left: modalPosition.x }]}>
+                                    <View style={styles.modalContent}>
+                                        <TouchableOpacity style={[styles.deleteModal, { marginBottom: 10, }]} onPress={onPressPostClass}>
+                                            <View style={{ position: 'relative' }}>
+                                                <Ionicons name="tablet-landscape-outline" size={20} color="black" />
+                                                <View style={{ position: 'absolute', top: 5, left: 5 }}>
+                                                    <Ionicons name="play" size={10} color="black" />
+                                                </View>
+                                            </View>
+                                            <Text style={styles.textDelete}>CLASS</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={styles.deleteModal}>
+                                            <View style={{ position: 'relative' }}>
+                                                <Ionicons name="albums-outline" size={20} color="black" />
+                                                <View style={{ position: 'absolute', top: 7, left: 6.5 }}>
+                                                    <Ionicons name="play" size={8} color="black" />
+                                                </View>
+                                            </View>
+                                            <Text style={styles.textDelete}>PROGRAM</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </Modal>
+                        }
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Ionicons name="notifications-outline" size={28} color='black' />
@@ -130,5 +192,34 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: '700',
         color: 'black',
-    }
+    },
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+        // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContainer: {
+        position: 'absolute',
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 20,
+        alignItems: 'center',
+        elevation: 5,
+
+    },
+    modalContent: {
+        flexDirection: 'column',
+
+    },
+    deleteModal: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    textDelete: {
+        fontSize: 12,
+        fontWeight: '700',
+        color: 'black',
+        marginLeft: 10,
+    },
 });

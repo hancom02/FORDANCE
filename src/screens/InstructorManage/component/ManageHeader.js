@@ -8,7 +8,8 @@ const { useState } = require("react")
 const ManageHeader = (props) => {
     const {
         onPressButton,
-        onPressPostClass
+        onPressPostClass,
+        onPressPostProgram,
     } = props;
 
     const [selectedButton, setSelectedButton] = useState("My Lessons");
@@ -84,7 +85,7 @@ const ManageHeader = (props) => {
                                             </View>
                                             <Text style={styles.textDelete}>CLASS</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={styles.deleteModal}>
+                                        <TouchableOpacity style={styles.deleteModal} onPress={onPressPostProgram}>
                                             <View style={{ position: 'relative' }}>
                                                 <Ionicons name="albums-outline" size={20} color="black" />
                                                 <View style={{ position: 'absolute', top: 7, left: 6.5 }}>

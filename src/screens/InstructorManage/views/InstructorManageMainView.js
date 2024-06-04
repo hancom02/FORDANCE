@@ -59,9 +59,14 @@ const InstructorManageMainView = (props) => {
         navigation.navigate('PostClassFirst');
     }
 
+    const handleNavPostProgram = () => {
+        navigation.navigate('PostProgramFirst');
+    }
+
+
     return (
         <SafeAreaView style={styles.container}>
-            <ManageHeader onPressButton={setContent} onPressPostClass={handleNavPostLesson} />
+            <ManageHeader onPressButton={setContent} onPressPostClass={handleNavPostLesson} onPressPostProgram={handleNavPostProgram} />
             <View style={styles.contentContainer}>
                 {content === "My Lessons" &&
                     <View style={styles.manageContainer}>

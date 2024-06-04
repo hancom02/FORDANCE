@@ -1,20 +1,34 @@
-import { SafeAreaView, } from "react-native-safe-area-context";
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, TextInput, ScrollView } from "react-native";
-import React, { useState } from 'react';
+import { SafeAreaView } from "react-native-safe-area-context";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, TextInput, ScrollView, ImageBackground } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { useRoute } from '@react-navigation/native';
 import DropDownPicker from "react-native-dropdown-picker";
-
+import { createThumbnail } from 'react-native-create-thumbnail';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from "../../../../values/colors";
 
 const PostLessonFirstView = (props) => {
     const { navigation } = props;
+    const route = useRoute();
+
+    useEffect(() => {
+        if (route.params?.selectedVideo) {
+            setSelectedVideo(route.params.selectedVideo);
+            createThumbnail({
+                url: route.params.selectedVideo.uri,
+            }).then(response => {
+                setThumbnail(response.path);
+            }).catch(err => console.error(err));
+        }
+    }, [route.params?.selectedVideo]);
 
     const handleGoBack = () => {
         navigation.goBack();
     };
 
-
     const [comment, setComment] = useState("");
+    const [selectedVideo, setSelectedVideo] = useState(null);
+    const [thumbnail, setThumbnail] = useState(null);
     const [openLevel, setOpenLevel] = useState(false);
     const [valueLevel, setValueLevel] = useState(null);
     const [itemsLevel, setItemsLevel] = useState([
@@ -32,7 +46,6 @@ const PostLessonFirstView = (props) => {
         { label: 'Jazz', value: 4, },
         { label: 'Street Dance', value: 5 },
         { label: 'Test', value: 6 }
-
     ]);
 
     const Username = "UserName";
@@ -49,13 +62,25 @@ const PostLessonFirstView = (props) => {
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <View style={styles.contentContainer}>
                     <View style={styles.chooseVideoContainer}>
-                        <View style={styles.circle}>
-                            <Ionicons name="cloud-upload-outline" size={40} color="#848484" />
-                        </View>
-                        <TouchableOpacity style={styles.chooseVideoButton} >
-                            <Text style={styles.buttonText}>Choose Video</Text>
-                        </TouchableOpacity>
+                        {thumbnail ? (
+                            <ImageBackground source={{ uri: thumbnail }} style={styles.thumbnail}>
+                                <TouchableOpacity style={[styles.chooseVideoButton, { marginBottom: 10, marginRight: 10 }]} onPress={() => { navigation.navigate('PostClassSecond') }}>
+                                    <Text style={styles.buttonText}>Choose Video</Text>
+                                </TouchableOpacity>
+                            </ImageBackground>
+                        ) : (
+                            <View>
+                                <View style={styles.circle}>
+                                    <Ionicons name="cloud-upload-outline" size={40} color="#848484" />
+                                </View>
+                                <TouchableOpacity style={styles.chooseVideoButton} onPress={() => { navigation.navigate('PostClassSecond') }}>
+                                    <Text style={styles.buttonText}>Choose Video</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                        )}
                     </View>
+
                     <View style={styles.userNameContainer}>
                         <Ionicons name="person-circle-outline" size={40} color="black" />
                         <Text style={styles.usernameText}>{Username}</Text>
@@ -105,7 +130,6 @@ const PostLessonFirstView = (props) => {
                                 fontSize: 16,
                                 color: '#000',
                             }}
-
                             dropDownDirection="BOT"
                         />
                     </View>
@@ -125,7 +149,6 @@ const PostLessonFirstView = (props) => {
                             style={{
                                 backgroundColor: '#fafafa',
                                 width: Dimensions.get('window').width * 0.5,
-
                             }}
                             dropDownContainerStyle={{
                                 backgroundColor: '#dfdfdf',
@@ -140,6 +163,9 @@ const PostLessonFirstView = (props) => {
                         />
                     </View>
                 </View>
+                <TouchableOpacity style={styles.uploadButton}>
+                    <Text style={styles.uploadButtontxt}>UPLOAD</Text>
+                </TouchableOpacity>
             </ScrollView>
         </SafeAreaView>
     );
@@ -190,7 +216,6 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: 'lightgray',
         marginTop: 10,
-
     },
     chooseVideoContainer: {
         width: '100%',
@@ -217,6 +242,8 @@ const styles = StyleSheet.create({
         height: 'auto',
         backgroundColor: '#5F64E2',
         borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     buttonText: {
         fontSize: 14,
@@ -224,6 +251,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingVertical: 10,
         fontWeight: '700'
+    },
+    thumbnail: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 10,
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
     },
     userNameContainer: {
         flexDirection: 'row',
@@ -244,18 +279,31 @@ const styles = StyleSheet.create({
         color: 'black',
         marginBottom: 10,
     },
-    inputContainer: {
-
-    },
+    inputContainer: {},
     input: {
         height: 100,
         paddingHorizontal: 10,
     },
     dropDownContainer: {
         marginTop: 20,
-    }
-
-
+    },
+    uploadButton: {
+        backgroundColor: Colors.primaryPupple,
+        width: '30%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'flex-end',
+        marginBottom: 20,
+        borderRadius: 15,
+        marginRight: 10,
+    },
+    uploadButtontxt: {
+        fontSize: 16,
+        color: 'white',
+        fontWeight: '600',
+        marginVertical: 5,
+    },
 });
+
 
 export default PostLessonFirstView;

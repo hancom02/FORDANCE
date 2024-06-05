@@ -1,4 +1,4 @@
-// import { initializeApp } from 'firebase/app';
+// import firebase, { initializeApp } from 'firebase/app';
 // import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import {initializeApp, getApps } from '@react-native-firebase/app';
 
@@ -31,7 +31,7 @@ import firestore, {
 //     getDocs,
 //     getDoc,
 //     addDoc,
-//   } from '@firebase/firestore'
+//   } from 'firebase/firestore'
 
 // import {
 //     getAuth,

@@ -1,5 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import { firebaseDatabase } from './firebaseConnect';
+// import { firebaseDatabase } from './reactNativeFirebase/firebaseConnect';
 
 // const firebaseDatabase = firestore();
 

@@ -1,12 +1,15 @@
 import { createAsyncThunk, createSlice }  from "@reduxjs/toolkit";
-import { firebaseDatabase } from "../../firebase/firebaseConnect";
-import { readDataFirestore } from "../../firebase/firebaseController";
+import { firebaseDatabase } from "../../firebase/reactNativeFirebase/firebaseConnect";
+import { readDataFirestore } from "../../firebase/reactNativeFirebase/firebaseController";
 import { act } from "react";
+import { readDataDBFirestore, readDataDBFirestoreCollection, readDataDBFirestoreWithCondition, readDataFirestoreCollection } from "../../firebase/firebase/firebaseDBController";
 
 // Hàm fetchAllLessons sử dụng createAsyncThunk để lấy tất cả các lesson
 export const fetchAllLessons = createAsyncThunk('lesson/fetchAll', async (_, { rejectWithValue, dispatch }) => {
         try {
-            const lessons = await readDataFirestore('lessons');
+            // const lessons = await readDataFirestore('lessons');
+            const lessons = await readDataDBFirestoreCollection('lessons');
+
             dispatch(setAllLessons(lessons)); //đẩy action fetchAllLessons vào reducer mới được xử lý
         } catch (error) {
             return rejectWithValue(error.message);

@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import lessonReducer from './slices/lessonSlice'
+import authReducer from './slices/authSlice'
 
 export const store = configureStore({
   reducer: {
     lesson: lessonReducer,
+    auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

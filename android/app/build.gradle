@@ -110,6 +110,9 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
     // compileOptions {
     //     sourceCompatibility JavaVersion.VERSION_16
     //     targetCompatibility JavaVersion.VERSION_16
@@ -131,6 +134,9 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    // implementation 'org.codehaus.groovy:groovy-json:3.0.8'
+    // implementation 'org.apache.ant:ant:1.10.12'
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)

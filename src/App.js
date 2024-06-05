@@ -14,6 +14,7 @@ import InstructorAccountMainView from './screens/InstructorAccount/views/Instruc
 import InstructorDetailView from './screens/Instructor/views/InstructureDetailView';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import SignUp from './screens/SignUp';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,11 +28,12 @@ export default function App() {
         <Provider store={store}>
             <NavigationContainer>
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name="Splash" component={Splash} />
+                    {/* <Stack.Screen name="Splash" component={Splash} /> */}
+                    <Stack.Screen name="SignUp" component={SignUp} />
                     <Stack.Screen name="Login">
                         {(props) => <Login {...props} onSelectRole={handleRoleSelection} />}
                     </Stack.Screen>
-
+                    {/* <Stack.Screen name="SignUp" component={SignUp} /> */}
                     {selectedRole === 'student' ? (
                         <>
                             <Stack.Screen name="MyStudentBottomTab" component={MyStudentBottomTab} />

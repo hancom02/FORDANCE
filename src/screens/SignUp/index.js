@@ -5,12 +5,13 @@ const SignUp = (props) => {
     const dispatch = useDispatch();
     const {
         navigation,
-
+        selectedRole,
     } = props
 
     const propsContainer = {
         navigation,
         dispatch,
+        selectedRole,
     }
     return <SignUpContainer{...propsContainer}/>
 

@@ -1,29 +1,52 @@
 import { useState } from "react";
-import { Button, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Button, Dimensions, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
 import { register, registerWithEmailAndPassword } from "../../../redux/slices/authSlice";
+import Colors from "../../../values/colors";
 
 const SignUpMainView = (props) => {
   const {
-    naviagtion,
-    dispatch
+    navigation,
+    dispatch,
+    selectedRole,
   } = props
 
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const { loading, error } = useSelector((state) => state.auth);
 
   const handleSubmit = () => {
-    dispatch(registerWithEmailAndPassword({ email, password }));
+    dispatch(registerWithEmailAndPassword({ userName, email, password, role: selectedRole}))
+    .then(() => {
+      // Chuyển hướng sang trang đăng nhập sau khi đăng ký thành công
+      navigation.navigate('Login');
+    })
+    .catch((error) => {
+      // Xử lý lỗi nếu có
+      console.error(error);
+    });
+
   };
+
+  const handleNavSignIn = () => {
+    navigation.navigate('Login');
+  }
 
   return (
     <KeyboardAvoidingView style={styles.container}>
       <View style={styles.container}>
         <Text style={styles.title}>Sign Up</Text>
         <View style={styles.formContainer}>
-          {/* <TextInput
+          <TextInput
+            style={styles.input}
+            placeholder="Username"
+            keyboardType='ascii-capable'
+            value={userName}
+            onChangeText={setUserName}
+          />
+          <TextInput
             style={styles.input}
             placeholder="Email"
             keyboardType="email-address"
@@ -36,7 +59,7 @@ const SignUpMainView = (props) => {
             secureTextEntry
             value={password}
             onChangeText={setPassword}
-          /> */}
+          />
           {error && <Text style={styles.error}>{error}</Text>}
           <TouchableOpacity
             style={[styles.button, loading && styles.buttonDisabled]}
@@ -44,6 +67,12 @@ const SignUpMainView = (props) => {
             disabled={loading}
           >
             <Text style={styles.buttonText}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.signUpContainer}>
+          <Text>Does not have an account? </Text>
+          <TouchableOpacity onPress={handleNavSignIn}>
+              <Text style={styles.textSignUp}>Log In</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -60,6 +89,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+  signUpContainer: {
+    flexDirection: 'row'
+  },
+  textSignUp: {
+    color: Colors.primaryPupple,
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -70,6 +105,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
+    width: Dimensions.get('window').width*0.80,
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 12,

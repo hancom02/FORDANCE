@@ -4,11 +4,13 @@ const SignUpContainer = (props) => {
     const {
         navigation,
         dispatch,
+        selectedRole
     } = props;
 
     const propsMainView = {
         navigation,
-        dispatch
+        dispatch,
+        selectedRole
     }
 
     return <SignUpMainView{...propsMainView}/>;

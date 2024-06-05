@@ -1,91 +1,84 @@
+import { useState } from "react";
 import Colors from "../../../values/colors";
 
-const { useState } = require("react")
-const { View, TouchableOpacity, Text, StyleSheet, Dimensions, Button } = require("react-native")
+const { KeyboardAvoidingView, Text, StyleSheet, View, TouchableOpacity, Dimensions, TextInput } = require("react-native");
 
 const LoginMainView = (props) => {
     const {
         navigation,
-        onSelectRole,
+        selectedRole,
 
-    } = props
+    } = props;
 
-    const [selectedRole, setSelectedRole] = useState(null);
-    // const isSelected = selectedRole === buttonName;
+    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    return (
-        <View style={styles.container}>
-            <TouchableOpacity 
-                onFocus={styles.studentFocusContainer} 
-                onPress={() => {
-                    setSelectedRole("student");
-                    onSelectRole('student')
-                }}
-                style={[styles.studentContainer, selectedRole==="student" && styles.studentFocusContainer]}
-            >
-                <Text style={[styles.buttonText, selectedRole==='student' && styles.selectedButtonText]}>STUDENT</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-                onPress={() => {
-                    setSelectedRole("instructor");
-                    onSelectRole('instructor');
-                }}
-                style={[styles.studentContainer, selectedRole==="instructor" && styles.studentFocusContainer]}
-            >
-                <Text style={[styles.buttonText, selectedRole==='instructor' && styles.selectedButtonText]}>INSTRUCTOR</Text>
-            </TouchableOpacity>
+    const handleNavSignUp = () => {
+        navigation.navigate('SignUp');
+    }
 
-            <Button 
-                title={'Log In With ' + selectedRole + ' Account'}
-                // onPress={() => 
-                //     navigation.navigate('MyStudentBottomTab')
-                // }
-                onPress={() => {
-                    if (selectedRole === "student") {
-                        navigation.navigate('MyStudentBottomTab');
-                    } else if (selectedRole === "instructor") {
-                        // Điều hướng đến màn hình của Instructor
-                        navigation.navigate('MyInstructorBottomTab');
-
-                    }
-                }}
-            />
-        </View>
+    return(
+        <KeyboardAvoidingView style={styles.container}>
+            <Text>Login Main View With Role {selectedRole}</Text>
+            <View style={styles.formContainer}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Username"
+                    keyboardType="email-address"
+                    value={userName}
+                    onChangeText={setEmail}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Email"
+                    keyboardType="email-address"
+                    value={email}
+                    onChangeText={setEmail}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    secureTextEntry
+                    value={password}
+                    onChangeText={setPassword}
+                />
+            </View>
+            <View style={styles.signUpContainer}>
+                <Text>Does not have an account? </Text>
+                <TouchableOpacity onPress={handleNavSignUp}>
+                    <Text style={styles.textSignUp}>Sign Up</Text>
+                </TouchableOpacity>
+            </View>
+        </KeyboardAvoidingView>
     )
 }
 
-export default LoginMainView;
+export default LoginMainView
 
 const styles = StyleSheet.create({
     container: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
+        backgroundColor: 'white',
         alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white'
+        justifyContent: 'center'
     },
-    studentContainer: {
-        width: 300,
-        height: 80,
-        marginBottom: 32,
-        borderRadius: 8,
+    signUpContainer: {
+        flexDirection: 'row'
+    },
+    formContainer: {
+
+    },
+    input: {
+        height: 40,
+        width: Dimensions.get('window').width*0.80,
+        borderColor: 'gray',
         borderWidth: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: Colors.primaryPupple,
-        backgroundColor: 'white', 
+        marginBottom: 12,
+        paddingHorizontal: 12,
     },
-    studentFocusContainer: {
-        backgroundColor: Colors.primaryPupple,
-        color: 'white'
-    },
-    buttonText: {
-        color: 'black',
-        textTransform: 'uppercase',
-        fontWeight: '700',
-        fontSize: 14,
-    },
-    selectedButtonText: {
-        color: 'white',
-    },
+    textSignUp: {
+        color: Colors.primaryPupple
+    }
 })

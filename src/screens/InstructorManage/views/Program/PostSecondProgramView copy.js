@@ -1,40 +1,28 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView, TextInput } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, FlatList } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from '../../../../values/colors';
 
+import SmallerLessonComponent from '../../../../components/SmallerLessonComponent';
+
 const PostSecondProgramView = (props) => {
-    const {
-        navigation,
-    } = props;
+    const { navigation, route } = props;
+    const [selectedItems, setSelectedItems] = useState([]);
+
+    useEffect(() => {
+        if (route.params?.selectedItems) {
+            setSelectedItems(route.params.selectedItems);
+            console.log('Selected Items:', route.params.selectedItems);
+        }
+    }, [route.params?.selectedItems]);
 
     const handleGoBack = () => {
         navigation.goBack();
     };
 
-    const [title, setTitle] = useState('');
-    const [introduce, setIntroduce] = useState('');
-    const [learn, setLearn] = useState('');
-    const [need, setNeed] = useState('');
-    const [openLevel, setOpenLevel] = useState(false);
-    const [valueLevel, setValueLevel] = useState(null);
-    const [itemsLevel, setItemsLevel] = useState([
-        { label: 'Beginner', value: 1 },
-        { label: 'Intermediate', value: 2 },
-        { label: 'Advanced', value: 3 },
-    ]);
-
-    const [openCategories, setOpenCategories] = useState(false);
-    const [valueCategories, setValueCategories] = useState(null);
-    const [itemsCategories, setItemsCategories] = useState([
-        { label: 'Hip Hop', value: 1 },
-        { label: 'Kpop', value: 2 },
-        { label: 'Ballet', value: 3 },
-        { label: 'Jazz', value: 4, },
-        { label: 'Street Dance', value: 5 },
-        { label: 'Test', value: 6 }
-    ]);
+    const onDragEnd = ({ data }) => {
+        setSelectedItems(data);
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -59,14 +47,18 @@ const PostSecondProgramView = (props) => {
                 <TouchableOpacity style={styles.normalButton}>
                     <Text style={styles.buttonText}>FINISH</Text>
                 </TouchableOpacity>
-
             </View>
-            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-
-            </ScrollView>
+            <FlatList
+                data={selectedItems}
+                renderItem={({ item, index }) => (
+                    <SmallerLessonComponent lesson={item} index={index + 1} />
+                )}
+                onDragEnd={({ data }) => setData(data)}
+                keyExtractor={(item, index) => index.toString()}
+                contentContainerStyle={styles.scrollViewContainer}
+            />
         </SafeAreaView>
     );
-
 };
 
 const styles = StyleSheet.create({
@@ -159,7 +151,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         paddingHorizontal: 16,
     },
-
 });
 
 export default PostSecondProgramView;

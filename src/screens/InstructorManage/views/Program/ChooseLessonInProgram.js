@@ -1,73 +1,127 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, FlatList, StyleSheet, TouchableOpacity, Text, } from 'react-native';
-import Video from 'react-native-video';
+import { View, FlatList, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from '../../../../values/colors';
 
 const ChooseLessonInProgram = (props) => {
-    const { navigation, } = props;
-    const [visible, setVisible] = useState(false);
-    const [currentPlayingVideo, setCurrentPlayingVideo] = useState(null);
-    const [videos, setVideos] = useState([
-        { id: '1', uri: 'https://www.w3schools.com/html/mov_bbb.mp4', duration: null },
-        { id: '2', uri: 'https://www.w3schools.com/html/movie.mp4', duration: null },
-        { id: '3', uri: 'https://www.w3schools.com/html/mov_bbb.mp4', duration: null },
-        { id: '4', uri: 'https://www.w3schools.com/html/movie.mp4', duration: null },
-        { id: '5', uri: 'https://www.w3schools.com/html/mov_bbb.mp4', duration: null },
-        { id: '6', uri: 'https://www.w3schools.com/html/movie.mp4', duration: null },
-        // Thêm các video khác ở đây
-    ]);
+    const { navigation } = props;
+    const [selectedItems, setSelectedItems] = useState([]);
+    const [lessons, setLessons] = useState([]);
+
+    useEffect(() => {
+        const fetchedLessons = [
+            // Các bài học
+            {
+                lessonName: 'How to do plete',
+                totalTime: '1:15',
+                lessonImage: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
+                lesonsVideo: ' ',
+            },
+            {
+                lessonName: 'How to do catfish',
+                totalTime: '1:15',
+                lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                lesonsVideo: ' ',
+            },
+            {
+                lessonName: 'How to do plete',
+                totalTime: '1:15',
+                lessonImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHHdZ2dMu6iPlTO62u0iwyL-gXlEO1pyBQToaodjY5izWyDcI8ohCh3SVJBzCzb8-aUio&usqp=CAU',
+                lesonsVideo: ' ',
+            },
+            {
+                lessonName: 'How to do catfish',
+                totalTime: '1:15',
+                lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                lesonsVideo: ' ',
+            },
+            {
+                lessonName: 'How to do plete',
+                totalTime: '1:15',
+                lessonImage: 'https://media.istockphoto.com/id/1272937508/vi/anh/ballerina-dancing-with-silk-fabric-modern-ballet-dancer-in-fluttering-waving-cloth-pointe-shoes.jpg?s=612x612&w=0&k=20&c=YzCYit-TSpIQdrjJZhbWkgipgHzNUspeWI-xYrnrCHU=',
+                lesonsVideo: ' ',
+            },
+            {
+                lessonName: 'How to do plete',
+                totalTime: '1:15',
+                lessonImage: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
+                lesonsVideo: ' ',
+            },
+            {
+                lessonName: 'How to do catfish',
+                totalTime: '1:15',
+                lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                lesonsVideo: ' ',
+            },
+        ];
+
+        let uniqueId = 1; // Biến đếm để tạo id duy nhất
+
+        const uniqueLessons = fetchedLessons.map((lesson) => ({
+            id: uniqueId++, // Sử dụng biến đếm làm id
+            ...lesson,
+        }));
+
+        setLessons(uniqueLessons);
+    }, []);
 
     const handleGoBack = () => {
         navigation.goBack();
     };
 
-    const handlePressGoBack = (item) => {
-        // console.log("Selected Item: ", item);
-        navigation.navigate('PostProgramSecond');
-    }
+    const handlePressGoBack = () => {
+        navigation.navigate('PostProgramSecond', { selectedItems });
+    };
+    const handlePress = (lesson) => {
+        let newSelectedItems = selectedItems.slice(); // Tạo một bản sao của mảng selectedItems
 
-    const handlePress = (item) => {
+        const existingIndex = newSelectedItems.findIndex(item => item.id === lesson.id);
 
-    }
+        if (existingIndex !== -1) {
+            // Nếu mục đã được chọn, hãy bỏ chọn nó
+            newSelectedItems.splice(existingIndex, 1);
+        } else {
+            // Nếu mục chưa được chọn, hãy thêm nó vào mảng
+            newSelectedItems.push(lesson);
+        }
 
-    const handleLoad = (data, index) => {
-        const newVideos = [...videos];
-        newVideos[index].duration = data.duration;
-        setVideos(newVideos);
+        // Sắp xếp lại mảng theo id
+        // newSelectedItems.sort((a, b) => a.id - b.id);
+
+        // Đánh chỉ số mới cho mỗi mục dựa trên vị trí của chúng trong mảng
+        newSelectedItems.forEach((item, index) => {
+            item.index = index + 1;
+        });
+
+        // Cập nhật selectedItems với các mục được chọn mới
+        setSelectedItems(newSelectedItems);
     };
 
-    const renderItem = ({ item, index }) => (
-        <TouchableOpacity style={styles.videoContainer}
-            onPress={() => handlePress(item)}
-        >
-            <Video
-                source={{ uri: item.uri }}
-                style={styles.video}
-                paused={true}
-                resizeMode="cover"
-                onLoad={(data) => handleLoad(data, index)}
-            />
+
+    const renderItem = ({ item }) => (
+        <TouchableOpacity style={styles.videoContainer} onPress={() => handlePress(item)}>
+            <Image source={{ uri: item.lessonImage }} style={styles.video} resizeMode="cover" />
+            <TouchableOpacity
+                style={[
+                    styles.selectionButton,
+                    selectedItems.some(selectedItem => selectedItem.id === item.id) ? { backgroundColor: Colors.primaryPupple } : null,
+                ]}
+                onPress={() => handlePress(item)}
+            >
+                <Text style={styles.selectionButtonText}>
+                    {item.index || ''}
+                </Text>
+            </TouchableOpacity>
             {
-                item.duration && (
+                item.totalTime && (
                     <View style={styles.durationContainer}>
-                        <Text style={styles.durationText}>{formatTime(item.duration)}</Text>
+                        <Text style={styles.durationText}>{item.totalTime}</Text>
                     </View>
                 )
             }
         </TouchableOpacity >
     );
-
-    const formatTime = (seconds) => {
-        const h = Math.floor(seconds / 3600);
-        const m = Math.floor((seconds % 3600) / 60);
-        const s = Math.floor(seconds % 60);
-        return [h, m, s]
-            .map(v => (v < 10 ? `0${v}` : v))
-            .filter((v, i) => v !== '00' || i > 0)
-            .join(':');
-    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -75,19 +129,17 @@ const ChooseLessonInProgram = (props) => {
                 <TouchableOpacity onPress={handleGoBack} style={styles.backButton}>
                     <Ionicons name="close-outline" size={24} color="black" />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.normalButton} onPress={() => handlePressGoBack}>
+                <TouchableOpacity style={styles.normalButton} onPress={handlePressGoBack}>
                     <Text style={styles.buttonText}>SAVE</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.separator} />
             <View style={styles.contentContainer}>
-                <Text style={styles.textHeader}>Choose a video (hold to open video)</Text>
                 <FlatList
-                    data={videos}
+                    data={lessons}
                     renderItem={renderItem}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item.id.toString()}
                     numColumns={3}
-                    key={3}
                 />
             </View>
         </SafeAreaView>
@@ -96,7 +148,6 @@ const ChooseLessonInProgram = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
         flex: 1,
     },
     header: {
@@ -105,14 +156,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginVertical: 10,
         height: 30,
-    },
-    headerTitle: {
-        flex: 1,
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: 'black',
-        textTransform: 'uppercase',
-        marginLeft: 20,
     },
     textHeader: {
         marginBottom: 10,
@@ -135,7 +178,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         margin: 5,
         width: '30%',
-        aspectRatio: 1, // Đảm bảo tỷ lệ 1:1 cho container
+        aspectRatio: 1,
     },
     video: {
         width: '100%',
@@ -157,8 +200,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: 'white',
         paddingVertical: 5,
-
-        fontWeight: '700'
+        fontWeight: '700',
     },
     normalButton: {
         width: '25%',
@@ -168,6 +210,29 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    selectedText: {
+        color: 'white',
+        fontSize: 20,
+    },
+    selectionButton: {
+        position: 'absolute',
+        top: 5,
+        right: 5,
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        backgroundColor: 'white',
+        borderWidth: 1,
+        borderColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    selectionButtonText: {
+        fontSize: 12,
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: '500',
     },
 });
 

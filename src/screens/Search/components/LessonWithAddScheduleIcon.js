@@ -1,7 +1,6 @@
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Colors from "../../../values/colors";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import LinearGradient from 'react-native-linear-gradient';
 
 
 const LessonWithAddScheduleIcon = (props) => {
@@ -31,7 +30,7 @@ const LessonWithAddScheduleIcon = (props) => {
                     </View>
 
                     <View style={styles.lessonNameContainer}>
-                        <Text style={styles.textName}>{lessons.lessonName}</Text>     
+                        <Text style={styles.textName}>{lessons.lessonName}</Text>
                     </View>
                 </ImageBackground>
             </View>

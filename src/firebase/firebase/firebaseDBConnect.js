@@ -15,12 +15,15 @@ import {
     deleteDoc,
     query,
     where,
+    serverTimestamp,
 } from 'firebase/firestore'
 
 import {
     getAuth,
     onAuthStateChanged,
     createUserWithEmailAndPassword,
+    sendEmailVerification,
+    
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
     verifyPasswordResetCode,
@@ -63,10 +66,12 @@ export {
     deleteDoc,
     query,
     where,
+    serverTimestamp,
 
     getAuth,
     onAuthStateChanged,
     createUserWithEmailAndPassword,
+    sendEmailVerification,
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
     verifyPasswordResetCode,

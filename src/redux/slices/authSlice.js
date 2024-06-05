@@ -1,20 +1,59 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import {
+import { 
+  auth, 
   getAuth,
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
   verifyPasswordResetCode,
+  // GoogleAuthProvider,
   signOut,
-} from 'firebase/auth';
-import { auth } from './firebase';
+  sendEmailVerification,
+  serverTimestamp,
+
+} from '../../firebase/firebase/firebaseDBConnect';
+import { writeDataDBFirestore } from '../../firebase/firebase/firebaseDBController';
 
 export const registerWithEmailAndPassword = createAsyncThunk(
   'auth/registerWithEmailAndPassword',
-  async ({ email, password }) => {
+  async ({ userName, email, password, role }, {rejectWithValue, dispatch}) => {
     try {
-      const { user } = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      const userId = user.uid
+
+      // Send email verification
+      sendEmailVerification(user)
+        .then(() => {
+          Alert.alert('Please verify in your Email!')
+        })
+        .catch((error) => {
+          console.log('Error sending email verification:', error);
+        });
+        
+        //Tạo doc cho collection user trong firestore
+        // firebaseDatabaseSet(
+        //   firebaseDatabaseRef(firebaseDatabase, `users/${userId}`), {
+        //   displayName: userName,
+        //   email: user.email,
+        //   emailVerified: user.emailVerified,
+        //   accessToken: user.accessToken,
+        //   provider: user.providerId,
+        //   typeUser: 'user',
+        //   agreeTerm: isChecked,
+        //   createdAt: serverTimestamp()
+        // })
+
+        writeDataDBFirestore('users', userId, {
+          displayName: userName,
+          email: user.email,
+          emailVerified: user.emailVerified,
+          providerId: user.providerId,
+          role: role,
+          createAt: serverTimestamp() 
+        })
+
       return user;
     } catch (error) {
       throw new Error(error.message);

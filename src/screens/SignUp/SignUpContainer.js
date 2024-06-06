@@ -22,7 +22,6 @@ const SignUpContainer = (props) => {
         const regexp = new RegExp(
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     );
-
         return regexp.test(email);
     }, []);
 
@@ -60,13 +59,11 @@ const SignUpContainer = (props) => {
 
             })
             .catch((error) => {
-                ToastMessage({
-                openAppToast: true,
-                text1: 'systemMessage',
-                text2: error.message,
-                timeVisible: 3000,
-                type: 'error',
-                });
+                Toast.showWithGravity(
+                    "Sign up failed!", 
+                    Toast.LONG,
+                    Toast.TOP
+                )  
             });
         }
     };

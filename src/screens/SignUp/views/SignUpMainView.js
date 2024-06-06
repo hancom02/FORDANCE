@@ -31,7 +31,8 @@ const SignUpMainView = (props) => {
   return (
     <KeyboardAvoidingView style={styles.container}>
       <View style={styles.container}>
-        <Text style={styles.title}>Sign Up</Text>
+        <Text style={styles.title}>Sign Up With {selectedRole} Account</Text>
+
         <View style={styles.formContainer}>
           <View style={styles.inputContainer}>
             <TextInput
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'white',
   },
   signUpContainer: {
     flexDirection: 'row'
@@ -110,6 +111,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 24,
+    textTransform: 'capitalize'
   },
   formContainer: {
     width: '80%',
@@ -125,6 +127,17 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     paddingHorizontal: 12,
+  },
+  button: {
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.primaryPupple
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: 'white'
   },
   error: {
     color: 'red',

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import 'react-native-gesture-handler';
 import Splash from "./screens/Splash";
 import Login from "./screens/Login";
 import HomeStack from "./navigation/HomeStack";
@@ -10,7 +11,6 @@ import MyStudentBottomTab from "./navigation/MyStudentBottomTab";
 import MyInstructorBottomTab from "./navigation/MyInstructorBottomTab";
 import Lesson from './screens/Lesson';
 import Program from './screens/Program';
-import InstructorAccountMainView from './screens/InstructorAccount/views/InstructorAccountMainView';
 import InstructorDetailView from './screens/Instructor/views/InstructureDetailView';
 import { Provider } from 'react-redux';
 import store from './redux/store';

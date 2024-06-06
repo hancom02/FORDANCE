@@ -20,8 +20,10 @@ const PostSecondProgramView = (props) => {
         navigation.goBack();
     };
 
-    const onDragEnd = ({ data }) => {
-        setSelectedItems(data);
+    const handleDeleteItem = (index) => {
+        const updatedItems = [...selectedItems];
+        updatedItems.splice(index, 1); // Loại bỏ item có index được truyền vào
+        setSelectedItems(updatedItems); // Cập nhật danh sách
     };
 
     return (
@@ -51,9 +53,15 @@ const PostSecondProgramView = (props) => {
             <FlatList
                 data={selectedItems}
                 renderItem={({ item, index }) => (
-                    <SmallerLessonComponent lesson={item} index={index + 1} />
+                    <View style={styles.itemContainer}>
+                        <View style={{ with: '80%' }}>
+                            <SmallerLessonComponent lesson={item} index={index + 1} />
+                        </View>
+                        <TouchableOpacity onPress={() => handleDeleteItem(index)} style={styles.deleteButton}>
+                            <Ionicons name="trash-outline" size={24} color="black" />
+                        </TouchableOpacity>
+                    </View>
                 )}
-                onDragEnd={({ data }) => setData(data)}
                 keyExtractor={(item, index) => index.toString()}
                 contentContainerStyle={styles.scrollViewContainer}
             />
@@ -150,6 +158,17 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'flex-end',
         paddingHorizontal: 16,
+        marginBottom: 20,
+    },
+    itemContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 16,
+        paddingVertical: 10,
+    },
+    deleteButton: {
+        padding: 10,
     },
 });
 

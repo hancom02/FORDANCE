@@ -15,6 +15,7 @@ import {
 } from '../../firebase/firebase/firebaseDBConnect';
 import { writeDataDBFirestore } from '../../firebase/firebase/firebaseDBController';
 import { Alert } from 'react-native';
+import { saveDataAsyncStorage } from '../../firebase/asyncStorage/AsyncStorage';
 
 export const registerWithEmailAndPassword = createAsyncThunk(
   'auth/registerWithEmailAndPassword',
@@ -70,28 +71,25 @@ export const loginWithEmailAndPassword = createAsyncThunk('auth/loginWithEmailAn
       const respone = await signInWithEmailAndPassword(auth, email, password);
       // debugger
       if (respone.user) {
-          const user = {
-              // uid: respone.user.uid,
-              // email: respone.user.email,
-              // emailVerified: respone.user.emailVerified,
-              // email: respone.user.email,
-              // provider: respone.user.id,
-          }
-  
-          // Khi login thành công thì sẽ lưu trạng thái đăng nhập vào AsyncStrogae
-          saveDataAsyncStorage("userUid", user.uid);
+        const user = {
+            uid: respone.user.uid,
+            email: respone.user.email,
+            emailVerified: respone.user.emailVerified,
+            email: respone.user.email,
+            provider: respone.user.id,
+        }
 
-          console.log('Login succes');
-          return user;
+        // Khi login thành công thì sẽ lưu trạng thái đăng nhập vào AsyncStrogae
+        saveDataAsyncStorage("userUid", user.uid);
+
+        console.log('Login succes');
+        return user;
       } 
-
       console.log("Login fail")
-      return null;
-     
-      
+      return null;      
   } catch (error) {
-      // console.log('error')
-      return rejectWithValue(error.message);
+    // console.log('error')
+    return rejectWithValue(error.message);
   }
 });
 

@@ -14,6 +14,7 @@ import {
 
 } from '../../firebase/firebase/firebaseDBConnect';
 import { writeDataDBFirestore } from '../../firebase/firebase/firebaseDBController';
+import { Alert } from 'react-native';
 
 export const registerWithEmailAndPassword = createAsyncThunk(
   'auth/registerWithEmailAndPassword',
@@ -26,40 +27,74 @@ export const registerWithEmailAndPassword = createAsyncThunk(
       // Send email verification
       sendEmailVerification(user)
         .then(() => {
-          Alert.alert('Please verify in your Email!')
+          // Alert.alert('Please verify in your Email!')
+          console.log('Success sending email verification!');
         })
         .catch((error) => {
           console.log('Error sending email verification:', error);
+          // Alert.alert("Error! Email doesn not exist!")
         });
         
-        //Tạo doc cho collection user trong firestore
-        // firebaseDatabaseSet(
-        //   firebaseDatabaseRef(firebaseDatabase, `users/${userId}`), {
-        //   displayName: userName,
-        //   email: user.email,
-        //   emailVerified: user.emailVerified,
-        //   accessToken: user.accessToken,
-        //   provider: user.providerId,
-        //   typeUser: 'user',
-        //   agreeTerm: isChecked,
-        //   createdAt: serverTimestamp()
-        // })
+        {role === "student" && 
+          writeDataDBFirestore('users', userId, {
+            displayName: userName,
+            email: user.email,
+            emailVerified: user.emailVerified,
+            providerId: user.providerId,
+            role: role,
+            createAt: serverTimestamp() 
+          })
+        }
+        {role === "instructor" &&
+          writeDataDBFirestore('instructors', userId, {
+            displayName: userName,
+            email: user.email,
+            emailVerified: user.emailVerified,
+            providerId: user.providerId,
+            role: role,
+            createAt: serverTimestamp() 
+          })
+        }
 
-        writeDataDBFirestore('users', userId, {
-          displayName: userName,
-          email: user.email,
-          emailVerified: user.emailVerified,
-          providerId: user.providerId,
-          role: role,
-          createAt: serverTimestamp() 
-        })
-
-      return user;
-    } catch (error) {
-      throw new Error(error.message);
-    }
+        return { success: true, message: 'Register successful', user: user };  
+        // return user;  
+      } catch (error) {
+        throw new Error(error.message);
+      }
   }
 );
+
+export const loginWithEmailAndPassword = createAsyncThunk('auth/loginWithEmailAndPassword', async ({email, password}, { rejectWithValue }) => {
+  // console.log('user/getUser', email + ',' + password)
+  try {
+      const respone = await signInWithEmailAndPassword(auth, email, password);
+      // debugger
+      if (respone.user) {
+          const user = {
+              // uid: respone.user.uid,
+              // email: respone.user.email,
+              // emailVerified: respone.user.emailVerified,
+              // email: respone.user.email,
+              // provider: respone.user.id,
+          }
+  
+          // Khi login thành công thì sẽ lưu trạng thái đăng nhập vào AsyncStrogae
+          saveDataAsyncStorage("userUid", user.uid);
+
+          console.log('Login succes');
+          return user;
+      } 
+
+      console.log("Login fail")
+      return null;
+     
+      
+  } catch (error) {
+      // console.log('error')
+      return rejectWithValue(error.message);
+  }
+});
+
 
 // export const loginWithEmailAndPassword = createAsyncThunk(
 //   'auth/loginWithEmailAndPassword',

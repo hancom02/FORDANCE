@@ -76,7 +76,10 @@ const ManageHeader = (props) => {
                                 <TouchableOpacity style={styles.overlay} onPress={handleCloseModal} />
                                 <View style={[styles.modalContainer, { top: modalPosition.y, left: modalPosition.x }]}>
                                     <View style={styles.modalContent}>
-                                        <TouchableOpacity style={[styles.deleteModal, { marginBottom: 10, }]} onPress={onPressPostClass}>
+                                        <TouchableOpacity style={[styles.deleteModal, { marginBottom: 10, }]} onPress={async () => {
+                                            await onPressPostClass();
+                                            handleCloseModal();
+                                        }}>
                                             <View style={{ position: 'relative' }}>
                                                 <Ionicons name="tablet-landscape-outline" size={20} color="black" />
                                                 <View style={{ position: 'absolute', top: 5, left: 5 }}>

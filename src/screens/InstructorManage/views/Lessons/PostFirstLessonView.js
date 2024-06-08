@@ -1,6 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Platform } from 'react-native';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, TextInput, ScrollView, ImageBackground } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, TextInput, ScrollView, ImageBackground, Alert } from "react-native";
 import React, { useState, useEffect } from 'react';
 import { useRoute } from '@react-navigation/native';
 import DropDownPicker from "react-native-dropdown-picker";
@@ -8,21 +8,10 @@ import DocumentPicker from 'react-native-document-picker';
 import { createThumbnail } from 'react-native-create-thumbnail';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from "../../../../values/colors";
+import { uploadVideoToS3, uploadImageToS3 } from "../../../../aws/awsService";
 
 const PostLessonFirstView = (props) => {
     const { navigation } = props;
-    const route = useRoute();
-
-    // useEffect(() => {
-    //     if (route.params?.selectedVideo) {
-    //         setSelectedVideo(route.params.selectedVideo);
-    //         createThumbnail({
-    //             url: route.params.selectedVideo.uri,
-    //         }).then(response => {
-    //             setThumbnail(response.path);
-    //         }).catch(err => console.error(err));
-    //     }
-    // }, [route.params?.selectedVideo]);
 
     const handleGoBack = () => {
         navigation.goBack();
@@ -31,6 +20,7 @@ const PostLessonFirstView = (props) => {
     const [comment, setComment] = useState("");
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [thumbnail, setThumbnail] = useState(null);
+    const [newThumbnail, setNewThumbnail] = useState(null);
     const [openLevel, setOpenLevel] = useState(false);
     const [valueLevel, setValueLevel] = useState(null);
     const [itemsLevel, setItemsLevel] = useState([
@@ -50,15 +40,23 @@ const PostLessonFirstView = (props) => {
         { label: 'Test', value: 6 }
     ]);
 
-    const getFilePathFromUri = async (uri) => {
-        if (Platform.OS === 'android' && uri.startsWith('content://')) {
-            const fileInfo = await fetch(uri);
-            const blob = await fileInfo.blob();
-            return blob.data; // Đây là đường dẫn tệp thực sự
-        } else {
-            return uri; // Đường dẫn đã là đường dẫn tệp
-        }
-    };
+
+    const uriToBlob = (uri) => {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest()
+            xhr.onload = function () {
+                // return the blob
+                resolve(xhr.response)
+            }
+            xhr.onerror = function () {
+                reject(new Error('uriToBlob failed'))
+            }
+            xhr.responseType = 'blob'
+            xhr.open('GET', uri, true)
+
+            xhr.send(null)
+        })
+    }
 
     const handleChooseVideo = async () => {
         try {
@@ -66,49 +64,101 @@ const PostLessonFirstView = (props) => {
                 type: [DocumentPicker.types.video],
             });
 
-            if (res && res.uri && res.uri.startsWith) {
+            if (res && res[0].uri) {
                 setSelectedVideo(res);
-                createThumbnail({ url: res.uri })
-                    .then(thumbnail => setThumbnail(thumbnail))
-                    .catch(error => {
-                        console.error("Error creating thumbnail:", error);
-                        // Xử lý lỗi ở đây nếu cần
-                    });
+                createThumbnail({ url: res[0].uri })
+                    .then(response => setThumbnail(response.path))
+                    .catch(err => console.error(err));
+            }
+
+        } catch (err) {
+            if (DocumentPicker.isCancel(err)) {
+                console.log('User cancelled the picker');
             } else {
-                console.error("Invalid or undefined URI:", res);
+                console.error(err);
+            }
+        }
+    };
+
+    const handleChooseThumbnail = async () => {
+        try {
+            const res = await DocumentPicker.pick({
+                type: [DocumentPicker.types.images],
+            });
+
+            if (res && res[0].uri) {
+                // Thiết lập thumbnail mới
+                setNewThumbnail(res[0].uri);
             }
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
                 console.log('User cancelled the picker');
             } else {
-                console.error("Error picking video:", err);
-                // Xử lý lỗi ở đây nếu cần
+                console.error(err);
             }
         }
     };
 
+    const handleUndo = () => {
+        setNewThumbnail(null);
+    }
+
+    // const handleUpload = async () => {
+    //     if (!selectedVideo || !selectedVideo[0].uri) {
+    //         Alert.alert('Error', 'Please select a video');
+    //         return;
+    //     }
+
+    //     for (const fileDetail of selectedVideo) {
+    //         const filePath = fileDetail.uri.replace('file://', '');
+    //         const fileName = fileDetail.name;
+
+    //         try {
+    //             const fileData = await uriToBlob(filePath);
+    //             await uploadVideoToS3(fileName, fileData);
+    //             console.log("File uploaded: ", fileName);
+    //         } catch (error) {
+    //             console.error('Error uploading file: ', error);
+    //             Alert.alert('Error: ', 'File upload failed');
+    //         }
+    //     }
+    // };
+
     const handleUpload = async () => {
-        if (!selectedVideo) {
-            Alert.alert('Error', 'Please select a video');
-            return;
-        }
-
-        // Gửi video lên máy chủ và nhận đường dẫn của video từ máy chủ
         try {
-            // Thực hiện gửi video lên máy chủ và nhận đường dẫn video từ máy chủ
-            // Code của bạn ở đây để gửi video lên máy chủ và nhận đường dẫn video từ máy chủ
-            const videoUrlFromServer = 'http://example.com/video.mp4'; // Đường dẫn video từ máy chủ
+            if (!selectedVideo || !selectedVideo[0].uri) {
+                Alert.alert('Error', 'Please select a video');
+                return;
+            }
 
-            // Lưu đường dẫn video vào cơ sở dữ liệu hoặc bất kỳ nơi nào phù hợp với ứng dụng của bạn
-            console.log('Video URL from server:', videoUrlFromServer);
+            for (const fileDetail of selectedVideo) {
+                const filePath = fileDetail.uri.replace('file://', '');
+                const fileName = fileDetail.name;
 
-            // Tiếp theo, bạn cần thực hiện việc hiển thị video và thumbnail trong ứng dụng của bạn
-            // Bạn có thể sử dụng videoUrlFromServer để phát video từ máy chủ và thumbnail để hiển thị hình ảnh đại diện
+                const fileData = await uriToBlob(filePath);
+                await uploadVideoToS3(fileName, fileData);
+                console.log("Video uploaded: ", fileName);
+            }
+
+            if (newThumbnail) {
+                const thumbnailFileName = `${selectedVideo[0].name}_thumbnail.jpg`; // Đặt tên cho thumbnail
+                const thumbnailData = await uriToBlob(newThumbnail);
+                await uploadImageToS3(thumbnailFileName, thumbnailData);
+                console.log("Thumbnail uploaded: ", thumbnailFileName);
+            } else if (thumbnail) {
+                const thumbnailFileName = `${selectedVideo[0].name}_thumbnail.jpg`; // Đặt tên cho thumbnail
+                const thumbnailData = await uriToBlob(thumbnail);
+                await uploadImageToS3(thumbnailFileName, thumbnailData);
+                console.log("Thumbnail uploaded: ", thumbnailFileName);
+            }
+
+            Alert.alert('Success', 'Upload successful');
         } catch (error) {
-            console.error('Error uploading video:', error);
-            Alert.alert('Error', 'Failed to upload video');
+            console.error('Error uploading file: ', error);
+            Alert.alert('Error: ', 'File upload failed');
         }
     };
+
 
     const Username = "UserName";
 
@@ -125,7 +175,7 @@ const PostLessonFirstView = (props) => {
                 <View style={styles.contentContainer}>
                     <View style={styles.chooseVideoContainer}>
                         {thumbnail ? (
-                            <ImageBackground source={{ uri: thumbnail }} style={styles.thumbnail}>
+                            <ImageBackground resizeMode="contain" source={{ uri: thumbnail }} style={styles.thumbnail}>
                                 <TouchableOpacity style={[styles.chooseVideoButton, { marginBottom: 10, marginRight: 10 }]} onPress={handleChooseVideo}>
                                     <Text style={styles.buttonText}>Choose Video</Text>
                                 </TouchableOpacity>
@@ -142,6 +192,27 @@ const PostLessonFirstView = (props) => {
 
                         )}
                     </View>
+                    {thumbnail ? (
+                        <View>
+                            <View style={styles.chooseVideoContainer}>
+                                <ImageBackground resizeMode="contain" source={{ uri: newThumbnail ? newThumbnail : thumbnail }} style={styles.thumbnail}>
+                                </ImageBackground>
+                            </View>
+                            {newThumbnail ? (
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <TouchableOpacity style={styles.thumbnailButton} onPress={handleChooseThumbnail}>
+                                        <Text style={styles.buttonText2}>Choose Another</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.thumbnailButton} onPress={handleUndo}>
+                                        <Text style={styles.buttonText2}>Use default</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            ) : (
+                                <TouchableOpacity style={[styles.chooseVideoButton, { marginBottom: 10, marginHorizontal: 20 }]} onPress={handleChooseThumbnail}>
+                                    <Text style={styles.buttonText}>Choose Another Thumbnail</Text>
+                                </TouchableOpacity>)}
+                        </View>
+                    ) : (<></>)}
 
                     <View style={styles.userNameContainer}>
                         <Ionicons name="person-circle-outline" size={40} color="black" />
@@ -225,7 +296,7 @@ const PostLessonFirstView = (props) => {
                         />
                     </View>
                 </View>
-                <TouchableOpacity style={styles.uploadButton}>
+                <TouchableOpacity style={styles.uploadButton} onPress={handleUpload}>
                     <Text style={styles.uploadButtontxt}>UPLOAD</Text>
                 </TouchableOpacity>
             </ScrollView>
@@ -282,6 +353,7 @@ const styles = StyleSheet.create({
     chooseVideoContainer: {
         width: '100%',
         height: 150,
+        maxHeight: 200,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
@@ -365,6 +437,23 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         marginVertical: 5,
     },
+    thumbnailButton: {
+        width: '45%',
+        height: 'auto',
+        backgroundColor: '#5F64E2',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20,
+        marginHorizontal: 5,
+    },
+    buttonText2: {
+        fontSize: 12,
+        color: 'white',
+        paddingHorizontal: 16,
+        paddingVertical: 10,
+        fontWeight: '700'
+    }
 });
 
 

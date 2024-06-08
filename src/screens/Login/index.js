@@ -1,18 +1,21 @@
-const { default: LoginContainer } = require("./LoginContainer")
+import { useDispatch } from "react-redux";
+
+const { default: LoginContainer } = require("./LoginContainer");
 
 const Login = (props) => {
+    const dispatch = useDispatch();
     const {
         navigation,
-        onSelectRole,
-
+        selectedRole,
     } = props;
 
-    const propsCongtainer = {
+    const propsContainer = {
         navigation,
-        onSelectRole
-    };
+        selectedRole,
+        dispatch,
+    }
 
-    return <LoginContainer{...propsCongtainer}/>
+    return <LoginContainer{...propsContainer}/>
 }
 
-export default Login;
+export default Login

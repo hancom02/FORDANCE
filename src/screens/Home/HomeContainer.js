@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, firebaseDatabase, firestore, getDocs } from "../../firebase/firebaseConnect";
+import { collection, firebaseDatabase, firestore, getDocs } from "../../firebase/reactNativeFirebase/firebaseConnect";
 import HomeMainView from "./views/HomeMainView";
 import { fetchAllLessons } from "../../redux/slices/lessonSlice";
 import { fetchAllPrograms } from "../../redux/slices/programSlice";

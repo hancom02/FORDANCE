@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import 'react-native-gesture-handler';
 import Splash from "./screens/Splash";
 import Login from "./screens/Login";
 import HomeStack from "./navigation/HomeStack";

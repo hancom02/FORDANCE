@@ -1,8 +1,10 @@
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Platform } from 'react-native';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions, TextInput, ScrollView, ImageBackground } from "react-native";
 import React, { useState, useEffect } from 'react';
 import { useRoute } from '@react-navigation/native';
 import DropDownPicker from "react-native-dropdown-picker";
+import DocumentPicker from 'react-native-document-picker';
 import { createThumbnail } from 'react-native-create-thumbnail';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from "../../../../values/colors";
@@ -11,16 +13,16 @@ const PostLessonFirstView = (props) => {
     const { navigation } = props;
     const route = useRoute();
 
-    useEffect(() => {
-        if (route.params?.selectedVideo) {
-            setSelectedVideo(route.params.selectedVideo);
-            createThumbnail({
-                url: route.params.selectedVideo.uri,
-            }).then(response => {
-                setThumbnail(response.path);
-            }).catch(err => console.error(err));
-        }
-    }, [route.params?.selectedVideo]);
+    // useEffect(() => {
+    //     if (route.params?.selectedVideo) {
+    //         setSelectedVideo(route.params.selectedVideo);
+    //         createThumbnail({
+    //             url: route.params.selectedVideo.uri,
+    //         }).then(response => {
+    //             setThumbnail(response.path);
+    //         }).catch(err => console.error(err));
+    //     }
+    // }, [route.params?.selectedVideo]);
 
     const handleGoBack = () => {
         navigation.goBack();
@@ -48,6 +50,66 @@ const PostLessonFirstView = (props) => {
         { label: 'Test', value: 6 }
     ]);
 
+    const getFilePathFromUri = async (uri) => {
+        if (Platform.OS === 'android' && uri.startsWith('content://')) {
+            const fileInfo = await fetch(uri);
+            const blob = await fileInfo.blob();
+            return blob.data; // Đây là đường dẫn tệp thực sự
+        } else {
+            return uri; // Đường dẫn đã là đường dẫn tệp
+        }
+    };
+
+    const handleChooseVideo = async () => {
+        try {
+            const res = await DocumentPicker.pick({
+                type: [DocumentPicker.types.video],
+            });
+
+            if (res && res.uri && res.uri.startsWith) {
+                setSelectedVideo(res);
+                createThumbnail({ url: res.uri })
+                    .then(thumbnail => setThumbnail(thumbnail))
+                    .catch(error => {
+                        console.error("Error creating thumbnail:", error);
+                        // Xử lý lỗi ở đây nếu cần
+                    });
+            } else {
+                console.error("Invalid or undefined URI:", res);
+            }
+        } catch (err) {
+            if (DocumentPicker.isCancel(err)) {
+                console.log('User cancelled the picker');
+            } else {
+                console.error("Error picking video:", err);
+                // Xử lý lỗi ở đây nếu cần
+            }
+        }
+    };
+
+    const handleUpload = async () => {
+        if (!selectedVideo) {
+            Alert.alert('Error', 'Please select a video');
+            return;
+        }
+
+        // Gửi video lên máy chủ và nhận đường dẫn của video từ máy chủ
+        try {
+            // Thực hiện gửi video lên máy chủ và nhận đường dẫn video từ máy chủ
+            // Code của bạn ở đây để gửi video lên máy chủ và nhận đường dẫn video từ máy chủ
+            const videoUrlFromServer = 'http://example.com/video.mp4'; // Đường dẫn video từ máy chủ
+
+            // Lưu đường dẫn video vào cơ sở dữ liệu hoặc bất kỳ nơi nào phù hợp với ứng dụng của bạn
+            console.log('Video URL from server:', videoUrlFromServer);
+
+            // Tiếp theo, bạn cần thực hiện việc hiển thị video và thumbnail trong ứng dụng của bạn
+            // Bạn có thể sử dụng videoUrlFromServer để phát video từ máy chủ và thumbnail để hiển thị hình ảnh đại diện
+        } catch (error) {
+            console.error('Error uploading video:', error);
+            Alert.alert('Error', 'Failed to upload video');
+        }
+    };
+
     const Username = "UserName";
 
     return (
@@ -64,7 +126,7 @@ const PostLessonFirstView = (props) => {
                     <View style={styles.chooseVideoContainer}>
                         {thumbnail ? (
                             <ImageBackground source={{ uri: thumbnail }} style={styles.thumbnail}>
-                                <TouchableOpacity style={[styles.chooseVideoButton, { marginBottom: 10, marginRight: 10 }]} onPress={() => { navigation.navigate('PostClassSecond') }}>
+                                <TouchableOpacity style={[styles.chooseVideoButton, { marginBottom: 10, marginRight: 10 }]} onPress={handleChooseVideo}>
                                     <Text style={styles.buttonText}>Choose Video</Text>
                                 </TouchableOpacity>
                             </ImageBackground>
@@ -73,7 +135,7 @@ const PostLessonFirstView = (props) => {
                                 <View style={styles.circle}>
                                     <Ionicons name="cloud-upload-outline" size={40} color="#848484" />
                                 </View>
-                                <TouchableOpacity style={styles.chooseVideoButton} onPress={() => { navigation.navigate('PostClassSecond') }}>
+                                <TouchableOpacity style={styles.chooseVideoButton} onPress={handleChooseVideo}>
                                     <Text style={styles.buttonText}>Choose Video</Text>
                                 </TouchableOpacity>
                             </View>

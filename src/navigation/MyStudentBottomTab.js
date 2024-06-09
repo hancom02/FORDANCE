@@ -6,7 +6,6 @@ import Colors from "../values/colors";
 import HomeStack from "./HomeStack";
 import LibraryStack from "./LibraryStack";
 import Schedule from "../screens/Schedule";
-import Account from "../screens/Account";
 import AccountStack from './AccountStack';
 
 const BottomTab = createBottomTabNavigator();

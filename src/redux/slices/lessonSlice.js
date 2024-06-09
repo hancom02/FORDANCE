@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice }  from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { firebaseDatabase } from "../../firebase/reactNativeFirebase/firebaseConnect";
 import { readDataFirestore } from "../../firebase/reactNativeFirebase/firebaseController";
 import { act } from "react";
@@ -6,14 +6,14 @@ import { readDataDBFirestore, readDataDBFirestoreCollection, readDataDBFirestore
 
 // Hàm fetchAllLessons sử dụng createAsyncThunk để lấy tất cả các lesson
 export const fetchAllLessons = createAsyncThunk('lesson/fetchAll', async (_, { rejectWithValue, dispatch }) => {
-        try {
-            // const lessons = await readDataFirestore('lessons');
-            const lessons = await readDataDBFirestoreCollection('lessons');
+    try {
+        // const lessons = await readDataFirestore('lessons');
+        const lessons = await readDataDBFirestoreCollection('lessons');
 
-            dispatch(setAllLessons(lessons)); //đẩy action fetchAllLessons vào reducer mới được xử lý
-        } catch (error) {
-            return rejectWithValue(error.message);
-        }    
+        dispatch(setAllLessons(lessons)); //đẩy action fetchAllLessons vào reducer mới được xử lý
+    } catch (error) {
+        return rejectWithValue(error.message);
+    }
 });
 
 // const favLessonByUserId = () => createAsyncThunk('song/reactHeartSong', async ({ lessonId, userId }, { rejectWithValue }) => {
@@ -71,12 +71,12 @@ const lessonSlice = createSlice({
 });
 
 export const {
-    setLesson, 
+    setLesson,
     setAllLessons,
-    addLesson, 
-    updateLesson, 
-    removeLesson, 
-    approveLesson, 
+    addLesson,
+    updateLesson,
+    removeLesson,
+    approveLesson,
     lockLesson
 } = lessonSlice.actions;
 

@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { firebaseDatabase } from "../../firebase/firebaseConnect";
-import { readDataFirestore } from "../../firebase/firebaseController";
+import { readDataDBFirestore, readDataDBFirestoreCollection, readDataDBFirestoreWithCondition, readDataFirestoreCollection } from "../../firebase/firebase/firebaseDBController";
+
 
 // Hàm fetchAllPrograms sử dụng createAsyncThunk để lấy tất cả các chương trình
 export const fetchAllPrograms = createAsyncThunk('program/fetchAll', async (_, { rejectWithValue, dispatch }) => {
     try {
-        const programs = await readDataFirestore('programs');
+        const programs = await readDataDBFirestoreCollection('programs');
         dispatch(setAllPrograms(programs)); //đẩy action fetchAllPrograms vào reducer mới được xử lý
     } catch (error) {
         return rejectWithValue(error.message);

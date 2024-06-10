@@ -1,91 +1,119 @@
+import { useState } from "react";
 import Colors from "../../../values/colors";
 
-const { useState } = require("react")
-const { View, TouchableOpacity, Text, StyleSheet, Dimensions, Button } = require("react-native")
+const { KeyboardAvoidingView, Text, StyleSheet, View, TouchableOpacity, Dimensions, TextInput } = require("react-native");
 
 const LoginMainView = (props) => {
     const {
         navigation,
-        onSelectRole,
+        selectedRole,
+        validateEmail,
+        handleSignIn,
+    } = props;
 
-    } = props
+    // const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    const [selectedRole, setSelectedRole] = useState(null);
-    // const isSelected = selectedRole === buttonName;
+    const [emailTouched, setEmailTouched] = useState(false);
+    const [passwordTouched, setPasswordTouched] = useState(false);
 
-    return (
-        <View style={styles.container}>
-            <TouchableOpacity 
-                onFocus={styles.studentFocusContainer} 
-                onPress={() => {
-                    setSelectedRole("student");
-                    onSelectRole('student')
-                }}
-                style={[styles.studentContainer, selectedRole==="student" && styles.studentFocusContainer]}
-            >
-                <Text style={[styles.buttonText, selectedRole==='student' && styles.selectedButtonText]}>STUDENT</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-                onPress={() => {
-                    setSelectedRole("instructor");
-                    onSelectRole('instructor');
-                }}
-                style={[styles.studentContainer, selectedRole==="instructor" && styles.studentFocusContainer]}
-            >
-                <Text style={[styles.buttonText, selectedRole==='instructor' && styles.selectedButtonText]}>INSTRUCTOR</Text>
-            </TouchableOpacity>
+    const handleNavSignUp = () => {
+        navigation.navigate('SignUp');
+    }
 
-            <Button 
-                title={'Log In With ' + selectedRole + ' Account'}
-                // onPress={() => 
-                //     navigation.navigate('MyStudentBottomTab')
-                // }
-                onPress={() => {
-                    if (selectedRole === "student") {
-                        navigation.navigate('MyStudentBottomTab');
-                    } else if (selectedRole === "instructor") {
-                        // Điều hướng đến màn hình của Instructor
-                        navigation.navigate('MyInstructorBottomTab');
+    return(
+        <KeyboardAvoidingView style={styles.container}>
+            <View style={styles.container}>
+                <Text style={styles.textLogin}>Login With {selectedRole} Account</Text>
 
-                    }
-                }}
-            />
-        </View>
+                <View style={styles.formContainer}>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Email"
+                            keyboardType="email-address"
+                            value={email}
+                            onChangeText={setEmail}
+                            onFocus={() => setEmailTouched(true)}
+                        />
+                        {(emailTouched && (email.length === 0 || !validateEmail(email))) && <Text style={{fontSize: 12, color: 'red'}}>Invalid Email</Text>}
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Password"
+                            secureTextEntry
+                            value={password}
+                            onChangeText={setPassword}
+                            onFocus={() => setPasswordTouched(true)}
+                        />
+                        {(passwordTouched && password.length < 6) && <Text style={{fontSize: 12, color: 'red'}}>Password requires at least 6 characters</Text>}
+                    </View>
+                </View>
+
+                <TouchableOpacity style={styles.buttonSignIn} onPress={() => handleSignIn(email, password)}>
+                    <Text style={styles.textSignIn}>Sign In</Text>
+                </TouchableOpacity>
+
+                <View style={styles.signUpContainer}>
+                    <Text>Does not have an account? </Text>
+                    <TouchableOpacity onPress={handleNavSignUp}>
+                        <Text style={styles.textSignUp}>Sign Up</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </KeyboardAvoidingView>
     )
 }
 
-export default LoginMainView;
+export default LoginMainView
 
 const styles = StyleSheet.create({
     container: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
+        backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'white'
     },
-    studentContainer: {
-        width: 300,
-        height: 80,
-        marginBottom: 32,
-        borderRadius: 8,
+    signUpContainer: {
+        flexDirection: 'row'
+    },
+    textLogin: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 24,
+        textTransform: 'capitalize'
+    },
+    formContainer: {
+
+    },
+    inputContainer: {
+        marginBottom: 12,
+        backgroundColor: 'pink'
+    },
+    input: {
+        height: 40,
+        width: Dimensions.get('window').width*0.80,
+        borderColor: 'gray',
         borderWidth: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: Colors.primaryPupple,
-        backgroundColor: 'white', 
+        paddingHorizontal: 12,
     },
-    studentFocusContainer: {
+    buttonSignIn: {
         backgroundColor: Colors.primaryPupple,
-        color: 'white'
+        width: Dimensions.get("window").width * 0.8,
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    buttonText: {
-        color: 'black',
-        textTransform: 'uppercase',
-        fontWeight: '700',
-        fontSize: 14,
-    },
-    selectedButtonText: {
+    textSignIn: {
         color: 'white',
+        fontWeight: '800'
     },
+    textSignUp: {
+        color: Colors.primaryPupple
+    }
 })

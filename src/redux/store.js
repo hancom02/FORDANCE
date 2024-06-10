@@ -1,14 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit'
 import lessonReducer from './slices/lessonSlice'
+import authReducer from './slices/authSlice'
+import programReducer from './slices/programSlice'
+import userReducer from './slices/userSlice'
 
 export const store = configureStore({
   reducer: {
     lesson: lessonReducer,
+    auth: authReducer,
+    program: programReducer,
+    user: userReducer,
+
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false
-  
+
       //{
       // Ignore these action types
       // ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

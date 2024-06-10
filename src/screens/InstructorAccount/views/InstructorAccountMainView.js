@@ -4,8 +4,6 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, SafeAreaView, ImageBackground, ScrollView } from 'react-native';
 import Colors from '../../../values/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import ImagePicker from 'react-native-image-picker';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 
 const InstructorAccountMainView = () => {

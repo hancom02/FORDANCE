@@ -43,11 +43,15 @@ const LibraryMainView = (props) => {
         navigation.navigate('Instructor')
     }
 
+    const handleNavFilter = () => {
+        navigation.navigate('Filter');
+    }
+
     const [content, setContent] = useState("Lessons"); // State để xác định nội dung hiện tại
 
     return (
         <SafeAreaView style={styles.container}>
-            <LibraryHeader onButtonPress={setContent} />
+            <LibraryHeader onButtonPress={setContent} handleOpenFilter={handleNavFilter} />
             <View style={styles.contentContainer}>
                 {content === "Lessons" &&
                     <View style={styles.libraryContainer}>

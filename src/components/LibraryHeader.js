@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from "../values/colors";
 
 const LibraryHeader = (props) => {
-    const { onButtonPress } = props;
+    const { onButtonPress, handleOpenFilter } = props;
     const [selectedButton, setSelectedButton] = useState('Lessons');
 
     const renderButton = (buttonName) => {
@@ -28,7 +28,7 @@ const LibraryHeader = (props) => {
             <View style={styles.logoContainer}>
                 <Text style={styles.text}>FORDANCE</Text>
                 <View style={styles.iconContainer}>
-                    <TouchableOpacity style={{ marginRight: 15 }} >
+                    <TouchableOpacity style={{ marginRight: 15 }} onPress={handleOpenFilter}>
                         <Ionicons name="filter-outline" size={27} color='black' />
                     </TouchableOpacity>
                     <TouchableOpacity>

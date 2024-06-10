@@ -10,7 +10,7 @@ const SplashMainView = (props) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             // Chuyển hướng đến màn hình HOME
-            navigation.navigate('Login');
+            navigation.navigate('ChoseRole');
         }, 3000); // 3000 milliseconds = 3 giây
 
         return () => clearTimeout(timer); // Xóa timer khi component unmounts

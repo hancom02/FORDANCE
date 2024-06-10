@@ -9,6 +9,7 @@ import CommunityComponent from "../../../components/CommunityComponent";
 import VideoPlayer from "./VideoPalyer";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
+import VideoPlayer2 from "../../../components/VideoPlayer2";
 
 const LessonMainView = (props) => {
     const {
@@ -46,6 +47,13 @@ const LessonMainView = (props) => {
                 {/* <View style={styles.video}>
                 </View> */}
                 <Image style={styles.video} source={{ uri: ImageLesson }} />
+                <TouchableOpacity onPress={handleNavVideoPlayer}>
+                    <VideoPlayer2
+                        uri={'https://s3.ap-southeast-2.amazonaws.com/fordance.com/videos/1000049593.mp4'}
+                        visible={isShowVideo}
+                        setVisible={setIsShowVideo} />
+                    <Text>PLAY</Text>
+                </TouchableOpacity>
             </View>
 
             <View style={styles.iconContainer}>
@@ -116,7 +124,7 @@ const LessonMainView = (props) => {
             </TouchableOpacity>
 
             {/* RENDER VIDEOPLAYER */}
-            {isShowVideo && <VideoPlayer onClose={() => setIsShowVideo(false)} />}
+            {/* {isShowVideo && <VideoPlayer onClose={() => setIsShowVideo(false)} />} */}
         </SafeAreaView>
 
     )

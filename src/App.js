@@ -15,6 +15,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import SignUp from './screens/SignUp';
 import ChoseRole from './screens/ChoseRole';
+import Community from './screens/Community';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,7 @@ export default function App() {
                             <Stack.Screen name="AccountStack" component={AccountStack} />
                             <Stack.Screen name="Lesson" component={Lesson} />
                             <Stack.Screen name="Program" component={Program} />
+                            <Stack.Screen name="Community" component={Community} />
                             <Stack.Screen name="InstructorDetailView" component={InstructorDetailView} />
                         </>
                     ) : selectedRole === 'instructor' ? (

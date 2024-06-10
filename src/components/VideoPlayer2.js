@@ -53,11 +53,11 @@ const styles = StyleSheet.create({
     },
     video: {
         width: width,
-        height: height / 2, // Chiều cao mặc định
+        height: height,
     },
     fullscreenVideo: {
         width: width,
-        height: height, // Chiều cao khi ở chế độ toàn màn hình
+        height: height / 2, // Chiều cao khi ở chế độ toàn màn hình
     },
     closeButton: {
         position: 'absolute',

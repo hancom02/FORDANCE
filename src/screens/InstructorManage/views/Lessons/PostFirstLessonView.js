@@ -1,6 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Platform } from 'react-native';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, TextInput, ScrollView, ImageBackground, Alert } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, TextInput, ScrollView, ImageBackground, Alert, ActivityIndicator, Modal } from "react-native";
 import React, { useState, useEffect } from 'react';
 import { useRoute } from '@react-navigation/native';
 import DropDownPicker from "react-native-dropdown-picker";
@@ -40,12 +40,12 @@ const PostLessonFirstView = (props) => {
         { label: 'Test', value: 6 }
     ]);
 
+    const [loading, setLoading] = useState(false);
 
     const uriToBlob = (uri) => {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest()
             xhr.onload = function () {
-                // return the blob
                 resolve(xhr.response)
             }
             xhr.onerror = function () {
@@ -53,7 +53,6 @@ const PostLessonFirstView = (props) => {
             }
             xhr.responseType = 'blob'
             xhr.open('GET', uri, true)
-
             xhr.send(null)
         })
     }
@@ -87,7 +86,6 @@ const PostLessonFirstView = (props) => {
             });
 
             if (res && res[0].uri) {
-                // Thiết lập thumbnail mới
                 setNewThumbnail(res[0].uri);
             }
         } catch (err) {
@@ -103,31 +101,12 @@ const PostLessonFirstView = (props) => {
         setNewThumbnail(null);
     }
 
-    // const handleUpload = async () => {
-    //     if (!selectedVideo || !selectedVideo[0].uri) {
-    //         Alert.alert('Error', 'Please select a video');
-    //         return;
-    //     }
-
-    //     for (const fileDetail of selectedVideo) {
-    //         const filePath = fileDetail.uri.replace('file://', '');
-    //         const fileName = fileDetail.name;
-
-    //         try {
-    //             const fileData = await uriToBlob(filePath);
-    //             await uploadVideoToS3(fileName, fileData);
-    //             console.log("File uploaded: ", fileName);
-    //         } catch (error) {
-    //             console.error('Error uploading file: ', error);
-    //             Alert.alert('Error: ', 'File upload failed');
-    //         }
-    //     }
-    // };
-
     const handleUpload = async () => {
+        setLoading(true);
         try {
             if (!selectedVideo || !selectedVideo[0].uri) {
                 Alert.alert('Error', 'Please select a video');
+                setLoading(false);
                 return;
             }
 
@@ -141,12 +120,12 @@ const PostLessonFirstView = (props) => {
             }
 
             if (newThumbnail) {
-                const thumbnailFileName = `${selectedVideo[0].name}_thumbnail.jpg`; // Đặt tên cho thumbnail
+                const thumbnailFileName = `${selectedVideo[0].name}_thumbnail.jpg`;
                 const thumbnailData = await uriToBlob(newThumbnail);
                 await uploadImageToS3(thumbnailFileName, thumbnailData);
                 console.log("Thumbnail uploaded: ", thumbnailFileName);
             } else if (thumbnail) {
-                const thumbnailFileName = `${selectedVideo[0].name}_thumbnail.jpg`; // Đặt tên cho thumbnail
+                const thumbnailFileName = `${selectedVideo[0].name}_thumbnail.jpg`;
                 const thumbnailData = await uriToBlob(thumbnail);
                 await uploadImageToS3(thumbnailFileName, thumbnailData);
                 console.log("Thumbnail uploaded: ", thumbnailFileName);
@@ -156,14 +135,29 @@ const PostLessonFirstView = (props) => {
         } catch (error) {
             console.error('Error uploading file: ', error);
             Alert.alert('Error: ', 'File upload failed');
+        } finally {
+            setLoading(false);
         }
     };
-
 
     const Username = "UserName";
 
     return (
         <SafeAreaView style={styles.container}>
+            <Modal
+                transparent={true}
+                animationType="fade"
+                visible={loading}
+                onRequestClose={() => { }}
+            >
+                <View style={styles.modalBackground}>
+                    <View style={styles.activityIndicatorWrapper}>
+                        <ActivityIndicator size="large" color="#0000ff" />
+                        <Text style={styles.uploadingText}>Uploading...</Text>
+                    </View>
+
+                </View>
+            </Modal>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>POST LESSON</Text>
                 <TouchableOpacity onPress={handleGoBack}>
@@ -453,8 +447,30 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingVertical: 10,
         fontWeight: '700'
-    }
-});
+    },
+    modalBackground: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#00000040'
+    },
+    activityIndicatorWrapper: {
+        width: 150,
+        height: 150,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 10,
+        padding: 20,
+        alignItems: 'center',
+        justifyContent: 'space-around',
 
+    },
+    uploadingText: {
+        // position: 'absolute',
+        // bottom: 20,
+        color: '#0000ff',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+});
 
 export default PostLessonFirstView;

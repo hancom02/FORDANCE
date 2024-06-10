@@ -34,13 +34,16 @@ const HomeMainView = (props) => {
         saveLessons,
         allLessons,
         allPrograms,
+        students,
+        instructors,
         // data,
 
     } = props;
 
     console.log("FETCH DATA LESSONS REDUX IN MAINVIEW: ", allLessons);
     console.log("FETCH DATA PROGRAMS REDUX IN MAINVIEW: ", allPrograms);
-
+    console.log("FETCH DATA STUDENT REDUX IN MAINVIEW: ", students);
+    console.log("FETCH DATA INSTUCTOR REDUX IN MAINVIEW: ", instructors);
 
     const propsHeader = {
 

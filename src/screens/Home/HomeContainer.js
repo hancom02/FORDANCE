@@ -4,6 +4,7 @@ import HomeMainView from "./views/HomeMainView";
 import { fetchAllLessons } from "../../redux/slices/lessonSlice";
 import { fetchAllPrograms } from "../../redux/slices/programSlice";
 import { useSelector } from "react-redux";
+import { fetchInstructors, fetchStudents } from "../../redux/slices/userSlice";
 
 const HomeContainer = (props) => {
     const {
@@ -232,10 +233,14 @@ const HomeContainer = (props) => {
 
     const { allLessons, loading: lessonsLoading, error: lessonsError } = useSelector((state) => state.lesson);
     const { allPrograms, loading: programsLoading, error: programsError } = useSelector((state) => state.program);
+    const { students, instructors, loading: userLoading, error: userError } = useSelector((state) => state.user);
+
 
     useEffect(() => {
         dispatch(fetchAllLessons()); //dùng dispatch để gửi actions vào reducer của lessonSlice
         dispatch(fetchAllPrograms());
+        dispatch(fetchStudents());
+        dispatch(fetchInstructors());
     }, [dispatch]);
 
     const propsHome = {
@@ -248,8 +253,11 @@ const HomeContainer = (props) => {
         saveLessons,
         allLessons,
         allPrograms,
-        loading: lessonsLoading || programsLoading,
-        error: lessonsError || programsError,
+        students,
+        instructors,
+        loading: lessonsLoading || programsLoading || userLoading,
+        error: lessonsError || programsError || userError,
+
     };
 
     return <HomeMainView{...propsHome} />

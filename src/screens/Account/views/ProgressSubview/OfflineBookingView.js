@@ -15,22 +15,11 @@ const OfflineBookingView = (props) => {
         navigation,
     } = props;
 
-    const [modalVisible, setModalVisible] = useState(false);
-
-    const handlePress = () => {
-        setModalVisible(true);
-    };
 
     const handleGoBack = () => {
         navigation.goBack();
     };
 
-    const handleSubmit = () => {
-        // Xử lý logic submit form tại đây
-        console.log('Form submitted!');
-        // Đóng pop-up form
-        setModalVisible(false);
-    };
     //DATA
     const lessons = [
         {
@@ -87,7 +76,7 @@ const OfflineBookingView = (props) => {
                             <View style={{ marginBottom: 20, width: imgWidth }}>
                                 <OfflineLessonComponent
                                     offlinelessons={item}
-                                    handlePress={handlePress}
+                                // handlePress={handlePress}
                                 />
                             </View>
                         }
@@ -96,13 +85,6 @@ const OfflineBookingView = (props) => {
                     />
                 </View>
             </View>
-            <Modal
-                visible={modalVisible}
-                animationType="fade"
-                transparent={true}
-            >
-                <PopUpFormComponent handleSubmit={handleSubmit} />
-            </Modal>
         </SafeAreaView >
     );
 };

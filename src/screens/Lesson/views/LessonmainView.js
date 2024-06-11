@@ -1,15 +1,14 @@
-import { Text, View, StyleSheet, TouchableOpacity, FlatList, Button, Image } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, FlatList, Button, Image, Modal } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React, { useState } from 'react';
 
-
 import Colors from "../../../values/colors"
 import CommunityComponent from "../../../components/CommunityComponent";
-import VideoPlayer from "./VideoPalyer";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 import VideoPlayer2 from "../../../components/VideoPlayer2";
+import PopUpFormComponent from "../../../components/PopUpFormComponent";
 
 const LessonMainView = (props) => {
     const {
@@ -24,8 +23,18 @@ const LessonMainView = (props) => {
     const Style = 'Ballet';
     const Time = '10';
     const ImageLesson = 'https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg';
+    const offlineLesson = {
+        title: "Introduction to React Native",
+        instructor: "John Doe",
+        location: "123 Main Street, Cityville",
+        time: "10:00 - 12:00",
+        startDate: "20/04/2024",
+        endDate: "25/04/20240",
+    };
+
 
     const [isShowVideo, setIsShowVideo] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
 
     const handleNavigateCommunityDetail = () => {
         navigation.navigate('Community');
@@ -37,9 +46,16 @@ const LessonMainView = (props) => {
         setIsShowVideo(true);
     }
 
+    const handleSubmit = () => {
+        // Xử lý logic submit form tại đây
+        console.log('Form submitted!');
+        // Đóng pop-up form
+        setModalVisible(false);
+    };
+
     return (
         <SafeAreaView style={styles.container}>
-            <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <TouchableOpacity onPress={() => { navigation.goBack() }} style={styles.backButton}>
                 <Ionicons name="arrow-back" size={24} color="black" />
             </TouchableOpacity>
 
@@ -66,7 +82,7 @@ const LessonMainView = (props) => {
                 <TouchableOpacity style={styles.icon}>
                     <Ionicons name="calendar-clear-outline" size={30} color={Colors.primaryPupple} />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.icon}>
+                <TouchableOpacity style={styles.icon} onPress={() => (setModalVisible(true))}>
                     <FontAwesomeIcon icon={faAddressBook} size={25} color={Colors.primaryPupple} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.icon}>
@@ -123,8 +139,13 @@ const LessonMainView = (props) => {
                 <Text style={styles.textJoinLesson}>JOIN LESSON</Text>
             </TouchableOpacity>
 
-            {/* RENDER VIDEOPLAYER */}
-            {/* {isShowVideo && <VideoPlayer onClose={() => setIsShowVideo(false)} />} */}
+            <Modal
+                visible={modalVisible}
+                animationType="fade"
+                transparent={true}
+            >
+                <PopUpFormComponent handleSubmit={handleSubmit} offlinelessons={offlineLesson} handleCloseModal={() => { setModalVisible(false) }} />
+            </Modal>
         </SafeAreaView>
 
     )

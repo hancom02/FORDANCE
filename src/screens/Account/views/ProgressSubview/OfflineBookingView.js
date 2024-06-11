@@ -124,10 +124,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'black',
     },
-    libraryContainer: {
-        flex: 1,
-        backgroundColor: 'red'
-    },
     classesContainer: {
         flex: 1,
         marginTop: 20,

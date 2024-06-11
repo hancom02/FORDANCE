@@ -23,15 +23,16 @@ const OfflineLessonComponent = (props) => {
                 />
                 <View style={styles.contentContainer}>
                     <Text style={styles.textName}>{offlinelessons.lessonName}</Text>
-                    <Text style={styles.textInstructorName}>Lip J</Text>
+                    <Text style={styles.textInstructorName}>{offlinelessons.instructor}</Text>
                     <View style={styles.icon_textContainer}>
                         <Ionicons name="location" color="white" size={20} />
                         <Text style={styles.text}>{offlinelessons.location}</Text>
                     </View>
                     <View style={styles.icon_textContainer}>
                         <Ionicons name="calendar-clear-outline" color="white" size={20} />
-                        <Text style={styles.text}>{offlinelessons.startDate}{offlinelessons.endDate ? ` - ${offlinelessons.endDate}` : ''}</Text>
+                        <Text style={styles.text}>{offlinelessons.startDate}{offlinelessons.endDate ? ` - ${offlinelessons.endDate}` : ''} </Text>
                     </View>
+                    <Text style={styles.text}>{offlinelessons.lessonsNumber} lessons</Text>
                 </View>
             </ImageBackground>
         </TouchableOpacity>
@@ -91,7 +92,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '800',
         color: 'white',
-        textTransform: 'uppercase',
         marginLeft: 5,
     },
 });

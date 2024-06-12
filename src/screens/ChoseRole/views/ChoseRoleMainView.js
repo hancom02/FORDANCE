@@ -35,22 +35,11 @@ const ChoseRoleMainView = (props) => {
                 <Text style={[styles.buttonText, selectedRole==='instructor' && styles.selectedButtonText]}>INSTRUCTOR</Text>
             </TouchableOpacity>
 
-            <Button 
-                title={'Log In With ' + selectedRole + ' Account'}
-                // onPress={() => 
-                //     navigation.navigate('MyStudentBottomTab')
-                // }
-                onPress={() => {
-                    // if (selectedRole === "student") {
-                    //     navigation.navigate('MyStudentBottomTab');
-                    // } else if (selectedRole === "instructor") {
-                    //     // Điều hướng đến màn hình của Instructor
-                    //     navigation.navigate('MyInstructorBottomTab');
-
-                    // }
-                    navigation.navigate('Login');
-                }}
-            />
+            <TouchableOpacity onPress={() => {
+                navigation.navigate('Login');
+            }}>
+                <Text style={styles.textButton}>Log In With {selectedRole} Account</Text>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -89,4 +78,9 @@ const styles = StyleSheet.create({
     selectedButtonText: {
         color: 'white',
     },
+    textButton: {
+        color: Colors.primaryPupple,
+        textTransform: 'capitalize',
+        textDecorationLine: 'underline'
+    }
 })

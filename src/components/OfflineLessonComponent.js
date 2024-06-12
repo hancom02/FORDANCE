@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+// import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const OfflineLessonComponent = (props) => {
@@ -15,12 +15,12 @@ const OfflineLessonComponent = (props) => {
                 source={{ uri: offlinelessons.image }}
                 style={styles.background}
             >
-                <LinearGradient
+                {/* <LinearGradient
                     colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0)']}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 0.5, y: 0 }}
                     style={styles.gradient}
-                />
+                /> */}
                 <View style={styles.contentContainer}>
                     <Text style={styles.textName}>{offlinelessons.lessonName}</Text>
                     <Text style={styles.textInstructorName}>Lip J</Text>

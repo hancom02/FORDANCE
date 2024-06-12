@@ -103,9 +103,9 @@ const LessonMainView = (props) => {
                     <TouchableOpacity style={styles.icon} onPress={() => (setModalVisible(true))}>
                         <FontAwesomeIcon icon={faAddressBook} size={25} color={Colors.primaryPupple} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.icon}>
+                    {/* <TouchableOpacity style={styles.icon}>
                         <Ionicons name="arrow-redo-outline" size={30} color={Colors.primaryPupple} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             )}
 

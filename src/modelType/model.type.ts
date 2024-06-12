@@ -79,6 +79,8 @@ type LessonType = {
 type ProgramType = {
     name: String;
     introduce: String;
+    learn_what: String;
+    need_what: String;
     level: String;
     category: String;
     total_time: String;

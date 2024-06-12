@@ -3,7 +3,7 @@ import InstructorProgramMainView from "./InstructorProgramMainView";
 const InstructorProgramContainer = (props) => {
     const {
         navigation,
-        instructorProgram,
+        program,
         
     } = props;
 
@@ -13,7 +13,7 @@ const InstructorProgramContainer = (props) => {
 
     const propsMainView = {
         navigation,
-        instructorProgram,
+        program,
     }
 
     return <InstructorProgramMainView{...propsMainView}/>

@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, TouchableOpacity, FlatList, Button, Image, Modal } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, FlatList, Button, Image, Modal, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React, { useState } from 'react';
@@ -9,12 +9,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 import VideoPlayer2 from "../../../components/VideoPlayer2";
 import PopUpFormComponent from "../../../components/PopUpFormComponent";
+import InstructorLessontab from "../components/InstructorLessonTab";
+import ParticipantsItem from "../components/ParticipantItem";
 
 const LessonMainView = (props) => {
     const {
         navigation,
+        isOwner,
         comments,
+        participants,
     } = props;
+
+    console.log("IS OWNER LESSON: ", isOwner);
 
     const LessonName = 'Lesson Name';
     const InstructorName = 'Instructor Name';
@@ -31,7 +37,10 @@ const LessonMainView = (props) => {
         startDate: "20/04/2024",
         endDate: "25/04/20240",
     };
+    const Username = "Username";
+    const UserImageURL = "https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg"
 
+    const [content, setContent] = useState("Community"); // State để xác định nội dung hiện tại
 
     const [isShowVideo, setIsShowVideo] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
@@ -72,24 +81,35 @@ const LessonMainView = (props) => {
                 </TouchableOpacity>
             </View>
 
-            <View style={styles.iconContainer}>
-                <TouchableOpacity style={[styles.icon, { marginLeft: 16 }]}>
-                    <Ionicons name="heart-outline" size={30} color={Colors.primaryPupple} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.icon}>
-                    <Ionicons name="cloud-download-outline" size={30} color={Colors.primaryPupple} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.icon}>
-                    <Ionicons name="calendar-clear-outline" size={30} color={Colors.primaryPupple} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.icon} onPress={() => (setModalVisible(true))}>
-                    <FontAwesomeIcon icon={faAddressBook} size={25} color={Colors.primaryPupple} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.icon}>
-                    <Ionicons name="arrow-redo-outline" size={30} color={Colors.primaryPupple} />
-                </TouchableOpacity>
-            </View>
+            {isOwner ? (
+                // Instructor chỉ có 1 icon tạo lịch offline thôi, Khoa bỏ Modal set offline cho instructor vào đây
+                <View style={styles.iconContainer}>
+                    <TouchableOpacity style={[styles.icon, {marginLeft:16}]} onPress={() => (setModalVisible(true))}>
+                        <FontAwesomeIcon icon={faAddressBook} size={25} color={Colors.primaryPupple} />
+                    </TouchableOpacity>
+                </View>
+            ) : (
+                // Nội dung khi không phải là chủ sở hữu
+                <View style={styles.iconContainer}>
+                    <TouchableOpacity style={[styles.icon, { marginLeft: 16 }]}>
+                        <Ionicons name="heart-outline" size={30} color={Colors.primaryPupple} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.icon}>
+                        <Ionicons name="cloud-download-outline" size={30} color={Colors.primaryPupple} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.icon}>
+                        <Ionicons name="calendar-clear-outline" size={30} color={Colors.primaryPupple} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.icon} onPress={() => (setModalVisible(true))}>
+                        <FontAwesomeIcon icon={faAddressBook} size={25} color={Colors.primaryPupple} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.icon}>
+                        <Ionicons name="arrow-redo-outline" size={30} color={Colors.primaryPupple} />
+                    </TouchableOpacity>
+                </View>
+            )}
 
+            {!isOwner && 
             <View style={styles.container2}>
                 <Text style={styles.textName}>{LessonName}</Text>
                 <View style={styles.instructorContainer}>
@@ -99,7 +119,7 @@ const LessonMainView = (props) => {
                         {/* <Text style={styles.instructorSubtitle}>{DancerName}</Text> */}
                     </View>
                 </View>
-            </View>
+            </View>}
 
             <View style={styles.infoContainer}>
                 <View style={[styles.info, { alignItems: 'flex-start' }]}>
@@ -123,20 +143,57 @@ const LessonMainView = (props) => {
 
             </View>
 
-            <View style={styles.communityContainer}>
-                <View style={styles.container}>
-                    <View style={styles.header}>
-                        <Text style={styles.headerText}>Community</Text>
-                        <TouchableOpacity onPress={handleNavigateCommunityDetail} >
-                            <Text style={styles.joinHere}>Join Here</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <CommunityComponent comments={comments} />
+            {/*THANH COMMUNITY VA PARTICIPNAT (STUDENT KO DC XEM PARTICIPANT)  */}
+            {isOwner ? (
+                <View>
+                    <InstructorLessontab onButtonPress={setContent} />
+                    {content === 'Community' && (
+                        <View style={{paddingHorizontal: 16, height: 320}}>
+                            <View style={styles.header}>
+                                <Text style={styles.headerText}>Community</Text>
+                                <TouchableOpacity onPress={handleNavigateCommunityDetail}>
+                                    <Text style={styles.joinHere}>Join Here</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <CommunityComponent comments={comments}/>
+                        </View>
+                    )}
+                    {content === "Participants" && (
+                        <View style={styles.participantContainer}>
+                            <Text style={styles.headerText}>Participants</Text>
+                            <View style={styles.participantContent}>
+                                {console.log("PARTICIPANTS: ", participants)}
+                                <FlatList 
+                                    data={participants}
+                                    renderItem={({item, index}) => (
+                                        <ParticipantsItem 
+                                            key={index}
+                                            image_link={item.image_link}
+                                            name={item.name}
+                                        />
+                                    )}
+                                />
+                            </View>
+                        </View>
+                    )}
                 </View>
-            </View>
+            ) : (
+                <View style={styles.communityContainer}>
+                    <View style={styles.container}>
+                        <View style={styles.header}>
+                            <Text style={styles.headerText}>Community</Text>
+                            <TouchableOpacity onPress={handleNavigateCommunityDetail}>
+                                <Text style={styles.joinHere}>Join Here</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <CommunityComponent comments={comments} />
+                    </View>
+                </View>
+            )}
 
             <TouchableOpacity style={styles.joinClassContainer} onPress={() => handleNavVideoPlayer()}>
-                <Text style={styles.textJoinLesson}>JOIN LESSON</Text>
+                {isOwner && <Text style={styles.textJoinLesson}>WATCH VIDEO LESSON</Text>}
+                {!isOwner && <Text style={styles.textJoinLesson}>JOIN LESSON</Text>}
             </TouchableOpacity>
 
             <Modal
@@ -155,6 +212,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
+        backgroundColor: 'white'
     },
     container2: {
         flexDirection: 'column',
@@ -177,7 +235,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderColor: 'grey',
         borderWidth: 0.5,
-        marginBottom: 15
+        // marginBottom: 15
     },
     instructorContainer: {
         flexDirection: 'row',
@@ -207,17 +265,18 @@ const styles = StyleSheet.create({
     },
     backButton: {
         position: 'absolute',
-        top: 10,
-        left: 10,
+        top: 16,
+        left: 16,
         zIndex: 999,
         padding: 10,
-        borderRadius: 5,
+        borderRadius: 30,
+        backgroundColor: 'white'
     },
     textName: {
         color: 'black',
         fontWeight: '700',
         fontSize: 16,
-
+        textTransform: 'uppercase'
     },
     instructorInfo: {
         flexDirection: 'column',
@@ -227,12 +286,14 @@ const styles = StyleSheet.create({
     },
 
     infoContainer: {
-        marginTop: 10,
+        // marginTop: 10,
         flexDirection: 'row',
         height: 80,
         marginHorizontal: 16,
         borderColor: 'grey',
         borderBottomWidth: 0.5,
+
+        // backgroundColor: 'pink'
 
     },
     info: {
@@ -259,6 +320,17 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between'
 
+    },
+    participantContainer: {
+        paddingHorizontal: 16,
+        paddingVertical: 16
+        // backgroundColor: 'pink'
+    },
+    participantContent: {
+        width: '100%',
+        height: 260,
+        paddingTop: 16
+        // backgroundColor: 'green'
     },
     header: {
         flexDirection: 'row',

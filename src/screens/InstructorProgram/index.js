@@ -6,11 +6,11 @@ const InstructorProgram = (props) => {
         route
     } = props;
 
-    const {instructorProgram} = route.params;
+    const {program} = route.params;
 
     const propsContainer = {
         navigation,
-        instructorProgram,
+        program,
     }
 
     return <InstructorProgramContainer{...propsContainer}/>

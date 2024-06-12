@@ -26,7 +26,7 @@ const LibraryMainView = (props) => {
 
 
     const handleNavDetailLesson = () => {
-        navigation.navigate('Lesson', { tabBarVisible: false });
+        navigation.navigate('Lesson', { tabBarVisible: false, isOwner: false });
     }
 
     const handleNavDetailProgram = (

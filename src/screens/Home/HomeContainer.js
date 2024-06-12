@@ -20,79 +20,79 @@ const HomeContainer = (props) => {
             instructor: "Ngoc Han",
             level: 'BEGINNER',
             timeDuring: 16,
-            image: 'https://img.freepik.com/premium-photo/dance-ballet-studio-with-woman-dancer-training-practicing-dancing-performance-recital-rehearsal-artistic-perform-technique-with-young-female-school-production-art_590464-81910.jpg'
+            image_link: 'https://img.freepik.com/premium-photo/dance-ballet-studio-with-woman-dancer-training-practicing-dancing-performance-recital-rehearsal-artistic-perform-technique-with-young-female-school-production-art_590464-81910.jpg'
 
         },
         {
-            lessonName: 'The Boy Is Mine',
+            name: 'The Boy Is Mine',
             category: "Chogreophy",
             instructor: "Redy",
             level: "INTERMEDIATE",
             timeDuring: 16,
-            image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
+            image_link: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
         },
         {
-            lessonName: 'Khmer Folk Dance',
+            name: 'Khmer Folk Dance',
             category: "Folk Dance",
             instructor: "Hoa Nhung",
             level: "BASIC",
             timeDuring: 16,
-            image: "https://images.baodantoc.vn/uploads/2020/Th%C3%A1ng_11/Ng%C3%A0y%209/DSCN9218.JPG"
+            image_link: "https://images.baodantoc.vn/uploads/2020/Th%C3%A1ng_11/Ng%C3%A0y%209/DSCN9218.JPG"
 
         },
     ]
 
     const todayLessons = [
         {
-            lessonName: 'Khmer Folk Dance',
+            name: 'Khmer Folk Dance',
             category: "Folk Dance",
             instructor: "Hoa Nhung",
             level: "BASIC",
             timeDuring: 16,
-            image: "https://images.baodantoc.vn/uploads/2020/Th%C3%A1ng_11/Ng%C3%A0y%209/DSCN9218.JPG"
+            image_link: "https://images.baodantoc.vn/uploads/2020/Th%C3%A1ng_11/Ng%C3%A0y%209/DSCN9218.JPG"
         },
         {
-            lessonName: 'The Boy Is Mine',
+            name: 'The Boy Is Mine',
             category: "Chogreophy",
             instructor: "Redy",
             level: "INTERMEDIATE",
             timeDuring: 16,
-            image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
+            image_link: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
         },
     ]
 
     const danceLessons = [
         {
-            lessonName: 'Naughty Boy',
+            name: 'Naughty Boy',
             category: "Breaking",
             instructor: "Loi Choi",
             level: "ADVANCED",
             timeDuring: 16,
-            image: "https://t3.ftcdn.net/jpg/05/98/71/10/360_F_598711013_QsPD9pZZU5LGEuPtqtdvgQKRuO2rV07k.jpg"
+            image_link: "https://t3.ftcdn.net/jpg/05/98/71/10/360_F_598711013_QsPD9pZZU5LGEuPtqtdvgQKRuO2rV07k.jpg"
         },
         {
-            lessonName: 'How to do plete',
+            name: 'How to do plete',
             category: "Ballet",
             instructor: "Lisa",
             level: "INTERMEDIATE",
             timeDuring: 16,
-            image: "https://www.commercialappeal.com/gcdn/presto/2019/10/18/PMCA/a511454f-ba76-47ae-98a0-845cd0d1925a-101719CollageDanceCollective05.jpg?width=700&height=467&fit=crop&format=pjpg&auto=webp"
+            image_link: "https://www.commercialappeal.com/gcdn/presto/2019/10/18/PMCA/a511454f-ba76-47ae-98a0-845cd0d1925a-101719CollageDanceCollective05.jpg?width=700&height=467&fit=crop&format=pjpg&auto=webp"
         },
         {
-            lessonName: 'Naughty Boy',
+            name: 'Naughty Boy',
             category: "Breaking",
             instructor: "Loi Choi",
             level: "ADVANCED",
             timeDuring: 16,
-            image: "https://t3.ftcdn.net/jpg/05/98/71/10/360_F_598711013_QsPD9pZZU5LGEuPtqtdvgQKRuO2rV07k.jpg"
+            image_link: "https://t3.ftcdn.net/jpg/05/98/71/10/360_F_598711013_QsPD9pZZU5LGEuPtqtdvgQKRuO2rV07k.jpg"
         },
         {
-            lessonName: 'How to do plete',
+            name: 'How to do plete',
             category: "Ballet",
             instructor: "Lisa",
             level: "INTERMEDIATE",
             timeDuring: 16,
-            image: "https://www.commercialappeal.com/gcdn/presto/2019/10/18/PMCA/a511454f-ba76-47ae-98a0-845cd0d1925a-101719CollageDanceCollective05.jpg?width=700&height=467&fit=crop&format=pjpg&auto=webp"
+            image_link: "https://www.commercialappeal.com/gcdn/presto/2019/10/18/PMCA/a511454f-ba76-47ae-98a0-845cd0d1925a-101719CollageDanceCollective05.jpg?width=700&height=467&fit=crop&format=pjpg&auto=webp"
         },
     ]
 
@@ -205,30 +205,24 @@ const HomeContainer = (props) => {
 
     const saveLessons = [
         {
-            lessonName: 'The Boy Is Mine',
+            name: 'The Boy Is Mine',
             category: "Chogreophy",
             instructor: "Redy",
             level: "INTERMEDIATE",
-            timeDuring: 16,
-            image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
+            total_time: 16,
+            image_link: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
         },
+        {
+            name: 'The Boy Is Mine',
+            category: "Chogreophy",
+            instructor: "Redy",
+            level: "INTERMEDIATE",
+            total_time: 16,
+            image_link: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
+        },
+        
 
     ];
-
-    // const [data, setData] = useState([]);
-
-    // useEffect(() => {
-    //     // Fetch data from Firestore
-    //     const fetchData = async () => {
-    //         const snapshot = await firebaseDatabase.collection("lessons").get();
-    //         const snapshot2 = await firebaseDatabase.collection('lessons').doc("").delete();
-    //         const dataList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    //     setData(dataList);
-    //     };
-
-    //     fetchData();
-    // }, []);
-    // console.log("FETCH DATA LESSONS: ", data);
 
     //Dùng useSelector để trỏ vào state trong store
     //const { allLessons, loading, error } = useSelector((state) => state.lesson);

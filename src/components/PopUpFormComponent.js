@@ -77,7 +77,7 @@ const PopUpFormComponent = (props) => {
                 </View>
                 <View style={{ flexDirection: 'row', marginRight: 10, marginTop: 10, }}>
                     <Ionicons name="calendar-number-outline" size={20} color="black" />
-                    <Text style={styles.infoText}>{offlinelessons.startDate}  </Text>
+                    <Text style={styles.infoText}>{offlinelessons.startDate}{offlinelessons.endDate ? ` - ${offlinelessons.endDate}` : ''}</Text>
                 </View>
                 <Text style={styles.sectionTitle}>YOUR INFORMATION</Text>
                 <TextInput

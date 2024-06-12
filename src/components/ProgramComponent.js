@@ -15,7 +15,7 @@ const ProgramComponent = (props) => {
     return (
         <View style={styles.container}>
             <ImageBackground
-                source={{uri: program.image}}
+                source={{ uri: program.image }}
                 style={styles.backgroundContainer}
             >
                 <View style={styles.contenContainer}>
@@ -36,7 +36,7 @@ const ProgramComponent = (props) => {
                                 <Text style={styles.textLevel}>{program.level}</Text>
                             </View>
                             <View style={styles.lessonContainer}>
-                                <Ionicons name="play-circle-outline" size={14} color='white'/>
+                                <Ionicons name="play-circle-outline" size={14} color='white' />
                                 <Text style={styles.textLesson}> {program.lessonAmount} LESSONS</Text>
                             </View>
                         </View>
@@ -63,13 +63,10 @@ export default ProgramComponent;
 
 const styles = StyleSheet.create({
     container: {
-        width: 290,
         height: 400,
         borderRadius: 10,
         overflow: 'hidden',
         marginRight: 8,
-
-
         // backgroundColor: 'pink'
     },
     backgroundContainer: {

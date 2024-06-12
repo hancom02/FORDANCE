@@ -16,6 +16,7 @@ import store from './redux/store';
 import SignUp from './screens/SignUp';
 import ChoseRole from './screens/ChoseRole';
 import Community from './screens/Community';
+import NotificationScreen from './screens/Notifications/views/NotificationScreen';
 import InstructorProgram from './screens/InstructorProgram';
 import Search from './screens/Search';
 
@@ -52,6 +53,7 @@ export default function App() {
                             <Stack.Screen name="Program" component={Program} />
                             <Stack.Screen name="Community" component={Community} />
                             <Stack.Screen name="InstructorDetailView" component={InstructorDetailView} />
+                            <Stack.Screen name="Notifications" component={NotificationScreen} />
                         </>
                     ) : selectedRole === 'instructor' ? (
                         <>

@@ -76,6 +76,9 @@ const AccountProgressView = (props) => {
         navigation.navigate('Offline Booking');
     }
 
+    const handleNavFavourites = () => {
+        navigation.navigate('Favourites')
+    }
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.classInfoContainer}>
@@ -106,7 +109,7 @@ const AccountProgressView = (props) => {
                         <Ionicons name="chevron-forward-outline" size={20} color="black" />
                     </TouchableOpacity>
                     <View style={styles.divider} />
-                    <TouchableOpacity style={styles.touchItem}>
+                    <TouchableOpacity style={styles.touchItem} onPress={handleNavFavourites}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Ionicons name="heart-outline" size={30} color="black" style={{ marginHorizontal: 10, }} />
                             <Text style={styles.bottomText}>Favourites</Text>

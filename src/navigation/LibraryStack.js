@@ -4,8 +4,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Library from "../screens/Library";
 import Category from "../screens/Category";
 import CategoryDetail from "../screens/Category/views/CategoryDetail";
+import ResultScreen from '../screens/Filter/views/ResultsScreen';
+import FilterScreen from '../screens/Filter/views/FilterScreen';
 import Community from '../screens/Community';
-import Filter from '../screens/Filter/views/Filter';
 import Search from '../screens/Search';
 
 const ChildStack = createNativeStackNavigator();
@@ -16,7 +17,8 @@ function LibraryStack() {
             <ChildStack.Screen name="Library" component={Library} />
             <ChildStack.Screen name="Category" component={Category} />
             <ChildStack.Screen name="CategoryDetail" component={CategoryDetail} />
-            <ChildStack.Screen name="Filter" component={Filter} />
+            <ChildStack.Screen name="FilterScreen" component={FilterScreen} />
+            <ChildStack.Screen name="ResultScreen" component={ResultScreen} />        
             <ChildStack.Screen name="Search" component={Search} />
         </ChildStack.Navigator>
     );

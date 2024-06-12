@@ -17,18 +17,12 @@ const LessonMainView = (props) => {
         navigation,
         isOwner,
         comments,
+        lesson,
         participants,
     } = props;
 
-    console.log("IS OWNER LESSON: ", isOwner);
+    //console.log("IS OWNER LESSON: ", isOwner);
 
-    const LessonName = 'Lesson Name';
-    const InstructorName = 'Instructor Name';
-    const DancerName = 'Dancer Name';
-    const Level = 'Beginner';
-    const Style = 'Ballet';
-    const Time = '10';
-    const ImageLesson = 'https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg';
     const offlineLesson = {
         title: "Introduction to React Native",
         instructor: "John Doe",
@@ -41,7 +35,6 @@ const LessonMainView = (props) => {
     const UserImageURL = "https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg"
 
     const [content, setContent] = useState("Community"); // State để xác định nội dung hiện tại
-
     const [isShowVideo, setIsShowVideo] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -71,7 +64,7 @@ const LessonMainView = (props) => {
             <View style={styles.videoContainer}>
                 {/* <View style={styles.video}>
                 </View> */}
-                <Image style={styles.video} source={{ uri: ImageLesson }} />
+                <Image style={styles.video} source={{ uri: lesson.image }} />
                 <TouchableOpacity onPress={handleNavVideoPlayer}>
                     <VideoPlayer2
                         uri={'https://s3.ap-southeast-2.amazonaws.com/fordance.com/videos/1000049593.mp4'}
@@ -111,11 +104,11 @@ const LessonMainView = (props) => {
 
             {!isOwner && 
             <View style={styles.container2}>
-                <Text style={styles.textName}>{LessonName}</Text>
+                <Text style={styles.textName}>{lesson.lessonName}</Text>
                 <View style={styles.instructorContainer}>
-                    <View style={styles.circle}></View>
+                    <Image source={{ uri: lesson.instructorImage }} style={styles.circle}></Image>
                     <View style={styles.instructorInfo}>
-                        <Text style={styles.textName}>{InstructorName}</Text>
+                        <Text style={styles.textName}>{lesson.instructor}</Text>
                         {/* <Text style={styles.instructorSubtitle}>{DancerName}</Text> */}
                     </View>
                 </View>
@@ -125,19 +118,19 @@ const LessonMainView = (props) => {
                 <View style={[styles.info, { alignItems: 'flex-start' }]}>
                     <View style={{ flexDirection: 'column', }}>
                         <Text style={styles.textInfo}>LEVEL</Text>
-                        <Text style={styles.textInfo2}>{Level}</Text>
+                        <Text style={styles.textInfo2}>{lesson.level}</Text>
                     </View>
                 </View>
                 <View style={[styles.info, { alignItems: 'center' }]}>
                     <View style={{ flexDirection: 'column' }}>
                         <Text style={styles.textInfo}>STYLE</Text>
-                        <Text style={styles.textInfo2}>{Style}</Text>
+                        <Text style={styles.textInfo2}>{lesson.category}</Text>
                     </View>
                 </View>
                 <View style={[styles.info, { alignItems: 'flex-end' }]} >
                     <View style={{ flexDirection: 'column' }}>
                         <Text style={styles.textInfo}>TIME</Text>
-                        <Text style={styles.textInfo2}>{Time} min</Text>
+                        <Text style={styles.textInfo2}>{lesson.timeDuring} min</Text>
                     </View>
                 </View>
 

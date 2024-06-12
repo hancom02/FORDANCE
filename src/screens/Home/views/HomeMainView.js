@@ -49,14 +49,13 @@ const HomeMainView = (props) => {
 
     };
 
+    const handleNavDetailLesson = (lesson) => {
+        navigation.navigate('Lesson', { lesson, isOwner: false });
+      
     const handleOpenSearch = () => {
         navigation.navigate('Search');
     }
-
-    const handleNavDetailLesson = () => {
-        navigation.navigate('Lesson', {isOwner: false});
-    }
-
+    
     const handleNavDetailProgram = (
         programData
     ) => {
@@ -87,7 +86,7 @@ const HomeMainView = (props) => {
                             renderItem={({ item, index }) =>
                                 <LessonComponent
                                     lessons={item}
-                                    handleNav={handleNavDetailLesson}
+                                    handleNav={() => handleNavDetailLesson(item)}
                                 />}
                             horizontal
                             showsHorizontalScrollIndicator={false}
@@ -177,7 +176,7 @@ const HomeMainView = (props) => {
                         <FlatList
                             data={saveLessons}
                             renderItem={({ item, index }) =>
-                                <View style={{ width: imgWidth, marginRight: 8 }}>
+                                <View style={{ width: imgWidth, marginRight: 8,  marginBottom: 24 }}>
                                     <Lesson2Component
                                         lessons={item}
                                         handleNav={handleNavDetailLesson}
@@ -188,7 +187,6 @@ const HomeMainView = (props) => {
                         />
                     </View>
                 </View>
-
             </ScrollView>
         </SafeAreaView>
     )

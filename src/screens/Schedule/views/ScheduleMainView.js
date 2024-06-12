@@ -57,9 +57,9 @@ const ScheduleMainView = (props) => {
             <View style={styles.scheduleContainer}>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 16}}>
                     <Text style={styles.textTitle}>{scheduleFor} {date}</Text>
-                    <TouchableOpacity onPress={handleNavSearch}>
+                    {/* <TouchableOpacity onPress={handleNavSearch}>
                         <Ionicons name="add-outline" size={28} color='black'/>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
 
                 <View style={styles.lessonsContainer}>

@@ -32,7 +32,6 @@ const OfflineLessonComponent = (props) => {
                         <Ionicons name="calendar-clear-outline" color="white" size={20} />
                         <Text style={styles.text}>{offlinelessons.startDate}{offlinelessons.endDate ? ` - ${offlinelessons.endDate}` : ''} </Text>
                     </View>
-                    <Text style={styles.text}>{offlinelessons.lessonsNumber} lessons</Text>
                 </View>
             </ImageBackground>
         </TouchableOpacity>

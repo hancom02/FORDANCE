@@ -156,8 +156,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 20,
         borderRadius: 10,
-        flexGrow: 1,
-        height: 'auto',
+        height: 500,
     },
 });
 

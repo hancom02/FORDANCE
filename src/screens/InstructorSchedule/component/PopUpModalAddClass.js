@@ -5,12 +5,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 const PopUpModalAddClass = ({ onClose }) => {
     const [showStartDatePicker, setShowStartDatePicker] = useState(false);
     const [showEndDatePicker, setShowEndDatePicker] = useState(false);
-    const [showStartTimePicker, setShowStartTimePicker] = useState(false);
-    const [showEndTimePicker, setShowEndTimePicker] = useState(false);
     const [selectedStartDate, setSelectedStartDate] = useState(new Date());
     const [selectedEndDate, setSelectedEndDate] = useState(new Date());
-    const [selectedStartTime, setSelectedStartTime] = useState(new Date());
-    const [selectedEndTime, setSelectedEndTime] = useState(new Date());
 
     const onChangeStartDate = (event, selectedDate) => {
         setShowStartDatePicker(false);
@@ -30,23 +26,6 @@ const PopUpModalAddClass = ({ onClose }) => {
         }
     };
 
-    const onChangeStartTime = (event, selectedTime) => {
-        setShowStartTimePicker(false);
-        if (selectedTime && selectedTime <= selectedEndTime) {
-            setSelectedStartTime(selectedTime);
-        } else {
-            Alert.alert("Invalid Time", "Start time must be before the end time.");
-        }
-    };
-
-    const onChangeEndTime = (event, selectedTime) => {
-        setShowEndTimePicker(false);
-        if (selectedTime && selectedTime >= selectedStartTime) {
-            setSelectedEndTime(selectedTime);
-        } else {
-            Alert.alert("Invalid Time", "End time must be after the start time.");
-        }
-    };
 
     const formatTime = (date) => {
         return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
@@ -87,37 +66,6 @@ const PopUpModalAddClass = ({ onClose }) => {
                     onChange={onChangeEndDate}
                 />
             )}
-
-            <TouchableOpacity style={styles.inputContainer} onPress={() => setShowStartTimePicker(true)}>
-                <Text style={styles.label}>START TIME</Text>
-                <Text style={styles.inputText}>{formatTime(selectedStartTime)}</Text>
-            </TouchableOpacity>
-            {showStartTimePicker && (
-                <DateTimePicker
-                    testID="startTimePicker"
-                    value={selectedStartTime}
-                    mode="time"
-                    display="default"
-                    is24Hour={true}
-                    onChange={onChangeStartTime}
-                />
-            )}
-
-            <TouchableOpacity style={styles.inputContainer} onPress={() => setShowEndTimePicker(true)}>
-                <Text style={styles.label}>END TIME</Text>
-                <Text style={styles.inputText}>{formatTime(selectedEndTime)}</Text>
-            </TouchableOpacity>
-            {showEndTimePicker && (
-                <DateTimePicker
-                    testID="endTimePicker"
-                    value={selectedEndTime}
-                    mode="time"
-                    display="default"
-                    is24Hour={true}
-                    onChange={onChangeEndTime}
-                />
-            )}
-
             <TouchableOpacity style={styles.completeButton} onPress={onClose}>
                 <Text style={styles.completeButtonText}>COMPLETE</Text>
             </TouchableOpacity>

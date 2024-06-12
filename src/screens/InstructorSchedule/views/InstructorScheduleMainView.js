@@ -17,7 +17,6 @@ const InstructorScheduleMainView = (props) => {
             location: 'Ho Chi Minh City Opera House',
             startDate: '2024-06-01',
             endDate: '2024-06-15',
-            lessonsNumber: 3,
         },
         {
             lessonName: 'The Boy Is Mine',
@@ -27,7 +26,6 @@ const InstructorScheduleMainView = (props) => {
             location: 'Saigon Central Post Office',
             startDate: '2024-06-05',
             endDate: null,
-            lessonsNumber: 2,
         },
         {
             lessonName: 'Kpop Basic',
@@ -37,7 +35,6 @@ const InstructorScheduleMainView = (props) => {
             location: 'Ben Thanh Market',
             startDate: '2024-06-10',
             endDate: '2024-06-20',
-            lessonsNumber: 2,
         },
         {
             lessonName: 'Kpop Intermediate',
@@ -47,7 +44,6 @@ const InstructorScheduleMainView = (props) => {
             location: 'Notre-Dame Cathedral Basilica of Saigon',
             startDate: '2024-06-15',
             endDate: null,
-            lessonsNumber: 1,
         },
     ];
 
@@ -68,9 +64,6 @@ const InstructorScheduleMainView = (props) => {
                 </View>
                 <View style={{ flexDirection: 'column' }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 10 }}>
-                        <TouchableOpacity style={{ marginRight: 10 }}>
-                            <Ionicons name="add-circle-outline" size={25} color="black" />
-                        </TouchableOpacity>
                         <TouchableOpacity>
                             <Ionicons name="notifications-outline" size={25} color="black" />
                         </TouchableOpacity>

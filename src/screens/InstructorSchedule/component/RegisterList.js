@@ -76,7 +76,7 @@ const RegisterList = (props) => {
                 <View style={styles.rowContainer}>
                     <Ionicons name="calendar-number-outline" size={20} color="black" />
                     <Text style={styles.infoText}>
-                        {lesson.startDate}{lesson.endDate ? ` - ${lesson.endDate}` : ''} - {lesson.lessonsNumber} lessons
+                        {lesson.startDate}{lesson.endDate ? ` - ${lesson.endDate}` : ''}
                     </Text>
                 </View>
                 <FlatList

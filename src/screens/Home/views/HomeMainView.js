@@ -173,10 +173,11 @@ const HomeMainView = (props) => {
                         <FlatList
                             data={saveLessons}
                             renderItem={({ item, index }) =>
-                                <Lesson2Component
-                                    lessons={item}
-                                    handleNav={handleNavDetailLesson}
-                                />}
+                                <View style={{ marginBottom: 24, width: imgWidth }}>
+                                    <Lesson2Component
+                                        lessons={item}
+                                        handleNav={handleNavDetailLesson}
+                                    /></View>}
                             horizontal
                             showsHorizontalScrollIndicator={false}
                         />

@@ -28,6 +28,10 @@ const SignUpMainView = (props) => {
     navigation.navigate('Login');
   }
 
+  const handleNavSelectRole = () => {
+    navigation.navigate('ChoseRole');
+  }
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <View style={styles.container}>
@@ -81,11 +85,19 @@ const SignUpMainView = (props) => {
             <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
+
         <View style={styles.signUpContainer}>
           <Text>Does not have an account? </Text>
           <TouchableOpacity onPress={handleNavSignIn}>
               <Text style={styles.textSignUp}>Log In</Text>
           </TouchableOpacity>
+        </View>
+
+        <View style={styles.selectRoleContainer}>
+            <Text>Go back to select role account? </Text>
+            <TouchableOpacity onPress={handleNavSelectRole}>
+                <Text style={styles.textSignUp}>Select Role</Text>
+            </TouchableOpacity>
         </View>
       </View>
     </KeyboardAvoidingView>
@@ -104,14 +116,19 @@ const styles = StyleSheet.create({
   signUpContainer: {
     flexDirection: 'row'
   },
+  selectRoleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
   textSignUp: {
     color: Colors.primaryPupple,
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: '700',
     marginBottom: 24,
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
+    // color: 'black'
   },
   formContainer: {
     width: '80%',
@@ -124,20 +141,23 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     width: Dimensions.get('window').width*0.80,
+    borderRadius: 20,
     borderColor: 'gray',
     borderWidth: 1,
     paddingHorizontal: 12,
   },
   button: {
-    height: 40,
+    height: 44,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.primaryPupple
+    backgroundColor: Colors.primaryPupple,
+    borderRadius: 24,
+
   },
   buttonText: {
     fontSize: 16,
     fontWeight: '800',
-    color: 'white'
+    color: 'white',
   },
   error: {
     color: 'red',

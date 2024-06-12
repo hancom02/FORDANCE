@@ -3,13 +3,13 @@ import SearchContainer from "./SearchContainer";
 const Search = (props) => {
     const {
         navigation,
-        onClose
+        // onClose
     } = props;
 
     
     const propsContainer = {
         navigation,
-        onClose
+        // onClose
     }
 
     return <SearchContainer{...propsContainer}/>

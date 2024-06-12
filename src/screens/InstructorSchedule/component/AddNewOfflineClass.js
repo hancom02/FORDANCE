@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, TouchableOpacity, FlatList, } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modal';
-import SmallerLessonComponent from "../../../components/SmallerLessonComponent";
-import PopUpModalAddClass from './PopUpModalAddClass';  // Import modal component
+import PopUpModalAddClass from './PopUpModalAddClass';
+import SmallerLessonComponent3 from '../../../components/SmallerLessonComponent3';
 
 const AddNewOfflineClass = (props) => {
     const { navigation } = props;
@@ -69,11 +69,13 @@ const AddNewOfflineClass = (props) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity onPress={handleGoBack} style={styles.backButton}>
+                <View>
+                    <Text style={styles.headerTitle}>Add New</Text>
+                    <Text style={styles.headerTitle}>Offline Class</Text>
+                </View>
+                <TouchableOpacity onPress={handleGoBack} >
                     <Ionicons name="close-outline" size={30} color="black" />
                 </TouchableOpacity>
-                <Text style={styles.headerTitle}>Add New</Text>
-                <Text style={styles.headerTitle}>Offline Class</Text>
             </View>
             <Text style={styles.textHeader}>My lessons</Text>
             <View style={styles.contentContainer}>
@@ -81,8 +83,8 @@ const AddNewOfflineClass = (props) => {
                     data={lessons}
                     renderItem={({ item }) => (
                         <View style={styles.itemContainer}>
-                            <View style={{ width: '80%' }}>
-                                <SmallerLessonComponent lesson={item} />
+                            <View style={{ width: '90%' }}>
+                                <SmallerLessonComponent3 lesson={item} />
                             </View>
                             <TouchableOpacity style={styles.addButton} onPress={handleAddPress}>
                                 <Ionicons name="add-circle-outline" size={24} color="black" />
@@ -91,6 +93,7 @@ const AddNewOfflineClass = (props) => {
                     )}
                     keyExtractor={(item, index) => index.toString()}
                     contentContainerStyle={styles.scrollViewContainer}
+                    showsVerticalScrollIndicator={false}
                 />
             </View>
             <Modal isVisible={isModalVisible}>
@@ -111,6 +114,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginVertical: 10,
         height: 60,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     headerTitle: {
         fontSize: 25,
@@ -129,7 +135,6 @@ const styles = StyleSheet.create({
     contentContainer: {
         flex: 1,
         padding: 16,
-        marginHorizontal: 10,
     },
     text: {
         fontSize: 16,
@@ -137,12 +142,8 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         textAlign: 'justify',
     },
-    backButton: {
-        position: 'absolute',
-        right: 0,
-        top: 10,
-    },
     itemContainer: {
+        width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',

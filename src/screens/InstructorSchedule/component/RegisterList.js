@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const RegisterList = (props) => {
     const { navigation, route } = props;
-    const { lesson } = route.params; // Nhận dữ liệu lesson từ navigation
+    const { lesson } = route.params;
 
     const handleGoBack = () => {
         navigation.goBack();
@@ -54,7 +54,7 @@ const RegisterList = (props) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.header}>
+            <View style={styles.header} >
                 <TouchableOpacity onPress={handleGoBack} style={styles.backButton}>
                     <Ionicons name="arrow-back" size={24} color="black" />
                 </TouchableOpacity>
@@ -68,10 +68,10 @@ const RegisterList = (props) => {
                         <Ionicons name="location" size={20} color="black" />
                         <Text style={styles.infoText}>{lesson.location}</Text>
                     </View>
-                    <View style={styles.rowContainer}>
-                        <Ionicons name="time-outline" size={20} color="black" />
-                        <Text style={styles.infoText}>9:00 - 10:00</Text>
-                    </View>
+                </View>
+                <View style={styles.rowContainer}>
+                    <Ionicons name="time-outline" size={20} color="black" />
+                    <Text style={styles.infoText}>9:00 - 10:00</Text>
                 </View>
                 <View style={styles.rowContainer}>
                     <Ionicons name="calendar-number-outline" size={20} color="black" />
@@ -166,10 +166,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: 'black',
         marginBottom: 10,
-    },
-    backButton: {
-        position: 'absolute',
-        left: 0,
     },
     separator: {
         height: 1,

@@ -1,4 +1,3 @@
-// NotificationScreen.js
 import React from 'react';
 import { SafeAreaView, StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import NotificationsList from '../component/NotificationList';

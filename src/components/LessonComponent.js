@@ -1,4 +1,5 @@
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import LinearGradient from 'react-native-linear-gradient';
 import Colors from "../values/colors";
 
 const LessonComponent = (props) => {
@@ -7,32 +8,36 @@ const LessonComponent = (props) => {
         handleNav,
     } = props;
 
-
-
     return (
         <View style={styles.container}>
             <ImageBackground
-                source={{uri: lessons.image}}
+                source={{ uri: lessons.image }}
                 style={styles.background}
             >
+                <LinearGradient
+                    colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0)']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 0.5, y: 0 }}
+                    style={styles.gradient}
+                />
                 <View style={styles.contentContainer}>
-                    <View style={{width: '100%', height: '50%', paddingVertical: 16}}>
+                    <View style={{ width: '100%', height: '50%', paddingVertical: 16 }}>
                         <View style={styles.level_seeDetailContainer}>
                             <View style={styles.levelContainer}>
                                 <Text style={styles.textLevel}>{lessons.level}</Text>
                             </View>
-                            <TouchableOpacity 
+                            <TouchableOpacity
                                 style={styles.seeDetailContainer}
                                 onPress={handleNav}
                             >
                                 <Text style={styles.textSeeDetail}>See detail</Text>
                             </TouchableOpacity>
                         </View>
-                        
+
                         <Text style={styles.textName}>{lessons.lessonName}</Text>
                     </View>
 
-                    <View style={{width: '100%', height: '50%', justifyContent:'center'}}>
+                    <View style={{ width: '100%', height: '50%', justifyContent: 'center' }}>
                         <Text style={styles.textChoreo}>{lessons.category}</Text>
                         <Text style={styles.textInstructor}>{lessons.instructor}</Text>
                     </View>
@@ -64,6 +69,9 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         // backgroundColor: 'pink'
     },
+    gradient: {
+        ...StyleSheet.absoluteFillObject,
+    },
     contentContainer: {
         width: '100%',
         justifyContent: 'center',
@@ -71,9 +79,9 @@ const styles = StyleSheet.create({
 
     },
     level_seeDetailContainer: {
-        flexDirection: 'row', 
+        flexDirection: 'row',
         height: 30,
-        justifyContent: 'space-between', 
+        justifyContent: 'space-between',
         alignItems: 'baseline',
 
         // backgroundColor: 'pink'
@@ -110,15 +118,14 @@ const styles = StyleSheet.create({
     textName: {
         fontSize: 22,
         fontWeight: '800',
-        color: 'black'
+        color: 'white'
     },
     textChoreo: {
-        color: 'black',
+        color: 'white',
         fontWeight: '700'
-
     },
     textInstructor: {
-        color: 'black',
+        color: 'white',
         fontWeight: '700'
 
     },

@@ -10,6 +10,7 @@ import Lesson2Component from "../../../components/Lesson2Component";
 import InstructorMainView from "../../Instructor/views/InstructorMainView";
 import CategoryMainView from "../../Category/views/CategoryMainView";
 import WiderProgramComponent from "../../../components/WiderProgramComponent";
+import ProgramComponent from "../../../components/ProgramComponent";
 
 const { width, height } = Dimensions.get('window');
 const imgWidth = width * 0.9;
@@ -79,8 +80,8 @@ const LibraryMainView = (props) => {
                             <FlatList
                                 data={programs}
                                 renderItem={({ item, index }) =>
-                                    <View key={index} style={{ marginBottom: 24 }}>
-                                        <WiderProgramComponent
+                                    <View key={index} style={{ marginBottom: 24, width: imgWidth }}>
+                                        <ProgramComponent
                                             program={item}
                                             handleNav={() => handleNavDetailProgram(
                                                 programData = item

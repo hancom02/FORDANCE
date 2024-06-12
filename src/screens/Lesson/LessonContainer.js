@@ -2,7 +2,11 @@ import React from 'react';
 import LessonMainView from "./views/LessonmainView";
 
 const LessonContainer = (props) => {
-    const { navigation, isOwner} = props;
+    const {
+        navigation,
+        lesson,
+        isOwner
+    } = props;
 
     const comments = [
         {
@@ -56,17 +60,16 @@ const LessonContainer = (props) => {
             image_link: "https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg",
             name: "Anh Khoa",
         },
-
-
     ]
+    
     const propsLesson = {
         navigation,
         isOwner,
         comments,
+        lesson,
         participants,
     };
-
-
+  
     return <LessonMainView{...propsLesson} />;
 }
 

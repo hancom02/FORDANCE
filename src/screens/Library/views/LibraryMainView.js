@@ -10,6 +10,7 @@ import Lesson2Component from "../../../components/Lesson2Component";
 import InstructorMainView from "../../Instructor/views/InstructorMainView";
 import CategoryMainView from "../../Category/views/CategoryMainView";
 import WiderProgramComponent from "../../../components/WiderProgramComponent";
+import ProgramComponent from "../../../components/ProgramComponent";
 
 const { width, height } = Dimensions.get('window');
 const imgWidth = width * 0.9;
@@ -21,12 +22,10 @@ const LibraryMainView = (props) => {
         programs,
         categories,
         instructors,
-
     } = props;
 
-
-    const handleNavDetailLesson = () => {
-        navigation.navigate('Lesson', { tabBarVisible: false, isOwner: false });
+    const handleNavDetailLesson = (lesson) => {
+        navigation.navigate('Lesson', { tabBarVisible: false, lesson, isOwner: false });
     }
 
     const handleNavDetailProgram = (
@@ -44,7 +43,7 @@ const LibraryMainView = (props) => {
     }
 
     const handleNavFilter = () => {
-        navigation.navigate('Filter');
+        navigation.navigate('FilterScreen');
     }
 
     const handleOpenSearch = () => {
@@ -67,7 +66,7 @@ const LibraryMainView = (props) => {
                                     <View style={{ marginBottom: 20, width: imgWidth }}>
                                         <Lesson2Component
                                             lessons={item}
-                                            handleNav={handleNavDetailLesson}
+                                            handleNav={() => { console.log("Selected: ", item); handleNavDetailLesson(item) }}
                                         />
                                     </View>
                                 }
@@ -84,8 +83,8 @@ const LibraryMainView = (props) => {
                             <FlatList
                                 data={programs}
                                 renderItem={({ item, index }) =>
-                                    <View key={index} style={{ marginBottom: 24 }}>
-                                        <WiderProgramComponent
+                                    <View key={index} style={{ marginBottom: 24, width: imgWidth }}>
+                                        <ProgramComponent
                                             program={item}
                                             handleNav={() => handleNavDetailProgram(
                                                 programData = item

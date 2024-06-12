@@ -3,40 +3,44 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Switch,
     StyleSheet,
-    FlatList,
     ScrollView,
 } from 'react-native';
 import Colors from '../../../values/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-
-
 const levels = ['BEGINNER', 'INTERMEDIATE', 'ADVANCED'];
-const stylesList = [
-    'BALLET', 'BREAKING/B-BOYING', 'CONTEMPORARY', 'DANCE WORKOUT',
-    'DANCEHALL', 'HEELS', 'HIPHOP', 'HOUSE', 'JAZZ', 'JAZZ FUNK',
-    'K-POP', 'KRUMP', 'LOCKING', 'OPEN STYLE', 'POPPING', 'SALSA',
-    'WHACKING', 'LITE FEET',
+const categories = [
+    'Ballet', 'Breaking/B-Boying', 'Contemporary', 'Dance Workout',
+    'Dancehall', 'Heels', 'Hiphop', 'House', 'Jazz', 'Jazz Funk',
+    'K-Pop', 'Krump', 'Locking', 'Open Style', 'Popping', 'Salsa',
+    'Whacking', 'Lite Feet',
 ];
 
 const FilterScreen = (props) => {
     const {
         navigation,
+        route
     } = props;
 
-    const [selectedOption, setSelectedOption] = useState('LESSONS');
-    const [selectedLevel, setSelectedLevel] = useState('');
-    const [selectedStyles, setSelectedStyles] = useState([]);
+    const { fromResultScreen, selectedOption: initialOption, selectedLevel: initialLevel, selectedStyles: initialStyles } = route.params || {};
+    const [selectedOption, setSelectedOption] = useState(initialOption || 'LESSONS');
+    const [selectedLevel, setSelectedLevel] = useState(initialLevel || '');
+    const [selectedStyles, setSelectedStyles] = useState(initialStyles || []);
 
     const toggleSelection = (list, setList, item) => {
-        if (list.includes(item)) {
-            setList(list.filter(i => i !== item));
+        if (list === item) { // Nếu mức độ đã được chọn trước đó
+            setList(''); // Bỏ chọn mức độ đó
         } else {
-            setList([...list, item]);
+            const lowerCaseItem = item.toLowerCase();
+            if (list.includes(lowerCaseItem)) {
+                setList(list.filter(i => i !== lowerCaseItem));
+            } else {
+                setList([...list, lowerCaseItem]);
+            }
         }
     };
+
 
     const handleClearAllFilters = () => {
         setSelectedOption('LESSONS');
@@ -44,11 +48,25 @@ const FilterScreen = (props) => {
         setSelectedStyles([]);
     };
 
+    const handleClose = () => {
+        if (fromResultScreen) {
+            navigation.navigate('ResultScreen', {
+                selectedOption,
+                selectedLevel,
+                selectedStyles
+            });
+        } else {
+            navigation.goBack();
+        }
+    };
+
+
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>Filters</Text>
-                <TouchableOpacity onPress={() => { navigation.goBack() }}>
+                <TouchableOpacity onPress={handleClose}>
                     <Ionicons name="close-outline" size={30} color="black" />
                 </TouchableOpacity>
             </View>
@@ -111,32 +129,39 @@ const FilterScreen = (props) => {
                 ))}
             </View>
 
-            <Text style={styles.sectionTitle}>Styles</Text>
+            <Text style={styles.sectionTitle}>Categories</Text>
             <View style={styles.optionsContainer}>
-                {stylesList.map(style => (
+                {categories.map(category => (
                     <TouchableOpacity
-                        key={style}
+                        key={category}
                         style={[
                             styles.option,
-                            selectedStyles.includes(style) && styles.selectedOption,
+                            selectedStyles.includes(category.toLowerCase()) && styles.selectedOption,
                         ]}
                         onPress={() =>
-                            toggleSelection(selectedStyles, setSelectedStyles, style)
+                            toggleSelection(selectedStyles, setSelectedStyles, category)
                         }
                     >
                         <Text
                             style={[
                                 styles.optionText,
-                                selectedStyles.includes(style) && styles.selectedOptionText,
+                                selectedStyles.includes(category.toLowerCase()) && styles.selectedOptionText,
                             ]}
                         >
-                            {style}
+                            {category}
                         </Text>
                     </TouchableOpacity>
                 ))}
             </View>
 
-            <TouchableOpacity style={styles.showResultsButton}>
+            <TouchableOpacity
+                style={styles.showResultsButton}
+                onPress={() => navigation.navigate('ResultScreen', {
+                    selectedOption,
+                    selectedLevel,
+                    selectedStyles
+                })}
+            >
                 <Text style={styles.showResultsButtonText}>SHOW RESULTS</Text>
             </TouchableOpacity>
 

@@ -3,11 +3,11 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from "../values/colors";
-import InstructorManage from "../screens/InstructorManage";
 import InstructorAccount from "../screens/InstructorAccount";
 import InstructorSchedule from '../screens/InstructorSchedule';
 import InstructorSettingStack from './InstructorSettingStack';
 import InstructorManageStack from './InstructorManageStack';
+import InstructorScheduleStack from './InstructorScheduleStack';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -24,8 +24,8 @@ function MyInstructorBottomTab() {
                 })}
             />
             <BottomTab.Screen
-                name="InstructorSchedule"
-                component={InstructorSchedule}
+                name="InstructorScheduleStack"
+                component={InstructorScheduleStack}
                 options={{ tabBarIcon: ({ focused }) => (<Ionicons name="calendar-outline" size={24} color={focused ? Colors.primaryPupple : 'black'} />) }}
             />
             <BottomTab.Screen

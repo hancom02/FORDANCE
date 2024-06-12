@@ -1,19 +1,21 @@
+import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-
-// ICON
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 import Colors from "../values/colors";
 
 const MyHeader = (props) => {
-    const {
+    const navigation = useNavigation();
 
-    } = props;
+    const handleOpenNotifications = () => {
+        navigation.navigate('Notifications');
+    };
 
     return (
         <View style={styles.container}>
             <Text style={styles.text}>FORDANCE</Text>
-            <TouchableOpacity>
-                <Ionicons name="notifications-outline" size={27} color='black'/>
+            <TouchableOpacity onPress={handleOpenNotifications}>
+                <Ionicons name="notifications-outline" size={27} color='black' />
             </TouchableOpacity>
         </View>
     )
@@ -30,7 +32,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 16,
-        // borderBottomWidth: 1,
         borderColor: 'grey',
         shadowColor: '#000000',
         shadowOffset: {
@@ -40,11 +41,10 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowRadius: 5,
         elevation: 10,
-        // backgroundColor: Colors.primaryPupple
     },
     text: {
         fontSize: 20,
         fontWeight: '700',
         color: 'black'
-    }
-})
+    },
+});

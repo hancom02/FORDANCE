@@ -16,6 +16,7 @@ import store from './redux/store';
 import SignUp from './screens/SignUp';
 import ChoseRole from './screens/ChoseRole';
 import Community from './screens/Community';
+import InstructorProgram from './screens/InstructorProgram';
 
 const Stack = createNativeStackNavigator();
 
@@ -54,7 +55,9 @@ export default function App() {
                         <>
                             <Stack.Screen name="MyInstructorBottomTab" component={MyInstructorBottomTab} />
                             <Stack.Screen name="Lesson" component={Lesson} />
-                            <Stack.Screen name="Program" component={Program} />
+                            <Stack.Screen name="InstructorProgram" component={InstructorProgram} />
+                            <Stack.Screen name="Community" component={Community} />
+
                         </>
                     ) : null}
                 </Stack.Navigator>

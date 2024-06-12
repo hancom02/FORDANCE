@@ -15,7 +15,7 @@ const HomeContainer = (props) => {
 
     const lessons = [
         {
-            lessonName: "Ballet Basic",
+            name: "Ballet Basic",
             category: "Ballet",
             instructor: "Ngoc Han",
             level: 'BEGINNER',
@@ -108,16 +108,18 @@ const HomeContainer = (props) => {
 
             lessons: [
                 {
-                    lessonName: 'How to do plete',
-                    totalTime: '1:15',
-                    lessonImage: 'https://toquoc.mediacdn.vn/Upload/Article/Langkinh/2016/6/14/rez_674_maxresdefault3.jpg',
-                    lesonsVideo: ' ',
+                    name: 'How to do plete',
+                    level: 'INTERMEDIATE',
+                    total_time: '1:15',
+                    image_link: 'https://toquoc.mediacdn.vn/Upload/Article/Langkinh/2016/6/14/rez_674_maxresdefault3.jpg',
+                    video_URL: ' ',
                 },
                 {
-                    lessonName: 'How to do catfish',
-                    totalTime: '1:15',
-                    lessonImage: 'https://toquoc.mediacdn.vn/Upload/Article/Langkinh/2016/6/14/rez_674_maxresdefault3.jpg',
-                    lesonsVideo: ' ',
+                    name: 'How to do catfish',
+                    level: 'INTERMEDIATE',
+                    total_time: '1:15',
+                    image_link: 'https://toquoc.mediacdn.vn/Upload/Article/Langkinh/2016/6/14/rez_674_maxresdefault3.jpg',
+                    video_URL: ' ',
                 },
             ]
         },
@@ -132,45 +134,45 @@ const HomeContainer = (props) => {
 
             lessons: [
                 {
-                    lessonName: 'How to do plete',
-                    totalTime: '1:15',
-                    lessonImage: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
+                    name: 'How to do plete',
+                    total_time: '1:15',
+                    image_link: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
                     lesonsVideo: ' ',
                 },
                 {
-                    lessonName: 'How to do catfish',
-                    totalTime: '1:15',
-                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    name: 'How to do catfish',
+                    total_time: '1:15',
+                    image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
                     lesonsVideo: ' ',
                 },
                 {
-                    lessonName: 'How to do plete',
-                    totalTime: '1:15',
-                    lessonImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHHdZ2dMu6iPlTO62u0iwyL-gXlEO1pyBQToaodjY5izWyDcI8ohCh3SVJBzCzb8-aUio&usqp=CAU',
+                    name: 'How to do plete',
+                    total_time: '1:15',
+                    image_link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHHdZ2dMu6iPlTO62u0iwyL-gXlEO1pyBQToaodjY5izWyDcI8ohCh3SVJBzCzb8-aUio&usqp=CAU',
                     lesonsVideo: ' ',
                 },
                 {
-                    lessonName: 'How to do catfish',
-                    totalTime: '1:15',
-                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    name: 'How to do catfish',
+                    total_time: '1:15',
+                    image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
                     lesonsVideo: ' ',
                 },
                 {
-                    lessonName: 'How to do plete',
-                    totalTime: '1:15',
-                    lessonImage: 'https://media.istockphoto.com/id/1272937508/vi/anh/ballerina-dancing-with-silk-fabric-modern-ballet-dancer-in-fluttering-waving-cloth-pointe-shoes.jpg?s=612x612&w=0&k=20&c=YzCYit-TSpIQdrjJZhbWkgipgHzNUspeWI-xYrnrCHU=',
+                    name: 'How to do plete',
+                    total_time: '1:15',
+                    image_link: 'https://media.istockphoto.com/id/1272937508/vi/anh/ballerina-dancing-with-silk-fabric-modern-ballet-dancer-in-fluttering-waving-cloth-pointe-shoes.jpg?s=612x612&w=0&k=20&c=YzCYit-TSpIQdrjJZhbWkgipgHzNUspeWI-xYrnrCHU=',
                     lesonsVideo: ' ',
                 },
                 {
-                    lessonName: 'How to do plete',
-                    totalTime: '1:15',
-                    lessonImage: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
+                    name: 'How to do plete',
+                    total_time: '1:15',
+                    image_link: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
                     lesonsVideo: ' ',
                 },
                 {
-                    lessonName: 'How to do catfish',
-                    totalTime: '1:15',
-                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    name: 'How to do catfish',
+                    total_time: '1:15',
+                    image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
                     lesonsVideo: ' ',
                 },
             ]
@@ -186,15 +188,15 @@ const HomeContainer = (props) => {
 
             lessons: [
                 {
-                    lessonName: 'How to do plete',
-                    totalTime: '1:15',
-                    lessonImage: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
+                    name: 'How to do plete',
+                    total_time: '1:15',
+                    image_link: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
                     lesonsVideo: ' ',
                 },
                 {
-                    lessonName: 'How to do catfish',
-                    totalTime: '1:15',
-                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    name: 'How to do catfish',
+                    total_time: '1:15',
+                    image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
                     lesonsVideo: ' ',
                 },
             ]

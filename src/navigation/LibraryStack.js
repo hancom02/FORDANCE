@@ -6,6 +6,7 @@ import Category from "../screens/Category";
 import CategoryDetail from "../screens/Category/views/CategoryDetail";
 import Community from '../screens/Community';
 import Filter from '../screens/Filter/views/Filter';
+import Search from '../screens/Search';
 
 const ChildStack = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ function LibraryStack() {
             <ChildStack.Screen name="Category" component={Category} />
             <ChildStack.Screen name="CategoryDetail" component={CategoryDetail} />
             <ChildStack.Screen name="Filter" component={Filter} />
+            <ChildStack.Screen name="Search" component={Search} />
         </ChildStack.Navigator>
     );
 }

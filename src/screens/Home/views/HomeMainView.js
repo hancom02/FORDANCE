@@ -49,6 +49,10 @@ const HomeMainView = (props) => {
 
     };
 
+    const handleOpenSearch = () => {
+        navigation.navigate('Search');
+    }
+
     const handleNavDetailLesson = () => {
         navigation.navigate('Lesson', {isOwner: false});
     }
@@ -69,7 +73,7 @@ const HomeMainView = (props) => {
 
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 <View style={styles.searchContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={handleOpenSearch}>
                         <Ionicons name="search-outline" size={24} color='black' />
 
                     </TouchableOpacity>
@@ -160,8 +164,8 @@ const HomeMainView = (props) => {
                     </View>
                 </View>
 
-                {/* SAVE LESSON */}
-                <View>
+                {/* LESSON CỤM SAVE 2 */}
+                <View style={styles.todayLessonsContainer}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', paddingBottom: 16, paddingRight: 16 }}>
                         <Text style={styles.textTitle}>{saveLesson}</Text>
                         <TouchableOpacity>
@@ -173,10 +177,12 @@ const HomeMainView = (props) => {
                         <FlatList
                             data={saveLessons}
                             renderItem={({ item, index }) =>
-                                <Lesson2Component
-                                    lessons={item}
-                                    handleNav={handleNavDetailLesson}
-                                />}
+                                <View style={{ width: imgWidth, marginRight: 8 }}>
+                                    <Lesson2Component
+                                        lessons={item}
+                                        handleNav={handleNavDetailLesson}
+                                    />
+                                </View>}
                             horizontal
                             showsHorizontalScrollIndicator={false}
                         />

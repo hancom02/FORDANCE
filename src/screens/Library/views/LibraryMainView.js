@@ -24,9 +24,8 @@ const LibraryMainView = (props) => {
         instructors,
     } = props;
 
-
     const handleNavDetailLesson = (lesson) => {
-        navigation.navigate('Lesson', { lesson });
+        navigation.navigate('Lesson', { tabBarVisible: false, lesson, isOwner: false });
     }
 
     const handleNavDetailProgram = (
@@ -47,11 +46,15 @@ const LibraryMainView = (props) => {
         navigation.navigate('FilterScreen');
     }
 
+    const handleOpenSearch = () => {
+        navigation.navigate('Search')
+    }
+
     const [content, setContent] = useState("Lessons"); // State để xác định nội dung hiện tại
 
     return (
         <SafeAreaView style={styles.container}>
-            <LibraryHeader onButtonPress={setContent} handleOpenFilter={handleNavFilter} />
+            <LibraryHeader onButtonPress={setContent} handleOpenFilter={handleNavFilter} handleOpenSearch={handleOpenSearch}/>
             <View style={styles.contentContainer}>
                 {content === "Lessons" &&
                     <View style={styles.libraryContainer}>

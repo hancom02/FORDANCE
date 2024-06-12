@@ -13,7 +13,7 @@ const Lesson2Component = (props) => {
         <View>
             <View style={styles.container1}>
                 <ImageBackground
-                    source={{ uri: lessons.image }}
+                    source={{ uri: lessons.image_link }}
                     style={styles.background}
                 >
                     <LinearGradient
@@ -23,7 +23,7 @@ const Lesson2Component = (props) => {
                         style={styles.gradient}
                     />
                     <View style={styles.contentContainer}>
-                        <Text style={styles.textName}>{lessons.lessonName}</Text>
+                        <Text style={styles.textName}>{lessons.name}</Text>
                         <TouchableOpacity
                             onPress={handleNav}
                         >
@@ -46,7 +46,7 @@ const Lesson2Component = (props) => {
             </View>
 
             <View style={styles.container3}>
-                <Text style={styles.textTime}>{lessons.timeDuring} minutes</Text>
+                <Text style={styles.textTime}>{lessons.total_time} minutes</Text>
             </View>
         </View>
     )

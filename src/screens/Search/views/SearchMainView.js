@@ -4,6 +4,7 @@ import SearchTab from '../components/SearchTab';
 import { useState } from 'react';
 import LessonWithAddScheduleIcon from '../components/LessonWithAddScheduleIcon';
 import WiderProgramComponent from '../../../components/WiderProgramComponent';
+import Lesson2Component from '../../../components/Lesson2Component';
 
 
 const { View, Text, StyleSheet, Modal, TouchableOpacity } = require("react-native");
@@ -43,7 +44,7 @@ const SearchMainView = (props) => {
         infor,
         lessonResult,
         programResult,
-        onClose
+        // onClose
     } = props;
 
     const [content, setContent] = useState("Lessons"); // State để xác định nội dung hiện tại
@@ -57,6 +58,9 @@ const SearchMainView = (props) => {
         //     program: programData
         // });
     }
+    const handleCloseSearch = () => {
+        navigation.goBack();
+    }
 
     return (
         <Modal
@@ -64,13 +68,13 @@ const SearchMainView = (props) => {
             animationType='slide'
         >
            <View style={styles.container}>
-                <Header onClose={onClose} setContent={setContent} />
+                <Header onClose={handleCloseSearch} setContent={setContent} />
                 <View style={styles.resultContainer}>
                     {content === "Lessons" &&
                         <View>
                             <FlatList 
                                 data={lessonResult}
-                                renderItem={({index, item}) => <LessonWithAddScheduleIcon lessons={item} handleNav={() => handleNavDetailLesson()}/>}
+                                renderItem={({index, item}) => <Lesson2Component lessons={item} handleNav={() => handleNavDetailLesson()}/>}
                             />
                         </View>
                     }

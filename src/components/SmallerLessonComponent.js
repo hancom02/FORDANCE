@@ -1,22 +1,32 @@
 const { Vibration, View, StyleSheet, Text, Image, TouchableOpacity } = require("react-native")
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const SmallerLessonComponent = (props) => {
     const {
         lesson,
+        isOwner,
         index,
-        handleNav
+        handleNav,
+        handleDelete,
     } = props;
 
     // console.log("LESSON IN SMALL COMPONENT: ,", lesson);
 
     return (
         <TouchableOpacity style={styles.container} onPress={handleNav}>
-            <Text style={styles.textIndex}>{index}</Text>
-            <Image style={styles.image} source={{ uri: lesson.lessonImage }} />
-            <View>
-                <Text style={styles.textLessonName}>{lesson.lessonName}</Text>
-                <Text style={styles.textTime}>{lesson.totalTime}</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={styles.textIndex}>{index}</Text>
+                <Image style={styles.image} source={{ uri: lesson.image_link }} />
+                <View>
+                    <Text style={styles.textLessonName}>{lesson.name}</Text>
+                    <Text style={styles.textTime}>{lesson.total_time}</Text>
+                </View>
             </View>
+            {isOwner &&
+                <TouchableOpacity style={styles.containerIcon} onPress={handleDelete}>
+                    <Ionicons name="trash-outline" size={24}/>
+                </TouchableOpacity>
+            }
         </TouchableOpacity>
     )
 }
@@ -28,7 +38,8 @@ const styles = StyleSheet.create({
         height: 80,
         flexDirection: 'row',
         alignItems: 'center',
-        // justifyContent: ''
+        justifyContent: 'space-between',
+        paddingRight: 16
 
         // backgroundColor: 'pink'
     },
@@ -53,6 +64,11 @@ const styles = StyleSheet.create({
         height: 80,
         borderRadius: 5,
         marginRight: 16,
+    },
+    containerIcon: {
+        // width: 40,
+        // alignSelf: 'flex-end',
+        justifyContent: 'flex-end'
     }
 
 })

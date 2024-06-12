@@ -17,6 +17,8 @@ import SignUp from './screens/SignUp';
 import ChoseRole from './screens/ChoseRole';
 import Community from './screens/Community';
 import NotificationScreen from './screens/Notifications/views/NotificationScreen';
+import InstructorProgram from './screens/InstructorProgram';
+import Search from './screens/Search';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +48,7 @@ export default function App() {
                             <Stack.Screen name="HomeStack" component={HomeStack} />
                             <Stack.Screen name="LibraryStack" component={LibraryStack} />
                             <Stack.Screen name="AccountStack" component={AccountStack} />
+                            <Stack.Screen name="Search" component={Search} />
                             <Stack.Screen name="Lesson" component={Lesson} />
                             <Stack.Screen name="Program" component={Program} />
                             <Stack.Screen name="Community" component={Community} />
@@ -56,7 +59,9 @@ export default function App() {
                         <>
                             <Stack.Screen name="MyInstructorBottomTab" component={MyInstructorBottomTab} />
                             <Stack.Screen name="Lesson" component={Lesson} />
-                            <Stack.Screen name="Program" component={Program} />
+                            <Stack.Screen name="InstructorProgram" component={InstructorProgram} />
+                            <Stack.Screen name="Community" component={Community} />
+
                         </>
                     ) : null}
                 </Stack.Navigator>

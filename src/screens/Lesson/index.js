@@ -12,12 +12,15 @@ const Lesson = (props) => {
 
     } = props;
 
-    const { lesson } = route.params;
+    const { lesson, isOwner } = route.params;
 
     const propsContainer = {
         navigation,
-        lesson
+        lesson,
+        isOwner,
     };
+  
+    //console.log("IS LESSON OWNER IN INDEX: ", isOwner);
 
     return <LessonContainer{...propsContainer} />
 }

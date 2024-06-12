@@ -11,7 +11,7 @@ const LessonComponent = (props) => {
     return (
         <View style={styles.container}>
             <ImageBackground
-                source={{ uri: lessons.image }}
+                source={{uri: lessons.image_link}}
                 style={styles.background}
             >
                 <LinearGradient
@@ -33,8 +33,7 @@ const LessonComponent = (props) => {
                                 <Text style={styles.textSeeDetail}>See detail</Text>
                             </TouchableOpacity>
                         </View>
-
-                        <Text style={styles.textName}>{lessons.lessonName}</Text>
+                        <Text style={styles.textName}>{lessons.name}</Text>
                     </View>
 
                     <View style={{ width: '100%', height: '50%', justifyContent: 'center' }}>

@@ -4,7 +4,8 @@ import LessonMainView from "./views/LessonmainView";
 const LessonContainer = (props) => {
     const {
         navigation,
-        lesson
+        lesson,
+        isOwner
     } = props;
 
     const comments = [
@@ -25,12 +26,50 @@ const LessonContainer = (props) => {
             }]
         },
     ];
+
+    const participants = [
+        {
+            image_link: "https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg",
+            name: "Anh Khoa",
+        },
+        {
+            image_link: "https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg",
+            name: "Hoai Thuong",
+        },
+        {
+            image_link: "https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg",
+            name: "Ngoc han",
+        },
+        {
+            image_link: "https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg",
+            name: "Anh Khoa",
+        },
+        {
+            image_link: "https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg",
+            name: "Anh Khoa",
+        },
+        {
+            image_link: "https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg",
+            name: "Hoai Thuong",
+        },
+        {
+            image_link: "https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg",
+            name: "Ngoc han",
+        },
+        {
+            image_link: "https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg",
+            name: "Anh Khoa",
+        },
+    ]
+    
     const propsLesson = {
         navigation,
+        isOwner,
         comments,
         lesson,
+        participants,
     };
-
+  
     return <LessonMainView{...propsLesson} />;
 }
 

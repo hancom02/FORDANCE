@@ -178,7 +178,7 @@ const ResultScreen = ({ route, navigation }) => {
 
     const renderItem = ({ item }) => {
         if (selectedOption === 'LESSONS') {
-            return <Lesson2Component lessons={item} handleNav={handleNavDetailLesson} />;
+            return <Lesson2Component lessons={item} handleNav={() => handleNavDetailLesson(item)} />;
         } else if (selectedOption === 'PROGRAMS') {
             return <ProgramComponent program={item} handleNav={() => handleNavDetailProgram(item)} />;
         } else {
@@ -187,8 +187,8 @@ const ResultScreen = ({ route, navigation }) => {
         }
     };
 
-    const handleNavDetailLesson = () => {
-        navigation.navigate('Lesson');
+    const handleNavDetailLesson = (lesson) => {
+        navigation.navigate('Lesson', {isOwner: false, lesson});
     }
 
     const handleNavDetailProgram = (program) => {

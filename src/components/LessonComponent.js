@@ -1,5 +1,5 @@
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import LinearGradient from 'react-native-linear-gradient';
+// import LinearGradient from 'react-native-linear-gradient';
 import Colors from "../values/colors";
 
 const LessonComponent = (props) => {
@@ -14,12 +14,13 @@ const LessonComponent = (props) => {
                 source={{uri: lessons.image_link}}
                 style={styles.background}
             >
-                <LinearGradient
+                {/* <LinearGradient
                     colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0)']}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 0.5, y: 0 }}
                     style={styles.gradient}
-                />
+                /> */}
+
                 <View style={styles.contentContainer}>
                     <View style={{ width: '100%', height: '50%', paddingVertical: 16 }}>
                         <View style={styles.level_seeDetailContainer}>

@@ -32,17 +32,16 @@ const InstructorManageMainView = (props) => {
 
     const [isShowMoreAction, setisShowMoreAction] = useState(false);
 
-    // const onPressOpenMoreAction = () => {
-    //     console.log("ON FUNCT: onPressOpenMoreAction")
-    //     setisShowMoreAction(true);
-    // }
-    // const onPressCloseMoreAction = () =>
-    // {
-    //     setisShowMoreAction(false);
-    // }
+    const handleNavNotification = () =>
+    {
+        navigation.navigate('Notifications')
+    }
 
-    const handleNavDetailLesson = () => {
-        navigation.navigate('Lesson', { tabBarVisible: false, isOwner: true });
+    const handleNavSearch = () => {
+        navigation.navigate('Search')
+    }
+    const handleNavDetailLesson = (lesson) => {
+        navigation.navigate('Lesson', { tabBarVisible: false, isOwner: true, lesson });
     }
 
     const handleNavDetailInstructorProgram = (
@@ -66,7 +65,13 @@ const InstructorManageMainView = (props) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ManageHeader onPressButton={setContent} onPressPostClass={handleNavPostLesson} onPressPostProgram={handleNavPostProgram} />
+            <ManageHeader 
+                onPressButton={setContent} 
+                onPressPostClass={handleNavPostLesson} 
+                onPressPostProgram={handleNavPostProgram} 
+                onPressNotification={handleNavNotification}
+                onPressSearch={handleNavSearch}
+            />
             <View style={styles.contentContainer}>
                 {content === "My Lessons" &&
                     <View style={styles.manageContainer}>
@@ -79,7 +84,7 @@ const InstructorManageMainView = (props) => {
                                         <View>
                                             <SmallerLessonComponent2
                                                 lesson={item}
-                                                handleNav={handleNavDetailLesson}
+                                                handleNav={() => handleNavDetailLesson(item)}
                                                 onPressOpenMoreAction={() => onPressOpenMoreAction(item.lessonId)}
                                                 onPressCloseMoreAction={onPressCloseMoreAction}
                                             />

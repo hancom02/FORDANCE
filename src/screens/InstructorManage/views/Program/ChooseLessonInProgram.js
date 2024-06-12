@@ -13,46 +13,46 @@ const ChooseLessonInProgram = (props) => {
         const fetchedLessons = [
             // Các bài học
             {
-                lessonName: 'How to do plete',
-                totalTime: '1:15',
-                lessonImage: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
+                name: 'How to do plete',
+                total_time: '1:15',
+                image_link: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
+                video_link: ' ',
+            },
+            {
+                name: 'How to do catfish',
+                total_time: '1:15',
+                image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                video_link: ' ',
+            },
+            {
+                name: 'How to do plete',
+                total_time: '1:15',
+                image_link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHHdZ2dMu6iPlTO62u0iwyL-gXlEO1pyBQToaodjY5izWyDcI8ohCh3SVJBzCzb8-aUio&usqp=CAU',
+                video_link: ' ',
+            },
+            {
+                name: 'How to do catfish',
+                total_time: '1:15',
+                image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
                 lesonsVideo: ' ',
             },
             {
-                lessonName: 'How to do catfish',
-                totalTime: '1:15',
-                lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
-                lesonsVideo: ' ',
+                name: 'How to do plete',
+                total_time: '1:15',
+                image_link: 'https://media.istockphoto.com/id/1272937508/vi/anh/ballerina-dancing-with-silk-fabric-modern-ballet-dancer-in-fluttering-waving-cloth-pointe-shoes.jpg?s=612x612&w=0&k=20&c=YzCYit-TSpIQdrjJZhbWkgipgHzNUspeWI-xYrnrCHU=',
+                video_link: ' ',
             },
             {
-                lessonName: 'How to do plete',
-                totalTime: '1:15',
-                lessonImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHHdZ2dMu6iPlTO62u0iwyL-gXlEO1pyBQToaodjY5izWyDcI8ohCh3SVJBzCzb8-aUio&usqp=CAU',
-                lesonsVideo: ' ',
+                name: 'How to do plete',
+                total_time: '1:15',
+                image_link: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
+                video_link: ' ',
             },
             {
-                lessonName: 'How to do catfish',
-                totalTime: '1:15',
-                lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
-                lesonsVideo: ' ',
-            },
-            {
-                lessonName: 'How to do plete',
-                totalTime: '1:15',
-                lessonImage: 'https://media.istockphoto.com/id/1272937508/vi/anh/ballerina-dancing-with-silk-fabric-modern-ballet-dancer-in-fluttering-waving-cloth-pointe-shoes.jpg?s=612x612&w=0&k=20&c=YzCYit-TSpIQdrjJZhbWkgipgHzNUspeWI-xYrnrCHU=',
-                lesonsVideo: ' ',
-            },
-            {
-                lessonName: 'How to do plete',
-                totalTime: '1:15',
-                lessonImage: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
-                lesonsVideo: ' ',
-            },
-            {
-                lessonName: 'How to do catfish',
-                totalTime: '1:15',
-                lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
-                lesonsVideo: ' ',
+                name: 'How to do catfish',
+                total_time: '1:15',
+                image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                video_link: ' ',
             },
         ];
 
@@ -101,7 +101,7 @@ const ChooseLessonInProgram = (props) => {
 
     const renderItem = ({ item }) => (
         <TouchableOpacity style={styles.videoContainer} onPress={() => handlePress(item)}>
-            <Image source={{ uri: item.lessonImage }} style={styles.video} resizeMode="cover" />
+            <Image source={{ uri: item.image_link }} style={styles.video} resizeMode="cover" />
             <TouchableOpacity
                 style={[
                     styles.selectionButton,
@@ -114,9 +114,9 @@ const ChooseLessonInProgram = (props) => {
                 </Text>
             </TouchableOpacity>
             {
-                item.totalTime && (
+                item.total_time && (
                     <View style={styles.durationContainer}>
-                        <Text style={styles.durationText}>{item.totalTime}</Text>
+                        <Text style={styles.durationText}>{item.total_time}</Text>
                     </View>
                 )
             }

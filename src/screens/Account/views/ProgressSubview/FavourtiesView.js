@@ -12,150 +12,158 @@ const FavouritesView = ({ route, navigation }) => {
 
     const lessons = [
         {
-            lessonName: "Ballet Basic",
+            name: "Ballet Basic",
             category: "Ballet",
             instructor: "Ngoc Han",
             instructorImage: 'https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg',
             level: 'BEGINNER',
-            timeDuring: 16,
-            image: 'https://img.freepik.com/premium-photo/dance-ballet-studio-with-woman-dancer-training-practicing-dancing-performance-recital-rehearsal-artistic-perform-technique-with-young-female-school-production-art_590464-81910.jpg',
+            total_time: 16,
+            image_link: 'https://img.freepik.com/premium-photo/dance-ballet-studio-with-woman-dancer-training-practicing-dancing-performance-recital-rehearsal-artistic-perform-technique-with-young-female-school-production-art_590464-81910.jpg',
             progress: 0.5,
         },
         {
-            lessonName: 'The Boy Is Mine',
+            name: 'The Boy Is Mine',
             category: "Chogreophy",
             instructor: "Redy",
+            instructorImage: 'https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg',
             level: "INTERMEDIATE",
-            timeDuring: 16,
-            image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593",
+            total_time: 16,
+            image_link: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593",
             process: 1,
         },
         {
-            lessonName: 'Kpop basic',
+            name: 'Kpop basic',
             category: "Kpop",
             instructor: "Lip J",
+            instructorImage: 'https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg',
             level: "ADVANCED",
-            timeDuring: 10,
-            image: "https://i0.wp.com/ononestudios.com/wp-content/uploads/2022/07/allkpop_1644246173_blackpink-how-you-like-that-dance-performance-video-2-55-screenshot.png?fit=1024%2C576&ssl=1",
+            total_time: 10,
+            image_link: "https://i0.wp.com/ononestudios.com/wp-content/uploads/2022/07/allkpop_1644246173_blackpink-how-you-like-that-dance-performance-video-2-55-screenshot.png?fit=1024%2C576&ssl=1",
             progress: 0.5,
         },
         {
-            lessonName: 'Kpop Intermediate',
+            name: 'Kpop Intermediate',
             category: "Kpop",
             instructor: "Lip J",
+            instructorImage: 'https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg',
             level: "ADVANCED",
-            timeDuring: 10,
-            image: "https://i0.wp.com/ononestudios.com/wp-content/uploads/2022/07/allkpop_1644246173_blackpink-how-you-like-that-dance-performance-video-2-55-screenshot.png?fit=1024%2C576&ssl=1",
+            total_time: 10,
+            image_link: "https://i0.wp.com/ononestudios.com/wp-content/uploads/2022/07/allkpop_1644246173_blackpink-how-you-like-that-dance-performance-video-2-55-screenshot.png?fit=1024%2C576&ssl=1",
             progress: 0.95,
         },
         {
-            lessonName: 'Kpop Advanced',
+            name: 'Kpop Advanced',
             category: "Kpop",
             instructor: "Lip J",
+            instructorImage: 'https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg',
             level: "ADVANCED",
-            timeDuring: 10,
-            image: "https://i0.wp.com/ononestudios.com/wp-content/uploads/2022/07/allkpop_1644246173_blackpink-how-you-like-that-dance-performance-video-2-55-screenshot.png?fit=1024%2C576&ssl=1",
+            total_time: 10,
+            image_link: "https://i0.wp.com/ononestudios.com/wp-content/uploads/2022/07/allkpop_1644246173_blackpink-how-you-like-that-dance-performance-video-2-55-screenshot.png?fit=1024%2C576&ssl=1",
             progress: 0.7,
         },
     ]
-    const programs = [
-        {
-            programName: "Ballet Basic",
-            category: "Ballet",
-            instructor: "Ngoc Han",
-            instructorImage: 'https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg',
-            level: 'BEGINNER',
-            lessonAmount: 15,
-            image: 'https://img.freepik.com/premium-photo/dance-ballet-studio-with-woman-dancer-training-practicing-dancing-performance-recital-rehearsal-artistic-perform-technique-with-young-female-school-production-art_590464-81910.jpg',
+    // const programs = [
+    //     {
+    //         programName: "Ballet Basic",
+    //         category: "Ballet",
+    //         instructor: "Ngoc Han",
+    //         instructorImage: 'https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg',
+    //         level: 'BEGINNER',
+    //         lessonAmount: 15,
+    //         image: 'https://img.freepik.com/premium-photo/dance-ballet-studio-with-woman-dancer-training-practicing-dancing-performance-recital-rehearsal-artistic-perform-technique-with-young-female-school-production-art_590464-81910.jpg',
 
-            lessons: [
-                {
-                    lessonName: 'How to do plete',
-                    totalTime: '1:15',
-                    lessonImage: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
-                    lesonsVideo: ' ',
-                },
-                {
-                    lessonName: 'How to do catfish',
-                    totalTime: '1:15',
-                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
-                    lesonsVideo: ' ',
-                },
-                {
-                    lessonName: 'How to do plete',
-                    totalTime: '1:15',
-                    lessonImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHHdZ2dMu6iPlTO62u0iwyL-gXlEO1pyBQToaodjY5izWyDcI8ohCh3SVJBzCzb8-aUio&usqp=CAU',
-                    lesonsVideo: ' ',
-                },
-                {
-                    lessonName: 'How to do catfish',
-                    totalTime: '1:15',
-                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
-                    lesonsVideo: ' ',
-                },
-                {
-                    lessonName: 'How to do plete',
-                    totalTime: '1:15',
-                    lessonImage: 'https://media.istockphoto.com/id/1272937508/vi/anh/ballerina-dancing-with-silk-fabric-modern-ballet-dancer-in-fluttering-waving-cloth-pointe-shoes.jpg?s=612x612&w=0&k=20&c=YzCYit-TSpIQdrjJZhbWkgipgHzNUspeWI-xYrnrCHU=',
-                    lesonsVideo: ' ',
-                },
-                {
-                    lessonName: 'How to do plete',
-                    totalTime: '1:15',
-                    lessonImage: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
-                    lesonsVideo: ' ',
-                },
-                {
-                    lessonName: 'How to do catfish',
-                    totalTime: '1:15',
-                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
-                    lesonsVideo: ' ',
-                },
-            ]
-        },
-        {
-            programName: 'The Boy Is Mine',
-            category: "Chogreophy",
-            instructor: "Redy",
-            instructorImage: 'https://new1m.s3.ap-northeast-2.amazonaws.com/teachers/profile/152_240213001705817.jpg',
-            level: "INTERMEDIATE",
-            lessonAmount: 8,
-            image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
-        },
-        {
-            programName: 'Easy Kpop',
-            category: "Chogreophy",
-            instructor: "Lip J",
-            instructorImage: 'https://i.ytimg.com/vi/5tZ7OaEbQBk/sddefault.jpg',
-            level: "INTERMEDIATE",
-            lessonAmount: 5,
-            image: "https://i0.wp.com/ononestudios.com/wp-content/uploads/2022/07/allkpop_1644246173_blackpink-how-you-like-that-dance-performance-video-2-55-screenshot.png?fit=1024%2C576&ssl=1",
+    //         lessons: [
+    //             {
+    //                 name: 'How to do plete',
+    //                 total_time: '1:15',
+    //                 image_link: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
+    //                 video_link: ' ',
+    //             },
+    //             {
+    //                 name: 'How to do catfish',
+    //                 total_time: '1:15',
+    //                 image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+    //                 video_link: ' ',
+    //             },
+    //             {
+    //                 name: 'How to do plete',
+    //                 total_time: '1:15',
+    //                 image_link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHHdZ2dMu6iPlTO62u0iwyL-gXlEO1pyBQToaodjY5izWyDcI8ohCh3SVJBzCzb8-aUio&usqp=CAU',
+    //                 video_link: ' ',
+    //             },
+    //             {
+    //                 name: 'How to do catfish',
+    //                 total_time: '1:15',
+    //                 image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+    //                 video_link: ' ',
+    //             },
+    //             {
+    //                 name: 'How to do plete',
+    //                 total_time: '1:15',
+    //                 image_link: 'https://media.istockphoto.com/id/1272937508/vi/anh/ballerina-dancing-with-silk-fabric-modern-ballet-dancer-in-fluttering-waving-cloth-pointe-shoes.jpg?s=612x612&w=0&k=20&c=YzCYit-TSpIQdrjJZhbWkgipgHzNUspeWI-xYrnrCHU=',
+    //                 video_link: ' ',
+    //             },
+    //             {
+    //                 name: 'How to do plete',
+    //                 total_time: '1:15',
+    //                 image_link: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
+    //                 video_link: ' ',
+    //             },
+    //             {
+    //                 name: 'How to do catfish',
+    //                 total_time: '1:15',
+    //                 image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+    //                 video_link: ' ',
+    //             },
+    //         ]
+    //     },
+    //     {
+    //         programName: 'The Boy Is Mine',
+    //         category: "Chogreophy",
+    //         instructor: "Redy",
+    //         instructorImage: 'https://new1m.s3.ap-northeast-2.amazonaws.com/teachers/profile/152_240213001705817.jpg',
+    //         level: "INTERMEDIATE",
+    //         lessonAmount: 8,
+    //         image: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
+    //     },
+    //     {
+    //         programName: 'Easy Kpop',
+    //         category: "Chogreophy",
+    //         instructor: "Lip J",
+    //         instructorImage: 'https://i.ytimg.com/vi/5tZ7OaEbQBk/sddefault.jpg',
+    //         level: "INTERMEDIATE",
+    //         lessonAmount: 5,
+    //         image: "https://i0.wp.com/ononestudios.com/wp-content/uploads/2022/07/allkpop_1644246173_blackpink-how-you-like-that-dance-performance-video-2-55-screenshot.png?fit=1024%2C576&ssl=1",
 
-        },
-    ];
+    //     },
+    // ];
 
 
 
     // Hàm trộn hai mảng
-    const mergeArrays = (lessons, programs) => {
-        const mergedArray = [];
-        const maxLength = Math.max(lessons.length, programs.length);
-        for (let i = 0; i < maxLength; i++) {
-            if (i < lessons.length) {
-                mergedArray.push({ type: 'lesson', data: lessons[i] });
-            }
-            if (i < programs.length) {
-                mergedArray.push({ type: 'program', data: programs[i] });
-            }
-        }
-        return mergedArray;
-    };
+    // const mergeArrays = (lessons, programs) => {
+    //     const mergedArray = [];
+    //     const maxLength = Math.max(lessons.length, programs.length);
+    //     for (let i = 0; i < maxLength; i++) {
+    //         if (i < lessons.length) {
+    //             mergedArray.push({ type: 'lesson', data: lessons[i] });
+    //         }
+    //         if (i < programs.length) {
+    //             mergedArray.push({ type: 'program', data: programs[i] });
+    //         }
+    //     }
+    //     return mergedArray;
+    // };
 
-    const mergedData = mergeArrays(lessons, programs);
+    // const mergedData = mergeArrays(lessons, programs);
 
     const handleGoBack = () => {
         navigation.goBack();
     };
+
+    const handleNavDetailLesson = (lesson) => {
+        navigation.navigate('Lesson', {isOwner: false, lesson})
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -163,23 +171,24 @@ const FavouritesView = ({ route, navigation }) => {
                 <TouchableOpacity onPress={handleGoBack} style={styles.backButton}>
                     <Ionicons name="arrow-back" size={24} color="black" />
                 </TouchableOpacity>
-                <Text style={styles.headerTitle}>History</Text>
+                <Text style={styles.headerTitle}>Favourites Lessons</Text>
             </View>
             <View style={styles.contentContainer}>
                 <View style={styles.classesContainer}>
                     <FlatList
-                        data={mergedData}
+                        data={lessons}
                         renderItem={({ item }) => (
                             <View style={styles.items}>
-                                {item.type === 'lesson' ? (
+                                {/* {item.type === 'lesson' ? ( */}
                                     <Lesson2Component
-                                        lessons={item.data}
+                                        lessons={item}
+                                        handleNav={() => handleNavDetailLesson(item)}
                                     />
-                                ) : (
+                                {/* ) : (
                                     <ProgramComponent
                                         program={item.data}
                                     />
-                                )}
+                                )} */}
                             </View>
                         )}
                         horizontal={false}

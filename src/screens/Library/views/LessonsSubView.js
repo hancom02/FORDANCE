@@ -30,8 +30,8 @@ const LessonsSubView = (props) => {
         },
     ]
 
-    const handleNavDetailLesson = () => {
-        navigation.navigate('Lesson', { tabBarVisible: false });
+    const handleNavDetailLesson = (lesson) => {
+        navigation.navigate('Lesson', { tabBarVisible: false, lesson });
     }
 
     const [content, setContent] = useState("Classes");
@@ -48,7 +48,7 @@ const LessonsSubView = (props) => {
                                 <View key={index} style={{ marginBottom: 25 }}>
                                     <Lesson2Component 
                                         lessons={item}
-                                        handleNav={handleNavDetailLesson}
+                                        handleNav={() => handleNavDetailLesson(item)}
                                     />
                                 </View>
 

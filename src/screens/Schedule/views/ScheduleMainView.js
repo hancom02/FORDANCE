@@ -33,8 +33,8 @@ const ScheduleMainView = (props) => {
         setDate(propDate)
     }
 
-    const handleNavDetailLesson = () => {
-        navigation.navigate('Lesson', {isOwner: false})
+    const handleNavDetailLesson = (lesson) => {
+        navigation.navigate('Lesson', {isOwner: false, lesson})
     }
 
     const handleNavSearch = () => {
@@ -71,7 +71,7 @@ const ScheduleMainView = (props) => {
                                 lesson={item}
                                 index={index+1}
                                 isOwner={false}
-                                handleNav={() => handleNavDetailLesson()}
+                                handleNav={() => handleNavDetailLesson(item)}
                                 />
                                 <TouchableOpacity>
                                     <Text>{myDelete}</Text>

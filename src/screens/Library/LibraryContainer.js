@@ -13,7 +13,7 @@ const LibraryContainer = (props) => {
             instructor: "Ngoc Han",
             instructorImage: 'https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg',
             level: 'BEGINNER',
-            timeDuring: 16,
+            total_time: 16,
             image_link: 'https://img.freepik.com/premium-photo/dance-ballet-studio-with-woman-dancer-training-practicing-dancing-performance-recital-rehearsal-artistic-perform-technique-with-young-female-school-production-art_590464-81910.jpg'
 
         },
@@ -21,16 +21,18 @@ const LibraryContainer = (props) => {
             name: 'The Boy Is Mine',
             category: "Chogreophy",
             instructor: "Redy",
+            instructorImage: 'https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg',
             level: "INTERMEDIATE",
-            timeDuring: 16,
+            total_time: 16,
             image_link: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
         },
         {
             name: 'The Boy Is Mine',
             category: "Chogreophy",
             instructor: "Redy",
+            instructorImage: 'https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg',
             level: "INTERMEDIATE",
-            timeDuring: 16,
+            total_time: 16,
             image_link: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
 
         },
@@ -51,34 +53,81 @@ const LibraryContainer = (props) => {
             lessons: [
                 {
                     name: 'How to do plete',
+                    level: 'BEGINNER',
+                    instructor: "Ngoc Han",
+                    instructorImage: "https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg",
                     total_time: '1:15',
                     image_link: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
-                    lesonsVideo: ' ',
+                    video_link: ' ',
                 },
                 {
                     name: 'How to do catfish',
+                    level: 'BEGINNER',
+                    instructor: "Ngoc Han",
+                    instructorImage: "https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg",
                     total_time: '1:15',
                     image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
-                    lesonsVideo: ' ',
+                    video_link: ' ',
                 },
                 {
                     name: 'How to do plete',
+                    level: 'BEGINNER',
+                    instructor: "Ngoc Han",
+                    instructorImage: "https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg",
                     total_time: '1:15',
                     image_link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHHdZ2dMu6iPlTO62u0iwyL-gXlEO1pyBQToaodjY5izWyDcI8ohCh3SVJBzCzb8-aUio&usqp=CAU',
-                    lesonsVideo: ' ',
+                    video_link: ' ',
                 },
                 {
                     name: 'How to do catfish',
+                    level: 'BEGINNER',
+                    instructor: "Ngoc Han",
+                    instructorImage: "https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg",
                     total_time: '1:15',
                     image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
-                    lesonsVideo: ' ',
+                    video_link: ' ',
                 },
                 {
                     name: 'How to do plete',
+                    level: 'BEGINNER',
+                    instructor: "Ngoc Han",
+                    instructorImage: "https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg",
                     total_time: '1:15',
                     image_link: 'https://media.istockphoto.com/id/1272937508/vi/anh/ballerina-dancing-with-silk-fabric-modern-ballet-dancer-in-fluttering-waving-cloth-pointe-shoes.jpg?s=612x612&w=0&k=20&c=YzCYit-TSpIQdrjJZhbWkgipgHzNUspeWI-xYrnrCHU=',
-                    lesonsVideo: ' ',
+                    video_link: ' ',
                 },
+                {
+                    name: 'How to do plete',
+                    level: 'BEGINNER',
+                    instructor: "Ngoc Han",
+                    instructorImage: "https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg",
+                    total_time: '1:15',
+                    image_link: 'https://www.giasutainangtre.vn/gstnt/uploaddata/images/ballet%20cho%20nguoi%20lon.jpg',
+                    video_link: ' ',
+                },
+                {
+                    name: 'How to do catfish',
+                    level: 'BEGINNER',
+                    instructor: "Ngoc Han",
+                    instructorImage: "https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg",
+                    total_time: '1:15',
+                    image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    video_link: ' ',
+                },
+            ]
+        },
+        {
+            name: 'The Boy Is Mine',
+            category: "Chogreophy",
+            instructor: {
+                name: 'Redy',
+                image_link: 'https://new1m.s3.ap-northeast-2.amazonaws.com/teachers/profile/152_240213001705817.jpg',
+            },
+            level: "INTERMEDIATE",
+            lessons_amount: 8,
+            image_link: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593",
+
+            lessons: [
                 {
                     name: 'How to do plete',
                     total_time: '1:15',
@@ -92,17 +141,6 @@ const LibraryContainer = (props) => {
                     lesonsVideo: ' ',
                 },
             ]
-        },
-        {
-            name: 'The Boy Is Mine',
-            category: "Chogreophy",
-            instructor: {
-                name: 'Redy',
-                image_link: 'https://new1m.s3.ap-northeast-2.amazonaws.com/teachers/profile/152_240213001705817.jpg',
-            },
-            level: "INTERMEDIATE",
-            lessons_amount: 8,
-            image_link: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
         },
         {
             name: 'Easy Kpop',
@@ -217,16 +255,24 @@ const LibraryContainer = (props) => {
             instructorCoverImage: 'https://i.ytimg.com/vi/5tZ7OaEbQBk/sddefault.jpg',
             lessons: [
                 {
-                    lessonName: 'How to do catfish',
-                    totalTime: '1:15',
-                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
-                    lesonsVideo: ' ',
+                    name: 'How to do catfish',
+                    instructorImage: 'https://i.ytimg.com/vi/5tZ7OaEbQBk/sddefault.jpg',
+                    instructor: "Lip J",
+                    level: 'BEGINNER',
+                    category: "street dance",
+                    total_time: '1:15',
+                    image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    video_link: ' ',
                 },
                 {
-                    lessonName: 'How to do catfish',
-                    totalTime: '1:15',
-                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
-                    lesonsVideo: ' ',
+                    name: 'How to do catfish',
+                    instructorImage: 'https://i.ytimg.com/vi/5tZ7OaEbQBk/sddefault.jpg',
+                    instructor: "Lip J",
+                    level: 'BEGINNER',
+                    category: "street dance",
+                    total_time: '1:15',
+                    image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    video_link: ' ',
                 },
 
             ]
@@ -242,15 +288,21 @@ const LibraryContainer = (props) => {
             instructorCoverImage: 'https://new1m.s3.ap-northeast-2.amazonaws.com/teachers/profile/152_240213001705817.jpg',
             lessons: [
                 {
-                    lessonName: 'How to do catfish',
-                    totalTime: '1:15',
-                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    name: 'How to do catfish',
+                    instructorImage: 'https://new1m.s3.ap-northeast-2.amazonaws.com/teachers/profile/152_240213001705817.jpg',
+                    instructor: "Redy",
+                    level: 'BEGINNER',
+                    total_time: '1:15',
+                    image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
                     lesonsVideo: ' ',
                 },
                 {
-                    lessonName: 'How to do catfish',
-                    totalTime: '1:15',
-                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    name: 'How to do catfish',
+                    instructorImage: 'https://new1m.s3.ap-northeast-2.amazonaws.com/teachers/profile/152_240213001705817.jpg',
+                    instructor: "Redy",
+                    level: 'BEGINNER',
+                    total_time: '1:15',
+                    image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
                     lesonsVideo: ' ',
                 },
 
@@ -267,16 +319,18 @@ const LibraryContainer = (props) => {
             instructorCoverImage: 'https://i.ytimg.com/vi/5tZ7OaEbQBk/sddefault.jpg',
             lessons: [
                 {
-                    lessonName: 'How to do catfish',
-                    totalTime: '1:15',
-                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
-                    lesonsVideo: ' ',
+                    name: 'How to do catfish',
+                    level: 'BEGINNER',
+                    total_time: '1:15',
+                    image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    video_link: ' ',
                 },
                 {
-                    lessonName: 'How to do catfish',
-                    totalTime: '1:15',
-                    lessonImage: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
-                    lesonsVideo: ' ',
+                    name: 'How to do catfish',
+                    level: 'BEGINNER',
+                    total_time: '1:15',
+                    image_link: 'https://bizweb.dktcdn.net/thumb/grande/100/356/785/articles/e5.jpg?v=1592195836593',
+                    video_link: ' ',
                 },
 
             ]

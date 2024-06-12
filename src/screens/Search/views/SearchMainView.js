@@ -49,8 +49,8 @@ const SearchMainView = (props) => {
 
     const [content, setContent] = useState("Lessons"); // State để xác định nội dung hiện tại
 
-    const handleNavDetailLesson = () => {
-        // navigation.navigate('Lesson');
+    const handleNavDetailLesson = (lesson) => {
+        navigation.navigate('Lesson', {isOwner: false, lesson});
     }
     const handleNavDetailProgram = (programData) => {
         // navigation.navigate('Program', { 
@@ -74,7 +74,7 @@ const SearchMainView = (props) => {
                         <View>
                             <FlatList 
                                 data={lessonResult}
-                                renderItem={({index, item}) => <Lesson2Component lessons={item} handleNav={() => handleNavDetailLesson()}/>}
+                                renderItem={({index, item}) => <Lesson2Component lessons={item} handleNav={() => handleNavDetailLesson(item)}/>}
                             />
                         </View>
                     }

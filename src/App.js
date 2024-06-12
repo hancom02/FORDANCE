@@ -61,6 +61,8 @@ export default function App() {
                             <Stack.Screen name="Lesson" component={Lesson} />
                             <Stack.Screen name="InstructorProgram" component={InstructorProgram} />
                             <Stack.Screen name="Community" component={Community} />
+                            <Stack.Screen name="Notifications" component={NotificationScreen} />
+                            <Stack.Screen name="Search" component={Search} />
 
                         </>
                     ) : null}

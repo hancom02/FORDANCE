@@ -15,7 +15,7 @@ const ProgramComponent = (props) => {
     return (
         <View style={styles.container}>
             <ImageBackground
-                source={{ uri: program.image }}
+                source={{ uri: program.image_link }}
                 style={styles.backgroundContainer}
             >
                 <View style={styles.contenContainer}>
@@ -37,11 +37,11 @@ const ProgramComponent = (props) => {
                             </View>
                             <View style={styles.lessonContainer}>
                                 <Ionicons name="play-circle-outline" size={14} color='white' />
-                                <Text style={styles.textLesson}> {program.lessonAmount} LESSONS</Text>
+                                <Text style={styles.textLesson}> {program.lessons_amount} LESSONS</Text>
                             </View>
                         </View>
 
-                        <Text style={styles.textName}>{program.programName}</Text>
+                        <Text style={styles.textName}>{program.name}</Text>
 
                         <View style={styles.category_instructor_Container}>
                             <View style={styles.categoryContainer}>
@@ -49,7 +49,7 @@ const ProgramComponent = (props) => {
                             </View>
                             <View style={styles.dot}></View>
                             <View style={styles.instructorContainer}>
-                                <Text style={styles.textInstructor}>{program.instructor}</Text>
+                                <Text style={styles.textInstructor}>{program.instructor.name}</Text>
                             </View>
                         </View>
                     </View>

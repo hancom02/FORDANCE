@@ -10,10 +10,10 @@ const SmallerLessonComponent3 = (props) => {
 
     return (
         <TouchableOpacity style={styles.container} onPress={handleNav}>
-            <Image style={styles.image} source={{ uri: lesson.lessonImage }} />
+            <Image style={styles.image} source={{ uri: lesson.image_link }} />
             <View>
-                <Text style={styles.textLessonName}>{lesson.lessonName}</Text>
-                <Text style={styles.textTime}>{lesson.totalTime}</Text>
+                <Text style={styles.textLessonName}>{lesson.name}</Text>
+                <Text style={styles.textTime}>{lesson.total_time}</Text>
             </View>
         </TouchableOpacity>
     )

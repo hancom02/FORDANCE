@@ -27,7 +27,7 @@ const InstructorManageContainer = (props) => {
             instructor: instructor,
             instructorImage: 'https://www.russianballetinternational.com/wp-content/uploads/2022/11/007_5054-Bolshoi-Academy-Vaganova-Method-Level-2-Level-3-1024x682.jpg',
             level: 'BEGINNER',
-            totalTime: '4:06',
+            total_time: '4:06',
             image_link: 'https://img.freepik.com/premium-photo/dance-ballet-studio-with-woman-dancer-training-practicing-dancing-performance-recital-rehearsal-artistic-perform-technique-with-young-female-school-production-art_590464-81910.jpg'
 
         },
@@ -37,7 +37,7 @@ const InstructorManageContainer = (props) => {
             category: "Chogreophy",
             instructor: instructor,
             level: "INTERMEDIATE",
-            totalTime: '1:50',
+            total_time: '1:50',
             image_link: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
         },
         {
@@ -46,7 +46,7 @@ const InstructorManageContainer = (props) => {
             category: "Chogreophy",
             instructor: instructor,
             level: "INTERMEDIATE",
-            totalTime: '3:12',
+            total_time: '3:12',
             image_link: "https://unica.vn/media/imagesck/1612428593_Choreography-la-gi.jpg?v=1612428593"
 
         },

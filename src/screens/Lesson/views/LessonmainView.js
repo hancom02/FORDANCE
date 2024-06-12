@@ -64,7 +64,7 @@ const LessonMainView = (props) => {
             <View style={styles.videoContainer}>
                 {/* <View style={styles.video}>
                 </View> */}
-                <Image style={styles.video} source={{ uri: lesson.image }} />
+                <Image style={styles.video} source={{ uri: lesson.image_link }} />
                 <TouchableOpacity onPress={handleNavVideoPlayer}>
                     <VideoPlayer2
                         uri={'https://s3.ap-southeast-2.amazonaws.com/fordance.com/videos/1000049593.mp4'}
@@ -102,17 +102,18 @@ const LessonMainView = (props) => {
                 </View>
             )}
 
-            {!isOwner && 
             <View style={styles.container2}>
-                <Text style={styles.textName}>{lesson.lessonName}</Text>
+                <Text style={styles.textName}>{lesson.name}</Text>
+                
+                {!isOwner && 
                 <View style={styles.instructorContainer}>
                     <Image source={{ uri: lesson.instructorImage }} style={styles.circle}></Image>
                     <View style={styles.instructorInfo}>
                         <Text style={styles.textName}>{lesson.instructor}</Text>
                         {/* <Text style={styles.instructorSubtitle}>{DancerName}</Text> */}
                     </View>
-                </View>
-            </View>}
+                </View>}
+            </View>
 
             <View style={styles.infoContainer}>
                 <View style={[styles.info, { alignItems: 'flex-start' }]}>
@@ -130,7 +131,7 @@ const LessonMainView = (props) => {
                 <View style={[styles.info, { alignItems: 'flex-end' }]} >
                     <View style={{ flexDirection: 'column' }}>
                         <Text style={styles.textInfo}>TIME</Text>
-                        <Text style={styles.textInfo2}>{lesson.timeDuring} min</Text>
+                        <Text style={styles.textInfo2}>{lesson.total_time} min</Text>
                     </View>
                 </View>
 

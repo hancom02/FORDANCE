@@ -23,8 +23,8 @@ const ProgramMainView = (props) => {
 
     // console.log("PROGRAM IN DETAIL SCREEN: ", program);
 
-    const handleNavDetailLesson = () => {
-        navigation.navigate('Lesson', {isOwner: false})
+    const handleNavDetailLesson = (lesson) => {
+        navigation.navigate('Lesson', {isOwner: false, lesson})
     } 
 
     const [content, setContent] = useState("Overview"); // State để xác định nội dung hiện tại
@@ -102,7 +102,7 @@ const ProgramMainView = (props) => {
                                     lesson={item}
                                     index={index+1}
                                     isOwner={false}
-                                    handleNav={() => handleNavDetailLesson()}
+                                    handleNav={() => handleNavDetailLesson(item)}
                                 />
                                 </View>
                             }

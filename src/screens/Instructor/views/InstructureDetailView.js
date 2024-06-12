@@ -14,19 +14,19 @@ const InstructorDetailView = (props) => {
 
     // console.log("INSTRUCTOR IN DETAIL SCREEN: ", instructor);
 
-    const handleNavDetailLesson = () => {
+    const handleNavDetailLesson = (lesson) => {
         console.log("IN handleNavDetailLesson")
-        navigation.navigate('Lesson')
+        navigation.navigate('Lesson', {isOwner: false, lesson})
     }
 
     const renderItem = ({item, index}) => {
         return(
-            <TouchableOpacity key={index} style={styles.componentContainer} onPress={() => handleNavDetailLesson()}>
-                <Image style={styles.imageComponent} source={{uri: item.lessonImage}}/>
+            <TouchableOpacity key={index} style={styles.componentContainer} onPress={() => handleNavDetailLesson(item)}>
+                <Image style={styles.imageComponent} source={{uri: item.image_link}}/>
 
                 <View style={{}}>
-                    <Text style={styles.textLessonName}>{item.lessonName}</Text>
-                    <Text style={styles.textTime}>{item.totalTime}</Text>
+                    <Text style={styles.textLessonName}>{item.name}</Text>
+                    <Text style={styles.textTime}>{item.total_time}</Text>
                 </View>
             </TouchableOpacity>
         )

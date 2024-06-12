@@ -10,6 +10,8 @@ const ManageHeader = (props) => {
         onPressButton,
         onPressPostClass,
         onPressPostProgram,
+        onPressNotification,
+        onPressSearch,
     } = props;
 
     const [selectedButton, setSelectedButton] = useState("My Lessons");
@@ -102,10 +104,10 @@ const ManageHeader = (props) => {
                             </Modal>
                         }
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => onPressNotification()}>
                         <Ionicons name="notifications-outline" size={28} color='black' />
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => onPressSearch()}>
                         <Ionicons name="search-outline" size={28} color='black' />
                     </TouchableOpacity>
                 </View>

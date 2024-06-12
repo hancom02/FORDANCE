@@ -1,5 +1,5 @@
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import LinearGradient from 'react-native-linear-gradient';
+// import LinearGradient from 'react-native-linear-gradient';
 import Colors from "../values/colors";
 
 const Lesson2Component = (props) => {
@@ -16,12 +16,12 @@ const Lesson2Component = (props) => {
                     source={{ uri: lessons.image_link }}
                     style={styles.background}
                 >
-                    <LinearGradient
+                    {/* <LinearGradient
                         colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0)']}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 0.5, y: 0 }}
                         style={styles.gradient}
-                    />
+                    /> */}
                     <View style={styles.contentContainer}>
                         <Text style={styles.textName}>{lessons.name}</Text>
                         <TouchableOpacity

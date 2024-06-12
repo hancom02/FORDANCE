@@ -62,7 +62,7 @@ const RegisterList = (props) => {
             </View>
             <View style={styles.separator} />
             <View style={styles.contentContainer}>
-                <Text style={styles.lessonNameText}>{lesson.lessonName}</Text>
+                <Text style={styles.lessonNameText}>{lesson.name}</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <View style={styles.rowContainer}>
                         <Ionicons name="location" size={20} color="black" />

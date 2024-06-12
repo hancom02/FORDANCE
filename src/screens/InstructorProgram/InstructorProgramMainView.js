@@ -42,8 +42,8 @@ const InstructorProgramMainView = (props) => {
     }
     const handleCancel = () => setIsEditing(false);
 
-    const handleNavDetailLesson = () => {
-        navigation.navigate('Lesson', { isOwner: true }); //Truyền vào lesson với isOwner = true
+    const handleNavDetailLesson = (lesson) => {
+        navigation.navigate('Lesson', { isOwner: true, lesson }); //Truyền vào lesson với isOwner = true
     }
     const handleDelete = () => {
         //Goi ham delete lesson o day
@@ -167,7 +167,7 @@ const InstructorProgramMainView = (props) => {
                                     lesson={item}
                                     isOwner={true}
                                     index={index+1}
-                                    handleNav={() => handleNavDetailLesson()}
+                                    handleNav={() => handleNavDetailLesson(item)}
                                     handleDelete={() => handleDelete()}
                                 />
                                 </View>
@@ -192,11 +192,13 @@ const styles = StyleSheet.create({
     },
     backButton: {
         position: 'absolute',
-        top: 10,
-        left: 10,
+        top: 16,
+        left: 16,
         zIndex: 999,
         padding: 10,
         borderRadius: 5,
+        backgroundColor: 'white',
+        borderRadius: 50
     },
     videoContainer: {
         paddingHorizontal: 0,

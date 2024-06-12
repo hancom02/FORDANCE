@@ -21,12 +21,11 @@ const LibraryMainView = (props) => {
         programs,
         categories,
         instructors,
-
     } = props;
 
 
-    const handleNavDetailLesson = () => {
-        navigation.navigate('Lesson', { tabBarVisible: false });
+    const handleNavDetailLesson = (lesson) => {
+        navigation.navigate('Lesson', { lesson });
     }
 
     const handleNavDetailProgram = (
@@ -63,7 +62,7 @@ const LibraryMainView = (props) => {
                                     <View style={{ marginBottom: 20, width: imgWidth }}>
                                         <Lesson2Component
                                             lessons={item}
-                                            handleNav={handleNavDetailLesson}
+                                            handleNav={() => { console.log("Selected: ", item); handleNavDetailLesson(item) }}
                                         />
                                     </View>
                                 }

@@ -49,8 +49,8 @@ const HomeMainView = (props) => {
 
     };
 
-    const handleNavDetailLesson = () => {
-        navigation.navigate('Lesson');
+    const handleNavDetailLesson = (lesson) => {
+        navigation.navigate('Lesson', { lesson });
     }
 
     const handleNavDetailProgram = (
@@ -83,7 +83,7 @@ const HomeMainView = (props) => {
                             renderItem={({ item, index }) =>
                                 <LessonComponent
                                     lessons={item}
-                                    handleNav={handleNavDetailLesson}
+                                    handleNav={() => handleNavDetailLesson(item)}
                                 />}
                             horizontal
                             showsHorizontalScrollIndicator={false}

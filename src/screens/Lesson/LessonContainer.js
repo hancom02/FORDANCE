@@ -2,7 +2,10 @@ import React from 'react';
 import LessonMainView from "./views/LessonmainView";
 
 const LessonContainer = (props) => {
-    const { navigation, } = props;
+    const {
+        navigation,
+        lesson
+    } = props;
 
     const comments = [
         {
@@ -25,10 +28,10 @@ const LessonContainer = (props) => {
     const propsLesson = {
         navigation,
         comments,
+        lesson,
     };
 
-
-    return <LessonMainView {...propsLesson} />;
+    return <LessonMainView{...propsLesson} />;
 }
 
 export default LessonContainer;

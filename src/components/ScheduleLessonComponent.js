@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
+const parseDate = (dateString) => {
+    const [day, month, year] = dateString.split('/').map(Number);
+    return new Date(year, month - 1, day);
+};
+
+const formatDate = (date) => {
+    return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
+};
 
 const ScheduleLessonComponent = (props) => {
     const {
@@ -9,11 +19,17 @@ const ScheduleLessonComponent = (props) => {
         offlinelessons,
         handleCloseModal
     } = props;
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+
+    const [editingMode, setEditingMode] = useState(false);
+    const [editedEmail, setEditedEmail] = useState(offlinelessons.instructorEmail);
+    const [editedPhoneNumber, setEditedPhoneNumber] = useState(offlinelessons.instructorPhone);
+    const [editedLocation, setEditedLocation] = useState(offlinelessons.location);
+    const [editedStartDate, setEditedStartDate] = useState(parseDate(offlinelessons.startDate));
+    const [editedEndDate, setEditedEndDate] = useState(offlinelessons.endDate ? parseDate(offlinelessons.endDate) : null);
     const [emailError, setEmailError] = useState('');
     const [phoneError, setPhoneError] = useState('');
+    const [showStartDatePicker, setShowStartDatePicker] = useState(false);
+    const [showEndDatePicker, setShowEndDatePicker] = useState(false);
 
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -25,8 +41,40 @@ const ScheduleLessonComponent = (props) => {
         return phoneRegex.test(number);
     };
 
+    const handleEdit = () => {
+        setEditingMode(true);
+    };
+
+    const handleSave = () => {
+        if (!editedEmail || !editedPhoneNumber || !editedLocation) {
+            if (!editedEmail) {
+                alert('Email is required.');
+            }
+            if (!editedPhoneNumber) {
+                alert('Phone number is required.');
+            }
+            if (!editedLocation) {
+                alert('Location is required.');
+            }
+            return;
+        }
+        if (editedStartDate >= editedEndDate) {
+            alert('Start date must be earlier than end date.');
+            return;
+        }
+        handleSubmit({
+            ...offlinelessons,
+            instructorEmail: editedEmail,
+            instructorPhone: editedPhoneNumber,
+            location: editedLocation,
+            startDate: formatDate(editedStartDate),
+            endDate: editedEndDate ? formatDate(editedEndDate) : null
+        });
+        setEditingMode(false);
+    };
+
     const handleEmailChange = (email) => {
-        setEmail(email);
+        setEditedEmail(email);
         if (!validateEmail(email)) {
             setEmailError('Invalid email format.');
         } else {
@@ -35,7 +83,7 @@ const ScheduleLessonComponent = (props) => {
     };
 
     const handlePhoneChange = (phone) => {
-        setPhoneNumber(phone);
+        setEditedPhoneNumber(phone);
         if (!validatePhoneNumber(phone)) {
             setPhoneError('Phone number must be 9 or 10 digits.');
         } else {
@@ -43,14 +91,28 @@ const ScheduleLessonComponent = (props) => {
         }
     };
 
-    const onSubmit = () => {
-        if (emailError || phoneError || !name || !email || !phoneNumber) {
-            if (!name) alert('Name is required.');
-            if (!email) alert('Email is required.');
-            if (!phoneNumber) alert('Phone number is required.');
-            return;
+    const handleLocationChange = (location) => {
+        setEditedLocation(location);
+    };
+
+    const onChangeStartDate = (event, selectedDate) => {
+        const currentDate = selectedDate || editedStartDate;
+        if (editedEndDate && currentDate >= editedEndDate) {
+            Alert.alert('Invalid Date', 'Start date must be earlier than end date.');
+        } else {
+            setShowStartDatePicker(false);
+            setEditedStartDate(currentDate);
         }
-        handleSubmit({ name, email, phoneNumber: `+84${phoneNumber}` });
+    };
+
+    const onChangeEndDate = (event, selectedDate) => {
+        const currentDate = selectedDate || editedEndDate;
+        if (currentDate && currentDate <= editedStartDate) {
+            Alert.alert('Invalid Date', 'End date must be later than start date.');
+        } else {
+            setShowEndDatePicker(false);
+            setEditedEndDate(currentDate);
+        }
     };
 
     return (
@@ -69,58 +131,88 @@ const ScheduleLessonComponent = (props) => {
                     <Text style={styles.infoText}>{offlinelessons.instructor}</Text>
                 </View>
                 <View style={styles.infoContainer}>
-                    <Text style={styles.infoLabelText}>Email:         </Text>
-                    <Text style={styles.infoText}>{offlinelessons.instructorEmail}</Text>
+                    <Text style={styles.infoLabelText}>Email:</Text>
+                    {editingMode ? (
+                        <TextInput
+                            style={[styles.infoText, styles.editableInput]}
+                            value={editedEmail}
+                            onChangeText={handleEmailChange}
+                            keyboardType="email-address"
+                        />
+                    ) : (
+                        <Text style={styles.infoText}>{offlinelessons.instructorEmail}</Text>
+                    )}
                 </View>
+                {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
                 <View style={styles.infoContainer}>
-                    <Text style={styles.infoLabelText}>Phone:       </Text>
-                    <Text style={styles.infoText}>{offlinelessons.instructorPhone}</Text>
+                    <Text style={styles.infoLabelText}>Phone:</Text>
+                    {editingMode ? (
+                        <TextInput
+                            style={[styles.infoText, styles.editableInput]}
+                            value={editedPhoneNumber}
+                            onChangeText={handlePhoneChange}
+                            keyboardType="phone-pad"
+                        />
+                    ) : (
+                        <Text style={styles.infoText}>{offlinelessons.instructorPhone}</Text>
+                    )}
                 </View>
+                {phoneError ? <Text style={styles.errorText}>{phoneError}</Text> : null}
                 <View style={styles.infoContainer}>
                     <Ionicons name="location-outline" size={20} color="black" />
-                    <Text style={styles.infoText}>{offlinelessons.location}</Text>
+                    {editingMode ? (
+                        <TextInput
+                            style={[styles.infoText, styles.editableInput]}
+                            value={editedLocation}
+                            onChangeText={handleLocationChange}
+                        />
+                    ) : (
+                        <Text style={styles.infoText}>{offlinelessons.location}</Text>
+                    )}
                 </View>
                 <View style={styles.infoContainer}>
                     <Ionicons name="calendar-outline" size={20} color="black" />
-                    <Text style={styles.infoText}>{offlinelessons.startDate}{offlinelessons.endDate ? ` - ${offlinelessons.endDate}` : ''}</Text>
+                    {editingMode ? (
+                        <TouchableOpacity onPress={() => setShowStartDatePicker(true)}>
+                            <Text style={styles.infoText}>{formatDate(editedStartDate)}</Text>
+                        </TouchableOpacity>
+                    ) : (
+                        <Text style={styles.infoText}>{offlinelessons.startDate}</Text>
+                    )}
+                    {showStartDatePicker && (
+                        <DateTimePicker
+                            value={editedStartDate}
+                            mode="date"
+                            display="default"
+                            onChange={onChangeStartDate}
+                        />
+                    )}
                 </View>
-                {/* <Text style={styles.sectionTitle}>YOUR INFORMATION</Text>
-                <TextInput
-                    style={styles.popUpFormInput}
-                    placeholder="Your Name"
-                    value={name}
-                    onChangeText={setName}
-                />
-                <Text style={styles.sectionTitle}>Email</Text>
-                <TextInput
-                    style={styles.popUpFormInput}
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={handleEmailChange}
-                    keyboardType="email-address"
-                />
-                {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
-                <Text style={styles.sectionTitle}>Phone Number</Text>
-                <View style={styles.phoneContainer}>
-                    <Text style={styles.countryCodeText}>+84</Text>
-                    <TextInput
-                        style={[styles.popUpFormInput, styles.phoneNumberInput]}
-                        placeholder="Phone Number"
-                        value={phoneNumber}
-                        onChangeText={handlePhoneChange}
-                        keyboardType="phone-pad"
-                    />
+                <View style={styles.infoContainer}>
+                    <Ionicons name="calendar-outline" size={20} color="black" />
+                    {editingMode ? (
+                        <TouchableOpacity onPress={() => setShowEndDatePicker(true)}>
+                            <Text style={styles.infoText}>{editedEndDate ? formatDate(editedEndDate) : 'Select end date'}</Text>
+                        </TouchableOpacity>
+                    ) : (
+                        <Text style={styles.infoText}>{offlinelessons.endDate || ''}</Text>
+                    )}
+                    {showEndDatePicker && (
+                        <DateTimePicker
+                            value={editedEndDate || new Date()}
+                            mode="date"
+                            display="default"
+                            onChange={onChangeEndDate}
+                        />
+                    )}
                 </View>
-                {phoneError ? <Text style={styles.errorText}>{phoneError}</Text> : null} */}
             </ScrollView>
-            {/* <TouchableOpacity style={styles.submitButton} onPress={onSubmit}>
-                <Text style={styles.submitButtonText}>SUBMIT</Text>
-            </TouchableOpacity> */}
+            <TouchableOpacity style={styles.editButton} onPress={editingMode ? handleSave : handleEdit}>
+                <Text style={styles.editButtonText}>{editingMode ? 'Save' : 'Edit'}</Text>
+            </TouchableOpacity>
         </SafeAreaView>
     );
 };
-
-export default ScheduleLessonComponent;
 
 const styles = StyleSheet.create({
     popUpFormContainer: {
@@ -135,7 +227,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 20,
-        height: 30,
     },
     headerTitle: {
         flex: 1,
@@ -143,94 +234,57 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         color: 'black',
-        textTransform: 'uppercase',
-        alignSelf: 'center',
     },
     closeButton: {
-        alignSelf: 'flex-end',
-    },
-    closeButtonText: {
-        fontSize: 18,
-        color: '#888',
-    },
-    popUpFormTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 20,
+        position: 'absolute',
+        right: 0,
     },
     sectionTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginVertical: 10,
-        color: 'black',
-    },
-    infoText: {
         fontSize: 16,
-        color: 'black',
-    },
-    infoLabelText: {
-        fontSize: 17,
-        color: 'black',
         fontWeight: 'bold',
-        marginRight: 5,
+        marginBottom: 10,
+        color: 'black',
     },
     infoNameText: {
-        fontSize: 17,
-        color: 'black',
+        fontSize: 16,
         fontWeight: 'bold',
-        marginVertical: 5,
+        marginBottom: 10,
+        color: 'black',
     },
     infoContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 10,
     },
-    popUpFormInput: {
-        height: 40,
+    infoLabelText: {
+        fontWeight: 'bold',
+        marginRight: 5,
+        color: 'black',
+    },
+    infoText: {
+        flex: 1,
+        color: 'black',
+    },
+    editableInput: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+    },
+    editButton: {
+        backgroundColor: '#007bff',
         padding: 10,
-        borderWidth: 1,
-        borderColor: '#ccc',
+        alignItems: 'center',
         borderRadius: 5,
-        marginBottom: 10,
+        marginTop: 10,
+    },
+    editButtonText: {
+        color: '#fff',
+        fontSize: 16,
     },
     errorText: {
         color: 'red',
         fontSize: 12,
         marginBottom: 10,
     },
-    submitButton: {
-        backgroundColor: '#6200ea',
-        padding: 15,
-        borderRadius: 5,
-        alignItems: 'center',
-        marginTop: 10,
-    },
-    submitButtonText: {
-        color: '#fff',
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-    phoneContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10,
-        height: 40, // Ensure the container has the same height as the input
-    },
-    countryCodeText: {
-        fontSize: 16,
-        paddingHorizontal: 10,
-        paddingVertical: 10, // Adjust padding to match input height
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        marginRight: 10,
-        height: '100%',
-        textAlignVertical: 'center',
-    },
-    phoneNumberInput: {
-        flex: 1,
-        marginTop: 10,
-        height: '100%',
-    },
 });
+
+export default ScheduleLessonComponent;

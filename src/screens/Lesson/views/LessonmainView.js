@@ -1,7 +1,7 @@
 import { Text, View, StyleSheet, TouchableOpacity, FlatList, Button, Image, Modal, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Colors from "../../../values/colors"
 import CommunityComponent from "../../../components/CommunityComponent";
@@ -24,15 +24,15 @@ const LessonMainView = (props) => {
 
     //console.log("IS OWNER LESSON: ", isOwner);
 
-    const offlineLesson = {
+    const [offlinelessons, setOfflineLessons] = useState({
         title: "Introduction to React Native",
         instructor: "John Doe",
         instructorEmail: "test@gmail.com",
         instructorPhone: "088815454545",
         location: "123 Main Street, Cityville",
         startDate: "20/04/2024",
-        endDate: "25/04/2024",
-    };
+        endDate: "21/04/2024",
+    });
     const Username = "Username";
     const UserImageURL = "https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg"
 
@@ -58,6 +58,19 @@ const LessonMainView = (props) => {
         setModalVisible(false);
     };
 
+    const handleSubmitSchedule = (formData) => {
+        setOfflineLessons({
+            ...offlinelessons,
+            instructorEmail: formData.instructorEmail,
+            instructorPhone: formData.instructorPhone,
+        });
+        setModalScheduleVisible(false);
+    }
+
+    useEffect(() => {
+        console.log('Offline lessons updated:', offlinelessons);
+    }, [offlinelessons]);
+
     return (
         <SafeAreaView style={styles.container}>
             <TouchableOpacity onPress={() => { navigation.goBack() }} style={styles.backButton}>
@@ -80,7 +93,7 @@ const LessonMainView = (props) => {
             {isOwner ? (
                 // Instructor chỉ có 1 icon tạo lịch offline thôi, Khoa bỏ Modal set offline cho instructor vào đây
                 <View style={styles.iconContainer}>
-                    <TouchableOpacity style={[styles.icon, { marginLeft: 16 }]} onPress={() => (setModalVisible(true))}>
+                    <TouchableOpacity style={[styles.icon, { marginLeft: 16 }]} onPress={() => (setModalScheduleVisible(true))}>
                         <FontAwesomeIcon icon={faAddressBook} size={25} color={Colors.primaryPupple} />
                     </TouchableOpacity>
                 </View>
@@ -93,7 +106,7 @@ const LessonMainView = (props) => {
                     <TouchableOpacity style={styles.icon}>
                         <Ionicons name="cloud-download-outline" size={30} color={Colors.primaryPupple} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.icon} onPress={() => (setModalScheduleVisible(true))}>
+                    <TouchableOpacity style={styles.icon}>
                         <Ionicons name="calendar-clear-outline" size={30} color={Colors.primaryPupple} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.icon} onPress={() => (setModalVisible(true))}>
@@ -198,14 +211,14 @@ const LessonMainView = (props) => {
                 animationType="fade"
                 transparent={true}
             >
-                <PopUpFormComponent handleSubmit={handleSubmit} offlinelessons={offlineLesson} handleCloseModal={() => { setModalVisible(false) }} />
+                <PopUpFormComponent handleSubmit={handleSubmit} offlinelessons={offlinelessons} handleCloseModal={() => { setModalVisible(false) }} />
             </Modal>
             <Modal
                 visible={modalScheduleVisible}
                 animationType="fade"
                 transparent={true}
             >
-                <ScheduleLessonComponent handleSubmit={handleSubmit} offlinelessons={offlineLesson} handleCloseModal={() => { setModalScheduleVisible(false) }} />
+                <ScheduleLessonComponent handleSubmit={handleSubmitSchedule} offlinelessons={offlinelessons} handleCloseModal={() => { setModalScheduleVisible(false) }} />
             </Modal>
         </SafeAreaView>
 

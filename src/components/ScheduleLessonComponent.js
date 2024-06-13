@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const PopUpFormComponent = (props) => {
+const ScheduleLessonComponent = (props) => {
     const {
         handleSubmit,
         offlinelessons,
@@ -56,7 +56,7 @@ const PopUpFormComponent = (props) => {
     return (
         <SafeAreaView style={styles.popUpFormContainer}>
             <View style={styles.header}>
-                <Text style={styles.headerTitle}>REGISTER FOR A OFFLINE CLASS</Text>
+                <Text style={styles.headerTitle}>OFFLINE CLASS INFORMATION</Text>
                 <TouchableOpacity onPress={handleCloseModal} style={styles.closeButton}>
                     <Ionicons name="close-outline" size={30} color="black" />
                 </TouchableOpacity>
@@ -64,18 +64,27 @@ const PopUpFormComponent = (props) => {
             <ScrollView style={{ flexGrow: 1 }}>
                 <Text style={styles.sectionTitle}>CLASS INFORMATION</Text>
                 <Text style={styles.infoNameText}>{offlinelessons.title}</Text>
-                <Text style={styles.infoInstructorText}>{offlinelessons.instructor}</Text>
-                <View style={styles.rowContainer}>
-                    <View style={{ flexDirection: 'row', alignItems: '' }}>
-                        <Ionicons name="location" size={20} color="black" />
-                        <Text style={styles.infoText}>{offlinelessons.location}</Text>
-                    </View>
+                <View style={styles.infoContainer}>
+                    <Text style={styles.infoLabelText}>Instructor:</Text>
+                    <Text style={styles.infoText}>{offlinelessons.instructor}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', marginRight: 10, marginTop: 10, }}>
-                    <Ionicons name="calendar-number-outline" size={20} color="black" />
+                <View style={styles.infoContainer}>
+                    <Text style={styles.infoLabelText}>Email:         </Text>
+                    <Text style={styles.infoText}>{offlinelessons.instructorEmail}</Text>
+                </View>
+                <View style={styles.infoContainer}>
+                    <Text style={styles.infoLabelText}>Phone:       </Text>
+                    <Text style={styles.infoText}>{offlinelessons.instructorPhone}</Text>
+                </View>
+                <View style={styles.infoContainer}>
+                    <Ionicons name="location-outline" size={20} color="black" />
+                    <Text style={styles.infoText}>{offlinelessons.location}</Text>
+                </View>
+                <View style={styles.infoContainer}>
+                    <Ionicons name="calendar-outline" size={20} color="black" />
                     <Text style={styles.infoText}>{offlinelessons.startDate}{offlinelessons.endDate ? ` - ${offlinelessons.endDate}` : ''}</Text>
                 </View>
-                <Text style={styles.sectionTitle}>YOUR INFORMATION</Text>
+                {/* <Text style={styles.sectionTitle}>YOUR INFORMATION</Text>
                 <TextInput
                     style={styles.popUpFormInput}
                     placeholder="Your Name"
@@ -102,16 +111,16 @@ const PopUpFormComponent = (props) => {
                         keyboardType="phone-pad"
                     />
                 </View>
-                {phoneError ? <Text style={styles.errorText}>{phoneError}</Text> : null}
+                {phoneError ? <Text style={styles.errorText}>{phoneError}</Text> : null} */}
             </ScrollView>
-            <TouchableOpacity style={styles.submitButton} onPress={onSubmit}>
+            {/* <TouchableOpacity style={styles.submitButton} onPress={onSubmit}>
                 <Text style={styles.submitButtonText}>SUBMIT</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </SafeAreaView>
     );
 };
 
-export default PopUpFormComponent;
+export default ScheduleLessonComponent;
 
 const styles = StyleSheet.create({
     popUpFormContainer: {
@@ -145,39 +154,37 @@ const styles = StyleSheet.create({
         color: '#888',
     },
     popUpFormTitle: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 20,
     },
     sectionTitle: {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: 'bold',
-        marginVertical: 5,
+        marginVertical: 10,
         color: 'black',
     },
     infoText: {
-        fontSize: 14,
+        fontSize: 16,
         color: 'black',
-        marginLeft: 5,
+    },
+    infoLabelText: {
+        fontSize: 17,
+        color: 'black',
+        fontWeight: 'bold',
+        marginRight: 5,
     },
     infoNameText: {
-        fontSize: 15,
+        fontSize: 17,
         color: 'black',
         fontWeight: 'bold',
         marginVertical: 5,
     },
-    infoInstructorText: {
-        fontSize: 15,
-        color: 'black',
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
-        marginVertical: 5
-    },
-    rowContainer: {
+    infoContainer: {
         flexDirection: 'row',
-        width: '100%',
-        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 10,
     },
     popUpFormInput: {
         height: 40,

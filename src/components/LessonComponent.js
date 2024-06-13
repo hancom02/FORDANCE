@@ -11,7 +11,7 @@ const LessonComponent = (props) => {
     return (
         <View style={styles.container}>
             <ImageBackground
-                source={{uri: lessons.image_link}}
+                source={{ uri: lessons.image_link }}
                 style={styles.background}
             >
                 {/* <LinearGradient

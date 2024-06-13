@@ -1,14 +1,70 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from "react-native";
-import React from 'react';
+import React, { useState } from 'react';
+import { SafeAreaView, View, Text, StyleSheet, TouchableOpacity, FlatList, TextInput, Alert } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const RegisterList = (props) => {
     const { navigation, route } = props;
     const { lesson } = route.params;
 
+    const [isEditing, setIsEditing] = useState(false);
+    const [location, setLocation] = useState(lesson.location);
+    const [startDate, setStartDate] = useState(new Date(lesson.startDate));
+    const [endDate, setEndDate] = useState(lesson.endDate ? new Date(lesson.endDate) : null);
+    const [showStartDatePicker, setShowStartDatePicker] = useState(false);
+    const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+    const [shouldNavigate, setShouldNavigate] = useState(false);
+
     const handleGoBack = () => {
-        navigation.goBack();
+        if (shouldNavigate) {
+            navigation.navigate('InstructorSchedule', {
+                updatedLesson: {
+                    ...lesson,
+                    location,
+                    startDate: startDate.toISOString().split('T')[0],
+                    endDate: endDate ? endDate.toISOString().split('T')[0] : null,
+                }
+            });
+        } else {
+            navigation.goBack();
+        }
+    };
+
+    const handleEdit = () => {
+        setIsEditing(true);
+    };
+
+    const handleSave = () => {
+        setIsEditing(false);
+        setShouldNavigate(true);
+    };
+
+    const handlePress = () => {
+        if (isEditing) {
+            handleSave();
+        } else {
+            handleEdit();
+        }
+    };
+
+    const onChangeStartDate = (event, selectedDate) => {
+        setShowStartDatePicker(false);
+        if (selectedDate && selectedDate <= endDate) {
+            setStartDate(selectedDate);
+        } else {
+            Alert.alert("Invalid Date", "Start date must be before the end date.");
+        }
+    };
+
+    const onChangeEndDate = (event, selectedDate) => {
+        setShowEndDatePicker(false);
+        if (selectedDate && selectedDate >= startDate) {
+            setEndDate(selectedDate);
+        } else if (selectedDate === null) {
+            setEndDate(null);
+        } else {
+            Alert.alert("Invalid Date", "End date must be after the start date.");
+        }
     };
 
     const students = [
@@ -54,30 +110,71 @@ const RegisterList = (props) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.header} >
+            <View style={styles.header}>
                 <TouchableOpacity onPress={handleGoBack} style={styles.backButton}>
                     <Ionicons name="arrow-back" size={24} color="black" />
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>Registration List</Text>
+                <TouchableOpacity onPress={handlePress}>
+                    <Ionicons name={isEditing ? "save-outline" : "create-outline"} size={24} color="black" />
+                </TouchableOpacity>
             </View>
             <View style={styles.separator} />
             <View style={styles.contentContainer}>
-                <Text style={styles.lessonNameText}>{lesson.name}</Text>
+                <Text style={styles.lessonNameText}>{lesson.lessonName}</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <View style={styles.rowContainer}>
                         <Ionicons name="location" size={20} color="black" />
-                        <Text style={styles.infoText}>{lesson.location}</Text>
+                        {isEditing ? (
+                            <TextInput
+                                style={styles.infoTextInput}
+                                value={location}
+                                onChangeText={setLocation}
+                            />
+                        ) : (
+                            <Text style={styles.infoText}>{location}</Text>
+                        )}
                     </View>
                 </View>
                 <View style={styles.rowContainer}>
-                    <Ionicons name="time-outline" size={20} color="black" />
-                    <Text style={styles.infoText}>9:00 - 10:00</Text>
-                </View>
-                <View style={styles.rowContainer}>
                     <Ionicons name="calendar-number-outline" size={20} color="black" />
-                    <Text style={styles.infoText}>
-                        {lesson.startDate}{lesson.endDate ? ` - ${lesson.endDate}` : ''}
-                    </Text>
+                    {isEditing ? (
+                        <View style={{ flexDirection: 'row' }}>
+                            <TouchableOpacity onPress={() => setShowStartDatePicker(true)}>
+                                <Text style={styles.infoTextInput}>
+                                    {startDate.toLocaleDateString()}
+                                </Text>
+                            </TouchableOpacity>
+                            {showStartDatePicker && (
+                                <DateTimePicker
+                                    testID="startDatePicker"
+                                    value={startDate}
+                                    mode="date"
+                                    display="default"
+                                    onChange={onChangeStartDate}
+                                />
+                            )}
+                            <Text> - </Text>
+                            <TouchableOpacity onPress={() => setShowEndDatePicker(true)}>
+                                <Text style={styles.infoTextInput}>
+                                    {endDate ? endDate.toLocaleDateString() : 'No end date'}
+                                </Text>
+                            </TouchableOpacity>
+                            {showEndDatePicker && (
+                                <DateTimePicker
+                                    testID="endDatePicker"
+                                    value={endDate || new Date()} // Đảm bảo không truyền vào null cho DateTimePicker
+                                    mode="date"
+                                    display="default"
+                                    onChange={onChangeEndDate}
+                                />
+                            )}
+                        </View>
+                    ) : (
+                        <Text style={styles.infoText}>
+                            {startDate.toLocaleDateString()} {endDate ? `- ${endDate.toLocaleDateString()}` : ''}
+                        </Text>
+                    )}
                 </View>
                 <FlatList
                     data={students}
@@ -88,57 +185,61 @@ const RegisterList = (props) => {
             </View>
         </SafeAreaView>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
-        marginHorizontal: 20,
-        marginVertical: 10,
-        height: 30,
+        justifyContent: 'space-between',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+    },
+    backButton: {
+        padding: 5,
     },
     headerTitle: {
-        flex: 1,
-        textAlign: 'center',
         fontSize: 18,
         fontWeight: 'bold',
         color: 'black',
         textTransform: 'uppercase',
-        alignSelf: 'center',
     },
-    textHeader: {
-        fontSize: 25,
-        fontWeight: 'bold',
-        color: 'black',
+    separator: {
+        height: 1,
+        backgroundColor: '#ccc',
     },
     contentContainer: {
         flex: 1,
         padding: 16,
     },
     lessonNameText: {
-        alignSelf: 'center',
         fontSize: 18,
+        fontWeight: 'bold',
         color: 'black',
         marginBottom: 10,
-        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    rowContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
     },
     infoText: {
         fontSize: 14,
         color: 'black',
         marginLeft: 5,
     },
-    rowContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10,
-        marginHorizontal: 10,
+    infoTextInput: {
+        fontSize: 14,
+        color: 'black',
+        marginLeft: 5,
+        borderBottomWidth: 1,
+        borderBottomColor: 'gray',
+        padding: 2,
     },
     itemContainer: {
         backgroundColor: 'white',
@@ -154,23 +255,19 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 16,
         fontWeight: 'bold',
-        marginBottom: 10,
         color: 'black',
+        marginBottom: 5,
     },
     email: {
         fontSize: 14,
         color: 'black',
-        marginBottom: 10,
+        marginBottom: 5,
     },
     phone: {
         fontSize: 14,
         color: 'black',
-        marginBottom: 10,
+        marginBottom: 5,
     },
-    separator: {
-        height: 1,
-        backgroundColor: '#ccc',
-    },
-})
+});
 
 export default RegisterList;

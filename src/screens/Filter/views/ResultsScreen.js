@@ -188,7 +188,7 @@ const ResultScreen = ({ route, navigation }) => {
     };
 
     const handleNavDetailLesson = (lesson) => {
-        navigation.navigate('Lesson', {isOwner: false, lesson});
+        navigation.navigate('Lesson', { isOwner: false, lesson });
     }
 
     const handleNavDetailProgram = (program) => {
@@ -225,6 +225,7 @@ const ResultScreen = ({ route, navigation }) => {
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
                 contentContainerStyle={styles.flatListContainer}
+                showsVerticalScrollIndicator={false}
             />
         </View>
     );

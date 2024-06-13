@@ -3,12 +3,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from "../../../values/colors";
 import OfflineLessonComponent from "../../../components/OfflineLessonComponent";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const InstructorScheduleMainView = (props) => {
-    const { navigation } = props;
-
-    const lessons = [
+    const { navigation, route, updatedLesson } = props;
+    const [lessons, setLessons] = useState([
         {
             lessonName: "Ballet Basic",
             category: "Ballet",
@@ -45,7 +44,18 @@ const InstructorScheduleMainView = (props) => {
             startDate: '2024-06-15',
             endDate: null,
         },
-    ];
+    ]);
+
+    useEffect(() => {
+        if (updatedLesson) {
+            setLessons(prevLessons =>
+                prevLessons.map(lesson =>
+                    lesson.lessonName === updatedLesson.lessonName ? updatedLesson : lesson
+                )
+            );
+        }
+    }, [updatedLesson]);
+
 
     const handlePress = (lesson) => {
         navigation.navigate('RegisterList', { lesson });
@@ -89,7 +99,7 @@ const InstructorScheduleMainView = (props) => {
                     showsVerticalScrollIndicator={false}
                 />
             </View>
-        </SafeAreaView >
+        </SafeAreaView>
     )
 }
 

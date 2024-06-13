@@ -70,10 +70,6 @@ const PopUpFormComponent = (props) => {
                         <Ionicons name="location" size={20} color="black" />
                         <Text style={styles.infoText}>{offlinelessons.location}</Text>
                     </View>
-                    <View style={{ flexDirection: 'row', marginRight: 10 }}>
-                        <Ionicons name="time-outline" size={20} color="black" />
-                        <Text style={styles.infoText}>{offlinelessons.time}</Text>
-                    </View>
                 </View>
                 <View style={{ flexDirection: 'row', marginRight: 10, marginTop: 10, }}>
                     <Ionicons name="calendar-number-outline" size={20} color="black" />

@@ -2,7 +2,7 @@ import { Text, View, StyleSheet, TouchableOpacity, FlatList, Button, Image, Moda
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Colors from "../../../values/colors"
 import CommunityComponent from "../../../components/CommunityComponent";
@@ -12,6 +12,7 @@ import VideoPlayer2 from "../../../components/VideoPlayer2";
 import PopUpFormComponent from "../../../components/PopUpFormComponent";
 import InstructorLessontab from "../components/InstructorLessonTab";
 import ParticipantsItem from "../components/ParticipantItem";
+import ScheduleLessonComponent from "../../../components/ScheduleLessonComponent";
 
 const LessonMainView = (props) => {
     const {
@@ -24,14 +25,15 @@ const LessonMainView = (props) => {
 
     //console.log("IS OWNER LESSON: ", isOwner);
 
-    const offlineLesson = {
+    const [offlinelessons, setOfflineLessons] = useState({
         title: "Introduction to React Native",
         instructor: "John Doe",
+        instructorEmail: "test@gmail.com",
+        instructorPhone: "088815454545",
         location: "123 Main Street, Cityville",
-        time: "10:00 - 12:00",
         startDate: "20/04/2024",
-        endDate: "25/04/20240",
-    };
+        endDate: "21/04/2024",
+    });
     const Username = "Username";
     const UserImageURL = "https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg"
 
@@ -40,6 +42,7 @@ const LessonMainView = (props) => {
     const [content, setContent] = useState("Community"); // State để xác định nội dung hiện tại
     const [isShowVideo, setIsShowVideo] = useState(false);
     const [isModalOfflineVisible, setModalOfflineVisible] = useState(false);
+    const [isModalOfflineStudentVisible, setModalOfflineStudentVisible] = useState(false);
     const [isModalScheduleVisible, setIsModalScheduleVisible] = useState(false);
 
 
@@ -66,6 +69,19 @@ const LessonMainView = (props) => {
         // Đóng pop-up form
         setModalVisible(false);
     };
+
+    const handleSubmitOffline = (formData) => {
+        setOfflineLessons({
+            ...offlinelessons,
+            instructorEmail: formData.instructorEmail,
+            instructorPhone: formData.instructorPhone,
+        });
+        setModalOfflineVisible(false);
+    }
+
+    useEffect(() => {
+        console.log('Offline lessons updated:', offlinelessons);
+    }, [offlinelessons]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -105,7 +121,7 @@ const LessonMainView = (props) => {
                     >
                         <Ionicons name="calendar-clear-outline" size={30} color={Colors.primaryPupple} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.icon} onPress={() => (setModalOfflineVisible(true))}>
+                    <TouchableOpacity style={styles.icon} onPress={() => (setModalOfflineStudentVisible(true))}>
                         <FontAwesomeIcon icon={faAddressBook} size={25} color={Colors.primaryPupple} />
                     </TouchableOpacity>
                     {/* <TouchableOpacity style={styles.icon}>
@@ -116,15 +132,15 @@ const LessonMainView = (props) => {
 
             <View style={styles.container2}>
                 <Text style={styles.textName}>{lesson.name}</Text>
-                
-                {!isOwner && 
-                <View style={styles.instructorContainer}>
-                    <Image source={{ uri: lesson.instructorImage }} style={styles.circle}></Image>
-                    <View style={styles.instructorInfo}>
-                        <Text style={styles.textName}>{lesson.instructor}</Text>
-                        {/* <Text style={styles.instructorSubtitle}>{DancerName}</Text> */}
-                    </View>
-                </View>}
+
+                {!isOwner &&
+                    <View style={styles.instructorContainer}>
+                        <Image source={{ uri: lesson.instructorImage }} style={styles.circle}></Image>
+                        <View style={styles.instructorInfo}>
+                            <Text style={styles.textName}>{lesson.instructor}</Text>
+                            {/* <Text style={styles.instructorSubtitle}>{DancerName}</Text> */}
+                        </View>
+                    </View>}
             </View>
 
             <View style={styles.infoContainer}>
@@ -154,14 +170,14 @@ const LessonMainView = (props) => {
                 <View>
                     <InstructorLessontab onButtonPress={setContent} />
                     {content === 'Community' && (
-                        <View style={{paddingHorizontal: 16, height: 320}}>
+                        <View style={{ paddingHorizontal: 16, height: 320 }}>
                             <View style={styles.header}>
                                 <Text style={styles.headerText}>Community</Text>
                                 <TouchableOpacity onPress={handleNavigateCommunityDetail}>
                                     <Text style={styles.joinHere}>Join Here</Text>
                                 </TouchableOpacity>
                             </View>
-                            <CommunityComponent comments={comments}/>
+                            <CommunityComponent comments={comments} />
                         </View>
                     )}
                     {content === "Participants" && (
@@ -169,10 +185,10 @@ const LessonMainView = (props) => {
                             <Text style={styles.headerText}>Participants</Text>
                             <View style={styles.participantContent}>
                                 {console.log("PARTICIPANTS: ", participants)}
-                                <FlatList 
+                                <FlatList
                                     data={participants}
-                                    renderItem={({item, index}) => (
-                                        <ParticipantsItem 
+                                    renderItem={({ item, index }) => (
+                                        <ParticipantsItem
                                             key={index}
                                             image_link={item.image_link}
                                             name={item.name}
@@ -203,11 +219,19 @@ const LessonMainView = (props) => {
             </TouchableOpacity>
 
             <Modal
+                visible={isModalOfflineStudentVisible}
+                animationType="fade"
+                transparent={true}
+            >
+                <PopUpFormComponent handleSubmit={handleSubmit} offlinelessons={offlinelessons} handleCloseModal={() => { setModalOfflineStudentVisible(false) }} />
+            </Modal>
+
+            <Modal
                 visible={isModalOfflineVisible}
                 animationType="fade"
                 transparent={true}
             >
-                <PopUpFormComponent handleSubmit={handleSubmit} offlinelessons={offlineLesson} handleCloseModal={() => { setModalOfflineVisible(false) }} />
+                <ScheduleLessonComponent handleSubmit={handleSubmitOffline} offlinelessons={offlinelessons} handleCloseModal={() => { setModalOfflineVisible(false) }} />
             </Modal>
 
             <Modal visible={isModalScheduleVisible}>

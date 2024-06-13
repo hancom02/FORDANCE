@@ -3,12 +3,15 @@ const { default: InstructorScheduleContainer } = require("./InstructorScheduleCo
 const InstructorSchedule = (props) => {
     const {
         navigation,
+        route
 
     } = props;
 
+    const updatedLesson = route.params?.updatedLesson || null;
+
     const propsContainer = {
         navigation,
-
+        updatedLesson
     }
 
     return <InstructorScheduleContainer{...propsContainer} />

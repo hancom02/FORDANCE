@@ -1,6 +1,7 @@
 import { Text, View, StyleSheet, TouchableOpacity, FlatList, Button, Image, Modal, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useState } from 'react';
 
 import Colors from "../../../values/colors"
@@ -34,9 +35,13 @@ const LessonMainView = (props) => {
     const Username = "Username";
     const UserImageURL = "https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg"
 
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
     const [content, setContent] = useState("Community"); // State để xác định nội dung hiện tại
     const [isShowVideo, setIsShowVideo] = useState(false);
-    const [modalVisible, setModalVisible] = useState(false);
+    const [isModalOfflineVisible, setModalOfflineVisible] = useState(false);
+    const [isModalScheduleVisible, setIsModalScheduleVisible] = useState(false);
+
 
     const handleNavigateCommunityDetail = () => {
         navigation.navigate('Community');
@@ -46,6 +51,13 @@ const LessonMainView = (props) => {
         // console.log("NAV TO VIDEO PLAYER");
 
         setIsShowVideo(true);
+    }
+
+    const onChangeDate2 = (event, selectedDate) => {
+        if (event.type === 'set') {
+            setSelectedDate(selectedDate);
+            setIsModalScheduleVisible(false);
+        }
     }
 
     const handleSubmit = () => {
@@ -62,22 +74,20 @@ const LessonMainView = (props) => {
             </TouchableOpacity>
 
             <View style={styles.videoContainer}>
-                {/* <View style={styles.video}>
-                </View> */}
                 <Image style={styles.video} source={{ uri: lesson.image_link }} />
                 <TouchableOpacity onPress={handleNavVideoPlayer}>
                     <VideoPlayer2
                         uri={'https://s3.ap-southeast-2.amazonaws.com/fordance.com/videos/1000049593.mp4'}
                         visible={isShowVideo}
-                        setVisible={setIsShowVideo} />
-                    <Text>PLAY</Text>
+                        setVisible={setIsShowVideo} 
+                    />
                 </TouchableOpacity>
             </View>
 
             {isOwner ? (
                 // Instructor chỉ có 1 icon tạo lịch offline thôi, Khoa bỏ Modal set offline cho instructor vào đây
                 <View style={styles.iconContainer}>
-                    <TouchableOpacity style={[styles.icon, {marginLeft:16}]} onPress={() => (setModalVisible(true))}>
+                    <TouchableOpacity style={[styles.icon, {marginLeft:16}]} onPress={() => (setModalOfflineVisible(true))}>
                         <FontAwesomeIcon icon={faAddressBook} size={25} color={Colors.primaryPupple} />
                     </TouchableOpacity>
                 </View>
@@ -90,10 +100,12 @@ const LessonMainView = (props) => {
                     <TouchableOpacity style={styles.icon}>
                         <Ionicons name="cloud-download-outline" size={30} color={Colors.primaryPupple} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.icon}>
+                    <TouchableOpacity style={styles.icon} 
+                        onPress={() => (setIsModalScheduleVisible(true))}
+                    >
                         <Ionicons name="calendar-clear-outline" size={30} color={Colors.primaryPupple} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.icon} onPress={() => (setModalVisible(true))}>
+                    <TouchableOpacity style={styles.icon} onPress={() => (setModalOfflineVisible(true))}>
                         <FontAwesomeIcon icon={faAddressBook} size={25} color={Colors.primaryPupple} />
                     </TouchableOpacity>
                     {/* <TouchableOpacity style={styles.icon}>
@@ -191,12 +203,23 @@ const LessonMainView = (props) => {
             </TouchableOpacity>
 
             <Modal
-                visible={modalVisible}
+                visible={isModalOfflineVisible}
                 animationType="fade"
                 transparent={true}
             >
-                <PopUpFormComponent handleSubmit={handleSubmit} offlinelessons={offlineLesson} handleCloseModal={() => { setModalVisible(false) }} />
+                <PopUpFormComponent handleSubmit={handleSubmit} offlinelessons={offlineLesson} handleCloseModal={() => { setModalOfflineVisible(false) }} />
             </Modal>
+
+            <Modal visible={isModalScheduleVisible}>
+                <DateTimePicker 
+                    testID='selectDatePicker'
+                    value={selectedDate}
+                    mode='date'
+                    display='calendar'
+                    onChange={(event, selectedDate) => onChangeDate2(event, selectedDate)}
+                />
+            </Modal>
+            
         </SafeAreaView>
 
     )
@@ -358,6 +381,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 16,
         letterSpacing: 2
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        height: 500,
     },
 })
 

@@ -18,8 +18,8 @@ export const useAuth = create(
         isStudent,
         id,
         displayname,
-        googleId,
         email,
+        googleId,
         photoUrl,
         accessToken,
       ) {

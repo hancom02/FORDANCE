@@ -34,7 +34,6 @@ const LoginMainView = props => {
       console.log({error});
     },
     onSuccess: (data, variables) => {
-      console.log({data, variables});
       login(
         true,
         data.id,

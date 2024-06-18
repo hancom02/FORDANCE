@@ -1,18 +1,17 @@
-import CommunityContainer from "./CommunityContainer";
+import CommunityContainer from './CommunityContainer';
 
+const Community = props => {
+  const {navigation, route} = props;
 
-const Community = (props) => {
-    const {
-        navigation,
+  const {lesson, comments} = route.params;
 
-    } = props;
+  const propsContainer = {
+    navigation,
+    lesson,
+    comments,
+  };
 
-    const propsContainer = {
-        navigation,
-
-    };
-
-    return <CommunityContainer{...propsContainer} />
-}
+  return <CommunityContainer {...propsContainer} />;
+};
 
 export default Community;

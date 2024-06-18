@@ -45,6 +45,7 @@ const LessonMainView = props => {
   const {data, refetch} = useQuery({
     queryKey: ['detail-lesson', _lesson.id],
     queryFn: getDetailLesson,
+    refetchInterval: 1000,
   });
 
   const {mutate} = useMutation({
@@ -100,7 +101,10 @@ const LessonMainView = props => {
   }, [JSON.stringify(data)]);
 
   const handleNavigateCommunityDetail = () => {
-    navigation.navigate('Community');
+    navigation.navigate('Community', {
+      comments: lesson?.comments || [],
+      lesson,
+    });
   };
 
   const handleNavVideoPlayer = () => {
@@ -279,14 +283,13 @@ const LessonMainView = props => {
                   <Text style={styles.joinHere}>Join Here</Text>
                 </TouchableOpacity>
               </View>
-              <CommunityComponent comments={comments} />
+              <CommunityComponent comments={lesson?.comments || []} />
             </View>
           )}
           {content === 'Participants' && (
             <View style={styles.participantContainer}>
               <Text style={styles.headerText}>Participants</Text>
               <View style={styles.participantContent}>
-                {console.log('PARTICIPANTS: ', participants)}
                 <FlatList
                   data={participants}
                   renderItem={({item, index}) => (
@@ -310,7 +313,7 @@ const LessonMainView = props => {
                 <Text style={styles.joinHere}>Join Here</Text>
               </TouchableOpacity>
             </View>
-            <CommunityComponent comments={comments} />
+            <CommunityComponent comments={lesson?.comments || []} />
           </View>
         </View>
       )}

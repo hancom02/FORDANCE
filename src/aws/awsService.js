@@ -1,33 +1,41 @@
-import { S3 } from 'aws-sdk';
+import {S3} from 'aws-sdk';
 
 // Cấu hình AWS S3
 const s3 = new S3({
-    accessKeyId: 'key',
-    secretAccessKey: 'key',
-    region: 'ap-southeast-2',
+  accessKeyId: '',
+  secretAccessKey: '',
+  region: 'ap-southeast-1',
 });
 
-const uploadVideoToS3 = async (fileName, filePath) => {
-    const params = {
-        Bucket: 'fordance.com',
-        Key: 'videos/' + fileName,
-        Body: filePath,
-        ContentType: 'video/mp4',
-    };
+const Bucket = 'fordance';
 
-    return s3.upload(params).promise();
+const uploadVideoToS3 = async (fileName, filePath) => {
+  const Key = 'videos/' + fileName;
+  const params = {
+    Bucket,
+    Key,
+    Body: filePath,
+    ContentType: 'video/mp4',
+    ACL: 'public-read',
+  };
+
+  await s3.upload(params).promise();
+  return `https://${Bucket}.s3.ap-southeast-1.amazonaws.com/${encodeURIComponent(
+    Key,
+  )}`;
 };
 
 const uploadImageToS3 = async (fileName, filePath) => {
-    const params = {
-        Bucket: 'fordance.com',
-        Key: 'images/' + fileName,
-        Body: filePath,
-        // ContentType: 'image/jpeg', // Thay đổi ContentType tùy thuộc vào định dạng hình ảnh
-    };
+  const Key = 'images/' + fileName;
+  const params = {
+    Bucket,
+    Key,
+    Body: filePath,
+    // ContentType: 'image/jpeg', // Thay đổi ContentType tùy thuộc vào định dạng hình ảnh
+  };
 
-    return s3.upload(params).promise();
+  await s3.upload(params).promise();
+  return `https://${Bucket}.s3.amazonaws.com/${encodeURIComponent(Key)}`;
 };
 
-
-export { uploadVideoToS3, uploadImageToS3 };
+export {uploadVideoToS3, uploadImageToS3};

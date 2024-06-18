@@ -1,10 +1,22 @@
-import { useState } from "react";
-import { Button, Dimensions, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useSelector } from "react-redux";
-import { register, registerWithEmailAndPassword } from "../../../redux/slices/authSlice";
-import Colors from "../../../values/colors";
+import {useState} from 'react';
+import {
+  Button,
+  Dimensions,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {useSelector} from 'react-redux';
+import {
+  register,
+  registerWithEmailAndPassword,
+} from '../../../redux/slices/authSlice';
+import Colors from '../../../values/colors';
 
-const SignUpMainView = (props) => {
+const SignUpMainView = props => {
   const {
     navigation,
     dispatch,
@@ -12,7 +24,7 @@ const SignUpMainView = (props) => {
     // errorInput,
     validateEmail,
     handleSubmitForm,
-  } = props
+  } = props;
 
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
@@ -22,15 +34,15 @@ const SignUpMainView = (props) => {
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
 
-  const { loading, error } = useSelector((state) => state.auth);
+  const {loading, error} = useSelector(state => state.auth);
 
   const handleNavSignIn = () => {
     navigation.navigate('Login');
-  }
+  };
 
   const handleNavSelectRole = () => {
     navigation.navigate('ChoseRole');
-  }
+  };
 
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -42,12 +54,14 @@ const SignUpMainView = (props) => {
             <TextInput
               style={styles.input}
               placeholder="Username"
-              keyboardType='ascii-capable'
+              keyboardType="ascii-capable"
               value={userName}
               onChangeText={setUserName}
               onFocus={() => setUserNameTouched(true)}
             />
-            {(userNameTouched && userName.length === 0) && <Text style={{fontSize: 12, color: 'red'}}>Invalid Name</Text>}
+            {userNameTouched && userName.length === 0 && (
+              <Text style={{fontSize: 12, color: 'red'}}>Invalid Name</Text>
+            )}
           </View>
 
           <View style={styles.inputContainer}>
@@ -59,29 +73,34 @@ const SignUpMainView = (props) => {
               onChangeText={setEmail}
               onFocus={() => setEmailTouched(true)}
             />
-            {(emailTouched && (email.length === 0 || !validateEmail(email))) && (<Text style={{fontSize: 12, color: 'red'}}>Invalid Email</Text>)}
+            {emailTouched && (email.length === 0 || !validateEmail(email)) && (
+              <Text style={{fontSize: 12, color: 'red'}}>Invalid Email</Text>
+            )}
           </View>
 
           <View style={styles.inputContainer}>
             <TextInput
               style={styles.input}
               placeholder="Password"
-              keyboardType='default'
+              keyboardType="default"
               secureTextEntry
               value={password}
               onChangeText={setPassword}
               onFocus={() => setPasswordTouched(true)}
             />
-            {(passwordTouched && password.length < 6) && <Text style={{fontSize: 12, color: 'red'}}>Password requires at least 6 characters</Text>}
-          </View>          
+            {passwordTouched && password.length < 6 && (
+              <Text style={{fontSize: 12, color: 'red'}}>
+                Password requires at least 6 characters
+              </Text>
+            )}
+          </View>
 
           {error && <Text style={styles.error}>{error}</Text>}
 
           <TouchableOpacity
             style={[styles.button, loading && styles.buttonDisabled]}
             onPress={() => handleSubmitForm(userName, email, password)}
-            disabled={loading}
-          >
+            disabled={loading}>
             <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
@@ -89,20 +108,20 @@ const SignUpMainView = (props) => {
         <View style={styles.signUpContainer}>
           <Text>Does not have an account? </Text>
           <TouchableOpacity onPress={handleNavSignIn}>
-              <Text style={styles.textSignUp}>Log In</Text>
+            <Text style={styles.textSignUp}>Log In</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.selectRoleContainer}>
-            <Text>Go back to select role account? </Text>
-            <TouchableOpacity onPress={handleNavSelectRole}>
-                <Text style={styles.textSignUp}>Select Role</Text>
-            </TouchableOpacity>
+          <Text>Go back to select role account? </Text>
+          <TouchableOpacity onPress={handleNavSelectRole}>
+            <Text style={styles.textSignUp}>Select Role</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </KeyboardAvoidingView>
-  )
-}
+  );
+};
 
 export default SignUpMainView;
 
@@ -114,11 +133,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   signUpContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   selectRoleContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   textSignUp: {
     color: Colors.primaryPupple,
@@ -140,11 +159,12 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    width: Dimensions.get('window').width*0.80,
+    width: Dimensions.get('window').width * 0.8,
     borderRadius: 20,
     borderColor: 'gray',
     borderWidth: 1,
     paddingHorizontal: 12,
+    color: 'black',
   },
   button: {
     height: 44,
@@ -152,7 +172,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: Colors.primaryPupple,
     borderRadius: 24,
-
   },
   buttonText: {
     fontSize: 16,
@@ -164,4 +183,3 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 });
-

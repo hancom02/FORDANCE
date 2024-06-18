@@ -1,417 +1,460 @@
-import { Text, View, StyleSheet, TouchableOpacity, FlatList, Button, Image, Modal, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+  Button,
+  Image,
+  Modal,
+  ScrollView,
+} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
-import Colors from "../../../values/colors"
-import CommunityComponent from "../../../components/CommunityComponent";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
-import VideoPlayer2 from "../../../components/VideoPlayer2";
-import PopUpFormComponent from "../../../components/PopUpFormComponent";
-import InstructorLessontab from "../components/InstructorLessonTab";
-import ParticipantsItem from "../components/ParticipantItem";
-import ScheduleLessonComponent from "../../../components/ScheduleLessonComponent";
+import Colors from '../../../values/colors';
+import CommunityComponent from '../../../components/CommunityComponent';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faAddressBook} from '@fortawesome/free-regular-svg-icons';
+import VideoPlayer2 from '../../../components/VideoPlayer2';
+import PopUpFormComponent from '../../../components/PopUpFormComponent';
+import InstructorLessontab from '../components/InstructorLessonTab';
+import ParticipantsItem from '../components/ParticipantItem';
+import ScheduleLessonComponent from '../../../components/ScheduleLessonComponent';
 
-const LessonMainView = (props) => {
-    const {
-        navigation,
-        isOwner,
-        comments,
-        lesson,
-        participants,
-    } = props;
+const LessonMainView = props => {
+  const {navigation, isOwner, comments, lesson, participants} = props;
 
-    //console.log("IS OWNER LESSON: ", isOwner);
+  //console.log("IS OWNER LESSON: ", isOwner);
 
-    const [offlinelessons, setOfflineLessons] = useState({
-        title: "Introduction to React Native",
-        instructor: "John Doe",
-        instructorEmail: "test@gmail.com",
-        instructorPhone: "088815454545",
-        location: "123 Main Street, Cityville",
-        startDate: "20/04/2024",
-        endDate: "21/04/2024",
+  const [offlinelessons, setOfflineLessons] = useState({
+    title: 'Introduction to React Native',
+    instructor: 'John Doe',
+    instructorEmail: 'test@gmail.com',
+    instructorPhone: '088815454545',
+    location: '123 Main Street, Cityville',
+    startDate: '20/04/2024',
+    endDate: '21/04/2024',
+  });
+  const Username = 'Username';
+  const UserImageURL =
+    'https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg';
+
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const [content, setContent] = useState('Community'); // State để xác định nội dung hiện tại
+  const [isShowVideo, setIsShowVideo] = useState(false);
+  const [isModalOfflineVisible, setModalOfflineVisible] = useState(false);
+  const [isModalOfflineStudentVisible, setModalOfflineStudentVisible] =
+    useState(false);
+  const [isModalScheduleVisible, setIsModalScheduleVisible] = useState(false);
+
+  const handleNavigateCommunityDetail = () => {
+    navigation.navigate('Community');
+  };
+
+  const handleNavVideoPlayer = () => {
+    // console.log("NAV TO VIDEO PLAYER");
+
+    setIsShowVideo(true);
+  };
+
+  const onChangeDate2 = (event, selectedDate) => {
+    if (event.type === 'set') {
+      setSelectedDate(selectedDate);
+      setIsModalScheduleVisible(false);
+    }
+  };
+
+  const handleSubmit = () => {
+    // Xử lý logic submit form tại đây
+    console.log('Form submitted!');
+    // Đóng pop-up form
+    setModalVisible(false);
+  };
+
+  const handleSubmitOffline = formData => {
+    setOfflineLessons({
+      ...offlinelessons,
+      instructorEmail: formData.instructorEmail,
+      instructorPhone: formData.instructorPhone,
     });
-    const Username = "Username";
-    const UserImageURL = "https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg"
+    setModalOfflineVisible(false);
+  };
 
-    const [selectedDate, setSelectedDate] = useState(new Date());
+  useEffect(() => {
+    console.log('Offline lessons updated:', offlinelessons);
+  }, [offlinelessons]);
 
-    const [content, setContent] = useState("Community"); // State để xác định nội dung hiện tại
-    const [isShowVideo, setIsShowVideo] = useState(false);
-    const [isModalOfflineVisible, setModalOfflineVisible] = useState(false);
-    const [isModalOfflineStudentVisible, setModalOfflineStudentVisible] = useState(false);
-    const [isModalScheduleVisible, setIsModalScheduleVisible] = useState(false);
+  return (
+    <SafeAreaView style={styles.container}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+        style={styles.backButton}>
+        <Ionicons name="arrow-back" size={24} color="black" />
+      </TouchableOpacity>
 
+      <View style={styles.videoContainer}>
+        <Image style={styles.video} source={{uri: lesson.imageUrl}} />
+        <TouchableOpacity onPress={handleNavVideoPlayer}>
+          <VideoPlayer2
+            uri={lesson.videoUrl}
+            visible={isShowVideo}
+            setVisible={setIsShowVideo}
+          />
+        </TouchableOpacity>
+      </View>
 
-    const handleNavigateCommunityDetail = () => {
-        navigation.navigate('Community');
-    }
-
-    const handleNavVideoPlayer = () => {
-        // console.log("NAV TO VIDEO PLAYER");
-
-        setIsShowVideo(true);
-    }
-
-    const onChangeDate2 = (event, selectedDate) => {
-        if (event.type === 'set') {
-            setSelectedDate(selectedDate);
-            setIsModalScheduleVisible(false);
-        }
-    }
-
-    const handleSubmit = () => {
-        // Xử lý logic submit form tại đây
-        console.log('Form submitted!');
-        // Đóng pop-up form
-        setModalVisible(false);
-    };
-
-    const handleSubmitOffline = (formData) => {
-        setOfflineLessons({
-            ...offlinelessons,
-            instructorEmail: formData.instructorEmail,
-            instructorPhone: formData.instructorPhone,
-        });
-        setModalOfflineVisible(false);
-    }
-
-    useEffect(() => {
-        console.log('Offline lessons updated:', offlinelessons);
-    }, [offlinelessons]);
-
-    return (
-        <SafeAreaView style={styles.container}>
-            <TouchableOpacity onPress={() => { navigation.goBack() }} style={styles.backButton}>
-                <Ionicons name="arrow-back" size={24} color="black" />
-            </TouchableOpacity>
-
-            <View style={styles.videoContainer}>
-                <Image style={styles.video} source={{ uri: lesson.image_link }} />
-                <TouchableOpacity onPress={handleNavVideoPlayer}>
-                    <VideoPlayer2
-                        uri={'https://s3.ap-southeast-2.amazonaws.com/fordance.com/videos/1000049593.mp4'}
-                        visible={isShowVideo}
-                        setVisible={setIsShowVideo} 
-                    />
-                </TouchableOpacity>
-            </View>
-
-            {isOwner ? (
-                // Instructor chỉ có 1 icon tạo lịch offline thôi, Khoa bỏ Modal set offline cho instructor vào đây
-                <View style={styles.iconContainer}>
-                    <TouchableOpacity style={[styles.icon, {marginLeft:16}]} onPress={() => (setModalOfflineVisible(true))}>
-                        <FontAwesomeIcon icon={faAddressBook} size={25} color={Colors.primaryPupple} />
-                    </TouchableOpacity>
-                </View>
-            ) : (
-                // Nội dung khi không phải là chủ sở hữu
-                <View style={styles.iconContainer}>
-                    <TouchableOpacity style={[styles.icon, { marginLeft: 16 }]}>
-                        <Ionicons name="heart-outline" size={30} color={Colors.primaryPupple} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.icon}>
-                        <Ionicons name="cloud-download-outline" size={30} color={Colors.primaryPupple} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.icon} 
-                        onPress={() => (setIsModalScheduleVisible(true))}
-                    >
-                        <Ionicons name="calendar-clear-outline" size={30} color={Colors.primaryPupple} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.icon} onPress={() => (setModalOfflineStudentVisible(true))}>
-                        <FontAwesomeIcon icon={faAddressBook} size={25} color={Colors.primaryPupple} />
-                    </TouchableOpacity>
-                    {/* <TouchableOpacity style={styles.icon}>
+      {isOwner ? (
+        // Instructor chỉ có 1 icon tạo lịch offline thôi, Khoa bỏ Modal set offline cho instructor vào đây
+        <View style={styles.iconContainer}>
+          <TouchableOpacity
+            style={[styles.icon, {marginLeft: 16}]}
+            onPress={() => setModalOfflineVisible(true)}>
+            <FontAwesomeIcon
+              icon={faAddressBook}
+              size={25}
+              color={Colors.primaryPupple}
+            />
+          </TouchableOpacity>
+        </View>
+      ) : (
+        // Nội dung khi không phải là chủ sở hữu
+        <View style={styles.iconContainer}>
+          <TouchableOpacity style={[styles.icon, {marginLeft: 16}]}>
+            <Ionicons
+              name="heart-outline"
+              size={30}
+              color={Colors.primaryPupple}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.icon}>
+            <Ionicons
+              name="cloud-download-outline"
+              size={30}
+              color={Colors.primaryPupple}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.icon}
+            onPress={() => setIsModalScheduleVisible(true)}>
+            <Ionicons
+              name="calendar-clear-outline"
+              size={30}
+              color={Colors.primaryPupple}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.icon}
+            onPress={() => setModalOfflineStudentVisible(true)}>
+            <FontAwesomeIcon
+              icon={faAddressBook}
+              size={25}
+              color={Colors.primaryPupple}
+            />
+          </TouchableOpacity>
+          {/* <TouchableOpacity style={styles.icon}>
                         <Ionicons name="arrow-redo-outline" size={30} color={Colors.primaryPupple} />
                     </TouchableOpacity> */}
-                </View>
-            )}
+        </View>
+      )}
 
-            <View style={styles.container2}>
-                <Text style={styles.textName}>{lesson.name}</Text>
+      <View style={styles.container2}>
+        <Text style={styles.textName}>{lesson.name}</Text>
 
-                {!isOwner &&
-                    <View style={styles.instructorContainer}>
-                        <Image source={{ uri: lesson.instructorImage }} style={styles.circle}></Image>
-                        <View style={styles.instructorInfo}>
-                            <Text style={styles.textName}>{lesson.instructor}</Text>
-                            {/* <Text style={styles.instructorSubtitle}>{DancerName}</Text> */}
-                        </View>
-                    </View>}
+        {!isOwner && (
+          <View style={styles.instructorContainer}>
+            <Image
+              source={{uri: lesson.instructorImage}}
+              style={styles.circle}></Image>
+            <View style={styles.instructorInfo}>
+              <Text style={styles.textName}>{lesson.instructor}</Text>
+              {/* <Text style={styles.instructorSubtitle}>{DancerName}</Text> */}
             </View>
+          </View>
+        )}
+      </View>
 
-            <View style={styles.infoContainer}>
-                <View style={[styles.info, { alignItems: 'flex-start' }]}>
-                    <View style={{ flexDirection: 'column', }}>
-                        <Text style={styles.textInfo}>LEVEL</Text>
-                        <Text style={styles.textInfo2}>{lesson.level}</Text>
-                    </View>
-                </View>
-                <View style={[styles.info, { alignItems: 'center' }]}>
-                    <View style={{ flexDirection: 'column' }}>
-                        <Text style={styles.textInfo}>STYLE</Text>
-                        <Text style={styles.textInfo2}>{lesson.category}</Text>
-                    </View>
-                </View>
-                <View style={[styles.info, { alignItems: 'flex-end' }]} >
-                    <View style={{ flexDirection: 'column' }}>
-                        <Text style={styles.textInfo}>TIME</Text>
-                        <Text style={styles.textInfo2}>{lesson.total_time} min</Text>
-                    </View>
-                </View>
+      <View style={styles.infoContainer}>
+        <View style={[styles.info, {alignItems: 'flex-start'}]}>
+          <View style={{flexDirection: 'column'}}>
+            <Text style={styles.textInfo}>LEVEL</Text>
+            <Text style={styles.textInfo2}>{lesson.level}</Text>
+          </View>
+        </View>
+        <View style={[styles.info, {alignItems: 'center'}]}>
+          <View style={{flexDirection: 'column'}}>
+            <Text style={styles.textInfo}>STYLE</Text>
+            <Text style={styles.textInfo2}>{lesson.category}</Text>
+          </View>
+        </View>
+        <View style={[styles.info, {alignItems: 'flex-end'}]}>
+          <View style={{flexDirection: 'column'}}>
+            <Text style={styles.textInfo}>TIME</Text>
+            <Text style={styles.textInfo2}>{lesson.total_time} min</Text>
+          </View>
+        </View>
+      </View>
 
+      {/*THANH COMMUNITY VA PARTICIPNAT (STUDENT KO DC XEM PARTICIPANT)  */}
+      {isOwner ? (
+        <View>
+          <InstructorLessontab onButtonPress={setContent} />
+          {content === 'Community' && (
+            <View style={{paddingHorizontal: 16, height: 320}}>
+              <View style={styles.header}>
+                <Text style={styles.headerText}>Community</Text>
+                <TouchableOpacity onPress={handleNavigateCommunityDetail}>
+                  <Text style={styles.joinHere}>Join Here</Text>
+                </TouchableOpacity>
+              </View>
+              <CommunityComponent comments={comments} />
             </View>
-
-            {/*THANH COMMUNITY VA PARTICIPNAT (STUDENT KO DC XEM PARTICIPANT)  */}
-            {isOwner ? (
-                <View>
-                    <InstructorLessontab onButtonPress={setContent} />
-                    {content === 'Community' && (
-                        <View style={{ paddingHorizontal: 16, height: 320 }}>
-                            <View style={styles.header}>
-                                <Text style={styles.headerText}>Community</Text>
-                                <TouchableOpacity onPress={handleNavigateCommunityDetail}>
-                                    <Text style={styles.joinHere}>Join Here</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <CommunityComponent comments={comments} />
-                        </View>
-                    )}
-                    {content === "Participants" && (
-                        <View style={styles.participantContainer}>
-                            <Text style={styles.headerText}>Participants</Text>
-                            <View style={styles.participantContent}>
-                                {console.log("PARTICIPANTS: ", participants)}
-                                <FlatList
-                                    data={participants}
-                                    renderItem={({ item, index }) => (
-                                        <ParticipantsItem
-                                            key={index}
-                                            image_link={item.image_link}
-                                            name={item.name}
-                                        />
-                                    )}
-                                />
-                            </View>
-                        </View>
-                    )}
-                </View>
-            ) : (
-                <View style={styles.communityContainer}>
-                    <View style={styles.container}>
-                        <View style={styles.header}>
-                            <Text style={styles.headerText}>Community</Text>
-                            <TouchableOpacity onPress={handleNavigateCommunityDetail}>
-                                <Text style={styles.joinHere}>Join Here</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <CommunityComponent comments={comments} />
-                    </View>
-                </View>
-            )}
-
-            <TouchableOpacity style={styles.joinClassContainer} onPress={() => handleNavVideoPlayer()}>
-                {isOwner && <Text style={styles.textJoinLesson}>WATCH VIDEO LESSON</Text>}
-                {!isOwner && <Text style={styles.textJoinLesson}>JOIN LESSON</Text>}
-            </TouchableOpacity>
-
-            <Modal
-                visible={isModalOfflineStudentVisible}
-                animationType="fade"
-                transparent={true}
-            >
-                <PopUpFormComponent handleSubmit={handleSubmit} offlinelessons={offlinelessons} handleCloseModal={() => { setModalOfflineStudentVisible(false) }} />
-            </Modal>
-
-            <Modal
-                visible={isModalOfflineVisible}
-                animationType="fade"
-                transparent={true}
-            >
-                <ScheduleLessonComponent handleSubmit={handleSubmitOffline} offlinelessons={offlinelessons} handleCloseModal={() => { setModalOfflineVisible(false) }} />
-            </Modal>
-
-            <Modal visible={isModalScheduleVisible}>
-                <DateTimePicker 
-                    testID='selectDatePicker'
-                    value={selectedDate}
-                    mode='date'
-                    display='calendar'
-                    onChange={(event, selectedDate) => onChangeDate2(event, selectedDate)}
+          )}
+          {content === 'Participants' && (
+            <View style={styles.participantContainer}>
+              <Text style={styles.headerText}>Participants</Text>
+              <View style={styles.participantContent}>
+                {console.log('PARTICIPANTS: ', participants)}
+                <FlatList
+                  data={participants}
+                  renderItem={({item, index}) => (
+                    <ParticipantsItem
+                      key={index}
+                      image_link={item.image_link}
+                      name={item.name}
+                    />
+                  )}
                 />
-            </Modal>
-            
-        </SafeAreaView>
+              </View>
+            </View>
+          )}
+        </View>
+      ) : (
+        <View style={styles.communityContainer}>
+          <View style={styles.container}>
+            <View style={styles.header}>
+              <Text style={styles.headerText}>Community</Text>
+              <TouchableOpacity onPress={handleNavigateCommunityDetail}>
+                <Text style={styles.joinHere}>Join Here</Text>
+              </TouchableOpacity>
+            </View>
+            <CommunityComponent comments={comments} />
+          </View>
+        </View>
+      )}
 
-    )
-}
+      <TouchableOpacity
+        style={styles.joinClassContainer}
+        onPress={() => handleNavVideoPlayer()}>
+        {isOwner && (
+          <Text style={styles.textJoinLesson}>WATCH VIDEO LESSON</Text>
+        )}
+        {!isOwner && <Text style={styles.textJoinLesson}>JOIN LESSON</Text>}
+      </TouchableOpacity>
+
+      <Modal
+        visible={isModalOfflineStudentVisible}
+        animationType="fade"
+        transparent={true}>
+        <PopUpFormComponent
+          handleSubmit={handleSubmit}
+          offlinelessons={offlinelessons}
+          handleCloseModal={() => {
+            setModalOfflineStudentVisible(false);
+          }}
+        />
+      </Modal>
+
+      <Modal
+        visible={isModalOfflineVisible}
+        animationType="fade"
+        transparent={true}>
+        <ScheduleLessonComponent
+          handleSubmit={handleSubmitOffline}
+          offlinelessons={offlinelessons}
+          handleCloseModal={() => {
+            setModalOfflineVisible(false);
+          }}
+        />
+      </Modal>
+
+      <Modal visible={isModalScheduleVisible}>
+        <DateTimePicker
+          testID="selectDatePicker"
+          value={selectedDate}
+          mode="date"
+          display="calendar"
+          onChange={(event, selectedDate) => onChangeDate2(event, selectedDate)}
+        />
+      </Modal>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        backgroundColor: 'white'
-    },
-    container2: {
-        flexDirection: 'column',
-        paddingHorizontal: 16,
-    },
-    videoContainer: {
-        paddingHorizontal: 0,
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: 'white',
+  },
+  container2: {
+    flexDirection: 'column',
+    paddingHorizontal: 16,
+  },
+  videoContainer: {
+    paddingHorizontal: 0,
+  },
+  video: {
+    width: '100%',
+    height: 200,
+    // backgroundColor: 'blue',
+  },
+  iconContainer: {
+    width: '100%',
+    height: 50,
+    alignItems: 'center',
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    borderColor: 'grey',
+    borderWidth: 0.5,
+    // marginBottom: 15
+  },
+  instructorContainer: {
+    flexDirection: 'row',
+    marginTop: 20,
+    paddingBottom: 16,
+    borderColor: 'grey',
+    borderBottomWidth: 0.5,
+    alignItems: 'center',
 
-    },
-    video: {
-        width: '100%',
-        height: 200,
-        // backgroundColor: 'blue',
-    },
-    iconContainer: {
-        width: '100%',
-        height: 50,
-        alignItems: 'center',
-        backgroundColor: 'white',
-        flexDirection: 'row',
-        borderColor: 'grey',
-        borderWidth: 0.5,
-        // marginBottom: 15
-    },
-    instructorContainer: {
-        flexDirection: 'row',
-        marginTop: 20,
-        paddingBottom: 16,
-        borderColor: 'grey',
-        borderBottomWidth: 0.5,
-        alignItems: 'center',
+    // backgroundColor: 'green'
+  },
+  circle: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: 'grey',
+    marginRight: 20,
+    // marginBottom: 10
+  },
 
-        // backgroundColor: 'green'
-    },
-    circle: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        backgroundColor: 'grey',
-        marginRight: 20,
-        // marginBottom: 10
-    },
+  instructorSubtitle: {
+    fontSize: 16,
+  },
+  icon: {
+    marginRight: 10,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 16,
+    left: 16,
+    zIndex: 999,
+    padding: 10,
+    borderRadius: 30,
+    backgroundColor: 'white',
+  },
+  textName: {
+    color: 'black',
+    fontWeight: '700',
+    fontSize: 16,
+    textTransform: 'uppercase',
+  },
+  instructorInfo: {
+    flexDirection: 'column',
+    justifyContent: 'center',
 
-    instructorSubtitle: {
-        fontSize: 16,
+    // backgroundColor: 'pink'
+  },
 
-    },
-    icon: {
-        marginRight: 10,
-    },
-    backButton: {
-        position: 'absolute',
-        top: 16,
-        left: 16,
-        zIndex: 999,
-        padding: 10,
-        borderRadius: 30,
-        backgroundColor: 'white'
-    },
-    textName: {
-        color: 'black',
-        fontWeight: '700',
-        fontSize: 16,
-        textTransform: 'uppercase'
-    },
-    instructorInfo: {
-        flexDirection: 'column',
-        justifyContent: 'center',
+  infoContainer: {
+    // marginTop: 10,
+    flexDirection: 'row',
+    height: 80,
+    marginHorizontal: 16,
+    borderColor: 'grey',
+    borderBottomWidth: 0.5,
 
-        // backgroundColor: 'pink'
-    },
+    // backgroundColor: 'pink'
+  },
+  info: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  textInfo: {
+    marginBottom: 5,
+    fontSize: 16,
+    fontWeight: '300',
+    color: 'black',
+  },
+  textInfo2: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+  communityContainer: {
+    flex: 1,
+    marginHorizontal: 16,
+  },
+  containerJoin: {
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  participantContainer: {
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    // backgroundColor: 'pink'
+  },
+  participantContent: {
+    width: '100%',
+    height: 260,
+    paddingTop: 16,
+    // backgroundColor: 'green'
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 15,
+    marginBottom: 15,
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+  joinHere: {
+    color: Colors.primaryPupple,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+  },
+  joinClassContainer: {
+    height: 50,
+    marginHorizontal: 16,
+    marginBottom: 16,
+    backgroundColor: Colors.primaryPupple,
+    borderRadius: 3,
 
-    infoContainer: {
-        // marginTop: 10,
-        flexDirection: 'row',
-        height: 80,
-        marginHorizontal: 16,
-        borderColor: 'grey',
-        borderBottomWidth: 0.5,
-
-        // backgroundColor: 'pink'
-
-    },
-    info: {
-        flex: 1,
-        justifyContent: 'center'
-    },
-    textInfo: {
-        marginBottom: 5,
-        fontSize: 16,
-        fontWeight: '300',
-        color: 'black'
-    },
-    textInfo2: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'black'
-    },
-    communityContainer: {
-        flex: 1,
-        marginHorizontal: 16
-    },
-    containerJoin: {
-        marginTop: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-
-    },
-    participantContainer: {
-        paddingHorizontal: 16,
-        paddingVertical: 16
-        // backgroundColor: 'pink'
-    },
-    participantContent: {
-        width: '100%',
-        height: 260,
-        paddingTop: 16
-        // backgroundColor: 'green'
-    },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 15,
-        marginBottom: 15,
-    },
-    headerText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: 'black'
-    },
-    joinHere: {
-        color: Colors.primaryPupple,
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
-    },
-    joinClassContainer: {
-        height: 50,
-        marginHorizontal: 16,
-        marginBottom: 16,
-        backgroundColor: Colors.primaryPupple,
-        borderRadius: 3,
-
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    textJoinLesson: {
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 16,
-        letterSpacing: 2
-    },
-    modalContent: {
-        backgroundColor: 'white',
-        padding: 20,
-        borderRadius: 10,
-        height: 500,
-    },
-})
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textJoinLesson: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+    letterSpacing: 2,
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    height: 500,
+  },
+});
 
 export default LessonMainView;

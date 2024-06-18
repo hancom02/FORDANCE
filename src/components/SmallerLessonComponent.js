@@ -20,7 +20,7 @@ const SmallerLessonComponent = props => {
         <Image style={styles.image} source={{uri: lesson.imageUrl}} />
         <View>
           <Text style={styles.textLessonName}>{lesson.name}</Text>
-          <Text style={styles.textTime}>{lesson.total_time}</Text>
+          {/* <Text style={styles.textTime}>{lesson.total_time}</Text> */}
         </View>
       </View>
       {isOwner && (

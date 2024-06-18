@@ -1,19 +1,8 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-} from 'react-native';
-import {useAuth} from '../stores/auth.store';
+import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 
 const CommunityComponent = props => {
-  const auth = useAuth();
   const {comments} = props;
-
-  console.log(auth);
 
   const renderItem = ({item, index}) => {
     return (

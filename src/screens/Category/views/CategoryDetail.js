@@ -10,15 +10,29 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from '../../../values/colors';
+import {useQuery} from 'react-query';
+import getAllLesson from '../../../api/lesson/getAll';
 
 const CategoryDetail = ({route, navigation}) => {
-  const {category, categoriesItems} = route.params;
+  const {category} = route.params;
 
-  //console.log('Categories:', categoriesItems);
+  const {data: categoriesItems} = useQuery({
+    queryKey: ['lessons-category', '', category],
+    queryFn: getAllLesson,
+  });
+
   const renderItem = ({item}) => (
-    <TouchableOpacity style={styles.itemContainer}>
+    <TouchableOpacity
+      style={styles.itemContainer}
+      onPress={() => {
+        navigation.navigate('Lesson', {
+          tabBarVisible: false,
+          lesson: item,
+          isOwner: false,
+        });
+      }}>
       <ImageBackground
-        source={{uri: item.image}}
+        source={{uri: item.imageUrl}}
         style={styles.itemImage}
         resizeMode="cover">
         <Text style={styles.itemName}>{item.name}</Text>
@@ -27,7 +41,7 @@ const CategoryDetail = ({route, navigation}) => {
       <View style={styles.itemContent}>
         <Text style={styles.itemLevel}>{item.level}</Text>
         <Text style={styles.itemText}>{item.instructor.name}</Text>
-        <Text style={styles.itemText}>{item.dancer}</Text>
+        {/* <Text style={styles.itemText}>{item.dancer}</Text> */}
       </View>
     </TouchableOpacity>
   );
@@ -46,7 +60,7 @@ const CategoryDetail = ({route, navigation}) => {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={categoriesItems}
+        data={categoriesItems || []}
         renderItem={renderItem}
         keyExtractor={item => item.level}
         contentContainerStyle={styles.flatlistContainer}

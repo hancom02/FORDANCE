@@ -121,10 +121,8 @@ const LessonMainView = props => {
   };
 
   const handleSubmit = () => {
-    // Xử lý logic submit form tại đây
-    console.log('Form submitted!');
-    // Đóng pop-up form
-    setModalVisible(false);
+    mutateLessonJoinState({id: _lesson.id, isJoin: true, isJoinOff: true});
+    setModalOfflineStudentVisible(false);
   };
 
   const handleSubmitOffline = formData => {

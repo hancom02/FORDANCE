@@ -72,16 +72,17 @@ export default function App() {
             />
             <Stack.Screen name="Community" component={Community} />
             <Stack.Screen name="Program" component={Program} />
-            {selectedRole === 'student' ? (
+            <Stack.Screen name="HomeStack" component={HomeStack} />
+            <Stack.Screen name="LibraryStack" component={LibraryStack} />
+            <Stack.Screen name="AccountStack" component={AccountStack} />
+            <Stack.Screen name="Search" component={Search} />
+            <Stack.Screen
+              name="InstructorDetailView"
+              component={InstructorDetailView}
+            />
+            <Stack.Screen name="Notifications" component={NotificationScreen} />
+            {/* {selectedRole === 'student' ? (
               <>
-                <Stack.Screen name="HomeStack" component={HomeStack} />
-                <Stack.Screen name="LibraryStack" component={LibraryStack} />
-                <Stack.Screen name="AccountStack" component={AccountStack} />
-                <Stack.Screen name="Search" component={Search} />
-                <Stack.Screen
-                  name="InstructorDetailView"
-                  component={InstructorDetailView}
-                />
                 <Stack.Screen
                   name="Notifications"
                   component={NotificationScreen}
@@ -89,13 +90,8 @@ export default function App() {
               </>
             ) : selectedRole === 'instructor' ? (
               <>
-                <Stack.Screen
-                  name="Notifications"
-                  component={NotificationScreen}
-                />
-                <Stack.Screen name="Search" component={Search} />
               </>
-            ) : null}
+            ) : null} */}
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

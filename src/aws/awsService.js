@@ -1,9 +1,10 @@
 import {S3} from 'aws-sdk';
+import {AWS_S3_ACCESS_KEY_ID, AWS_S3_SECRET_ACCESS_KEY} from '@env';
 
 // Cấu hình AWS S3
 const s3 = new S3({
-  accessKeyId: '',
-  secretAccessKey: '',
+  accessKeyId: AWS_S3_ACCESS_KEY_ID,
+  secretAccessKey: AWS_S3_SECRET_ACCESS_KEY,
   region: 'ap-southeast-1',
 });
 

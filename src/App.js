@@ -1,4 +1,4 @@
-import NetInfo, {useNetInfo} from '@react-native-community/netinfo';
+// import NetInfo, {useNetInfo} from '@react-native-community/netinfo';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
@@ -30,11 +30,14 @@ export default function App() {
   const handleRoleSelection = role => {
     setSelectedRole(role);
   };
-  const {details} = useNetInfo();
+  // const {details} = useNetInfo();
   const {setIp} = useNetwork();
 
   useEffect(() => {
-    (async () => {})();
+    (async () => {
+      console.log(process.env);
+      // console.log({AWS_S3_SECRET_ACCESS_KEY});
+    })();
   }, []);
 
   return (

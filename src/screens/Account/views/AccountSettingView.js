@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useAuth} from '../../../stores/auth.store';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const AccountSettingView = props => {
   const {navigation, categories} = props;
@@ -31,6 +32,7 @@ const AccountSettingView = props => {
 
   const handleNavLogout = () => {
     logout();
+    GoogleSignin.signOut();
     navigation.navigate('Login');
   };
 

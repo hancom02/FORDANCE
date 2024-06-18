@@ -13,12 +13,15 @@ import OfflineLessonComponent from '../../../components/OfflineLessonComponent';
 import React, {useEffect, useState} from 'react';
 import {useQuery} from 'react-query';
 import getOfflineLesson from '../../../api/lesson/getOffline';
+import {useAuth} from '../../../stores/auth.store';
 
 const InstructorScheduleMainView = props => {
   const {navigation, route, updatedLesson} = props;
 
+  const {id} = useAuth();
+
   const {data: lessons} = useQuery({
-    queryKey: ['offline-lessons'],
+    queryKey: ['offline-lessons', id],
     queryFn: getOfflineLesson,
   });
 

@@ -27,8 +27,17 @@ import {useMutation, useQuery} from 'react-query';
 import getDetailLesson from '../../../api/lesson/getDetail';
 import {useAuth} from '../../../stores/auth.store';
 import updateLesson from '../../../api/lesson/update';
+import {saveLesson, unsaveLesson} from '../../../api/lesson/save';
+import {
+  fetchAllLessons,
+  fetchSavedLessons,
+} from '../../../redux/slices/lessonSlice';
+import {useDispatch} from 'react-redux';
+import {updateJoinLesson} from '../../../api/lesson/join';
 
 const LessonMainView = props => {
+  const dispatch = useDispatch();
+
   const {navigation, comments, lesson: _lesson, participants} = props;
 
   const {id: userId} = useAuth();
@@ -51,10 +60,6 @@ const LessonMainView = props => {
 
   const [offlinelessons, setOfflineLessons] = useState();
 
-  useEffect(() => {
-    if (data) setOfflineLessons({...data, location: data.address});
-  }, [JSON.stringify(data)]);
-
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const [content, setContent] = useState('Community'); // State để xác định nội dung hiện tại
@@ -63,6 +68,36 @@ const LessonMainView = props => {
   const [isModalOfflineStudentVisible, setModalOfflineStudentVisible] =
     useState(false);
   const [isModalScheduleVisible, setIsModalScheduleVisible] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [isJoined, setIsJoined] = useState(false);
+
+  const {mutate: saveLessonMutate} = useMutation({
+    mutationFn: saveLesson,
+    onSuccess: () => {
+      dispatch(fetchSavedLessons());
+    },
+  });
+  const {mutate: unsaveLessonMutate} = useMutation({
+    mutationFn: unsaveLesson,
+    onSuccess: () => {
+      dispatch(fetchSavedLessons());
+    },
+  });
+
+  const {mutate: mutateLessonJoinState} = useMutation({
+    mutationFn: updateJoinLesson,
+    onSuccess: () => {
+      dispatch(fetchAllLessons());
+    },
+  });
+
+  useEffect(() => {
+    if (data) {
+      setOfflineLessons({...data, location: data.address});
+      setIsSaved(data?.isSaved);
+      setIsJoined(data.isJoined);
+    }
+  }, [JSON.stringify(data)]);
 
   const handleNavigateCommunityDetail = () => {
     navigation.navigate('Community');
@@ -103,6 +138,21 @@ const LessonMainView = props => {
     setModalOfflineVisible(false);
   };
 
+  const handleSave = () => {
+    if (isSaved) {
+      setIsSaved(false);
+      unsaveLessonMutate({id: _lesson.id});
+    } else {
+      setIsSaved(true);
+      saveLessonMutate({id: _lesson.id});
+    }
+  };
+
+  const handleJoin = () => {
+    setIsJoined(!isJoined);
+    mutateLessonJoinState({id: _lesson.id, isJoin: !isJoined});
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity
@@ -140,9 +190,11 @@ const LessonMainView = props => {
       ) : (
         // Nội dung khi không phải là chủ sở hữu
         <View style={styles.iconContainer}>
-          <TouchableOpacity style={[styles.icon, {marginLeft: 16}]}>
+          <TouchableOpacity
+            style={[styles.icon, {marginLeft: 16}]}
+            onPress={handleSave}>
             <Ionicons
-              name="heart-outline"
+              name={isSaved ? 'heart' : 'heart-outline'}
               size={30}
               color={Colors.primaryPupple}
             />
@@ -187,7 +239,7 @@ const LessonMainView = props => {
               source={{uri: lesson.instructorImage}}
               style={styles.circle}></Image>
             <View style={styles.instructorInfo}>
-              <Text style={styles.textName}>{lesson.instructor.name}</Text>
+              <Text style={styles.textName}>{lesson.instructor?.name}</Text>
               {/* <Text style={styles.instructorSubtitle}>{DancerName}</Text> */}
             </View>
           </View>
@@ -265,11 +317,17 @@ const LessonMainView = props => {
 
       <TouchableOpacity
         style={styles.joinClassContainer}
-        onPress={() => handleNavVideoPlayer()}>
-        {isOwner && (
+        onPress={() => {
+          if (isOwner || isJoined) handleNavVideoPlayer();
+          else handleJoin();
+        }}>
+        {isOwner || lesson?.isJoined ? (
           <Text style={styles.textJoinLesson}>WATCH VIDEO LESSON</Text>
+        ) : (
+          <Text style={styles.textJoinLesson}>
+            {!isJoined ? 'JOIN LESSON' : 'WATCH VIDEO'}
+          </Text>
         )}
-        {!isOwner && <Text style={styles.textJoinLesson}>JOIN LESSON</Text>}
       </TouchableOpacity>
 
       <Modal

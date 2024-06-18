@@ -289,12 +289,12 @@ const LessonMainView = props => {
               <Text style={styles.headerText}>Participants</Text>
               <View style={styles.participantContent}>
                 <FlatList
-                  data={participants}
+                  data={lesson?.studentLessons || []}
                   renderItem={({item, index}) => (
                     <ParticipantsItem
                       key={index}
-                      image_link={item.image_link}
-                      name={item.name}
+                      image_link={item?.student?.photoUrl}
+                      name={item?.student?.name}
                     />
                   )}
                 />

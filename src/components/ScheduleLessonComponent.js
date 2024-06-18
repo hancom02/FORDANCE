@@ -38,10 +38,10 @@ const ScheduleLessonComponent = props => {
     offlinelessons?.location,
   );
   const [editedStartDate, setEditedStartDate] = useState(
-    offlinelessons?.startDate,
+    offlinelessons?.startDate || new Date(),
   );
   const [editedEndDate, setEditedEndDate] = useState(
-    offlinelessons?.endDate ? offlinelessons?.endDate : null,
+    offlinelessons?.endDate || new Date(),
   );
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
@@ -113,6 +113,7 @@ const ScheduleLessonComponent = props => {
   };
 
   const onChangeStartDate = (event, selectedDate) => {
+    console.log({selectedDate})
     const currentDate = selectedDate || editedStartDate;
     if (editedEndDate && currentDate >= editedEndDate) {
       Alert.alert('Invalid Date', 'Start date must be earlier than end date.');
@@ -204,7 +205,7 @@ const ScheduleLessonComponent = props => {
           )}
           {showStartDatePicker && (
             <DateTimePicker
-              value={new Date(editedStartDate) || new Date()}
+              value={editedStartDate || new Date()}
               mode="date"
               display="default"
               onChange={onChangeStartDate}

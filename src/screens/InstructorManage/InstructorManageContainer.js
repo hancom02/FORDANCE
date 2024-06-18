@@ -9,12 +9,13 @@ const {
 const InstructorManageContainer = props => {
   const {navigation} = props;
 
-  const {id} = useAuth();
+  const {id, isStudent} = useAuth();
 
   const {data} = useQuery({
     queryKey: ['detail instructor', id],
     queryFn: getDetailInstructor,
     refetchInterval: 1000,
+    enabled: !isStudent,
   });
 
   const myLessons = data?.lessons || [];

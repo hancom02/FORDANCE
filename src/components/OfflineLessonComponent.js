@@ -33,13 +33,13 @@ const OfflineLessonComponent = props => {
                     style={styles.gradient}
                 /> */}
         <View style={styles.contentContainer}>
-          <Text style={styles.textName}>{offlinelessons.lessonName}</Text>
+          <Text style={styles.textName}>{offlinelessons.name}</Text>
           <Text style={styles.textInstructorName}>
-            {offlinelessons.instructor.name}
+            {offlinelessons.instructor?.name}
           </Text>
           <View style={styles.icon_textContainer}>
             <Ionicons name="location" color="white" size={20} />
-            <Text style={styles.text}>{offlinelessons.location}</Text>
+            <Text style={styles.text}>{offlinelessons.address}</Text>
           </View>
           <View style={styles.icon_textContainer}>
             <Ionicons name="calendar-clear-outline" color="white" size={20} />

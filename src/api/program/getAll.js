@@ -5,3 +5,10 @@ export default async function getAllPrograms(keyword) {
 
   return response.data;
 }
+
+export async function getAllProgramsApi({queryKey}) {
+  const [_, keyword] = queryKey;
+  const response = await apiInstance.get(`/program?q=${keyword || ''}`);
+
+  return response.data;
+}

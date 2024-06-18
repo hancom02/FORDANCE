@@ -49,7 +49,7 @@ const ProgramComponent = props => {
                 <Ionicons name="play-circle-outline" size={14} color="white" />
                 <Text style={styles.textLesson}>
                   {' '}
-                  {program.lessons_amount} LESSONS
+                  {program?.lessons?.length || 0} LESSONS
                 </Text>
               </View>
             </View>

@@ -71,13 +71,13 @@ export default function App() {
               component={InstructorProgram}
             />
             <Stack.Screen name="Community" component={Community} />
+            <Stack.Screen name="Program" component={Program} />
             {selectedRole === 'student' ? (
               <>
                 <Stack.Screen name="HomeStack" component={HomeStack} />
                 <Stack.Screen name="LibraryStack" component={LibraryStack} />
                 <Stack.Screen name="AccountStack" component={AccountStack} />
                 <Stack.Screen name="Search" component={Search} />
-                <Stack.Screen name="Program" component={Program} />
                 <Stack.Screen
                   name="InstructorDetailView"
                   component={InstructorDetailView}

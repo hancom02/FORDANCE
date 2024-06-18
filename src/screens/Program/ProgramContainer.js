@@ -1,21 +1,25 @@
-import ProgramMainView from "./views/ProgramMainView";
+import {useQuery} from 'react-query';
+import getDetailProgram from '../../api/program/getDetail';
+import ProgramMainView from './views/ProgramMainView';
 
-const ProgramContainer = (props) => {
-    const { 
-        navigation,
-        program
-        
-    } = props;
+const ProgramContainer = props => {
+  const {navigation, program: _program} = props;
 
-    const propsProgram = {
-        navigation,
-        program
+  const {data} = useQuery({
+    queryKey: ['detail-program', _program.id],
+    queryFn: getDetailProgram,
+  });
 
-    };
+  const program = data || _program;
 
-    // console.log("PROGRAM IN PROGRAM CONTAINER: ", program);
+  const propsProgram = {
+    navigation,
+    program,
+  };
 
-    return <ProgramMainView{...propsProgram} />
-}
+  // console.log("PROGRAM IN PROGRAM CONTAINER: ", program);
+
+  return <ProgramMainView {...propsProgram} />;
+};
 
 export default ProgramContainer;

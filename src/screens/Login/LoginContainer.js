@@ -35,11 +35,8 @@ const LoginContainer = props => {
         data.access_token,
       );
       Toast.showWithGravity('Sign In successsfully!', Toast.LONG, Toast.TOP);
-      if (selectedRole === 'student') {
-        navigation.navigate('MyStudentBottomTab');
-      } else if (selectedRole === 'instructor') {
-        navigation.navigate('MyInstructorBottomTab');
-      }
+
+      navigation.navigate('MyInstructorBottomTab');
     },
   });
 

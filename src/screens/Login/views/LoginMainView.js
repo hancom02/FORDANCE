@@ -36,11 +36,16 @@ const LoginMainView = props => {
     onSuccess: (data, variables) => {
       console.log({data, variables});
       login(
+        true,
+        data.id,
         variables.name,
+        variables.email,
         variables.googleId,
         variables.photoUrl,
         data.access_token,
       );
+
+      navigation.navigate('MyStudentBottomTab');
     },
   });
 
@@ -54,16 +59,24 @@ const LoginMainView = props => {
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
-        '620378991871-7vv919su868hl6gptcddj74gnk8avsht.apps.googleusercontent.com',
+        '620378991871-be0lb9capn34hea790regr0cigt3nd4j.apps.googleusercontent.com',
     });
   }, []);
 
   async function onGoogleButtonPress() {
     await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-    const {idToken, user} = await GoogleSignin.signIn();
+    try {
+      const {idToken, user} = await GoogleSignin.signIn();
 
-    console.log({user});
-    mutate({googleId: user.id, name: user.name, photoUrl: user.photo});
+      mutate({
+        googleId: user.id,
+        name: user.name,
+        email: user.email,
+        photoUrl: user.photo,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

@@ -77,9 +77,7 @@ export default function App() {
                 <Stack.Screen name="LibraryStack" component={LibraryStack} />
                 <Stack.Screen name="AccountStack" component={AccountStack} />
                 <Stack.Screen name="Search" component={Search} />
-                <Stack.Screen name="Lesson" component={Lesson} />
                 <Stack.Screen name="Program" component={Program} />
-                <Stack.Screen name="Community" component={Community} />
                 <Stack.Screen
                   name="InstructorDetailView"
                   component={InstructorDetailView}

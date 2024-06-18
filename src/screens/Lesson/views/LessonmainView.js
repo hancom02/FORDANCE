@@ -187,7 +187,7 @@ const LessonMainView = props => {
               source={{uri: lesson.instructorImage}}
               style={styles.circle}></Image>
             <View style={styles.instructorInfo}>
-              <Text style={styles.textName}>{lesson.instructor}</Text>
+              <Text style={styles.textName}>{lesson.instructor.name}</Text>
               {/* <Text style={styles.instructorSubtitle}>{DancerName}</Text> */}
             </View>
           </View>

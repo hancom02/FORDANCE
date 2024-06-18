@@ -15,10 +15,12 @@ const seeDetail = 'See Detail';
 const WiderProgramComponent = props => {
   const {program, handleNav} = props;
 
+  const imageUrl = program?.lessons?.at(0)?.imageUrl;
+
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={{uri: program.imageUrl}}
+        source={{uri: imageUrl}}
         style={styles.backgroundContainer}>
         <View style={styles.contenContainer}>
           {/* SEE ALL */}

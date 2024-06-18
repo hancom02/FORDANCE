@@ -23,24 +23,37 @@ import PopUpFormComponent from '../../../components/PopUpFormComponent';
 import InstructorLessontab from '../components/InstructorLessonTab';
 import ParticipantsItem from '../components/ParticipantItem';
 import ScheduleLessonComponent from '../../../components/ScheduleLessonComponent';
+import {useMutation, useQuery} from 'react-query';
+import getDetailLesson from '../../../api/lesson/getDetail';
+import {useAuth} from '../../../stores/auth.store';
+import updateLesson from '../../../api/lesson/update';
 
 const LessonMainView = props => {
-  const {navigation, isOwner, comments, lesson, participants} = props;
+  const {navigation, comments, lesson: _lesson, participants} = props;
 
-  //console.log("IS OWNER LESSON: ", isOwner);
+  const {id: userId} = useAuth();
 
-  const [offlinelessons, setOfflineLessons] = useState({
-    title: 'Introduction to React Native',
-    instructor: 'John Doe',
-    instructorEmail: 'test@gmail.com',
-    instructorPhone: '088815454545',
-    location: '123 Main Street, Cityville',
-    startDate: '20/04/2024',
-    endDate: '21/04/2024',
+  const {data, refetch} = useQuery({
+    queryKey: ['detail-lesson', _lesson.id],
+    queryFn: getDetailLesson,
   });
-  const Username = 'Username';
-  const UserImageURL =
-    'https://sab.org/wp-content/uploads/2020/04/190508_sab_5222-scaled-e1588882431127.jpg';
+
+  const {mutate} = useMutation({
+    mutationFn: updateLesson,
+    onSuccess: () => {
+      refetch();
+    },
+  });
+
+  const lesson = data || _lesson;
+
+  const isOwner = userId === lesson?.instructor?.id;
+
+  const [offlinelessons, setOfflineLessons] = useState();
+
+  useEffect(() => {
+    if (data) setOfflineLessons({...data, location: data.address});
+  }, [JSON.stringify(data)]);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -76,6 +89,12 @@ const LessonMainView = props => {
   };
 
   const handleSubmitOffline = formData => {
+    mutate({
+      id: _lesson.id,
+      startDate: formData.startDate,
+      endDate: formData.endDate,
+      address: formData.location,
+    });
     setOfflineLessons({
       ...offlinelessons,
       instructorEmail: formData.instructorEmail,
@@ -83,10 +102,6 @@ const LessonMainView = props => {
     });
     setModalOfflineVisible(false);
   };
-
-  useEffect(() => {
-    console.log('Offline lessons updated:', offlinelessons);
-  }, [offlinelessons]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -303,6 +318,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   container2: {
+    marginTop: 12,
     flexDirection: 'column',
     paddingHorizontal: 16,
   },
@@ -361,7 +377,7 @@ const styles = StyleSheet.create({
   textName: {
     color: 'black',
     fontWeight: '700',
-    fontSize: 16,
+    fontSize: 20,
     textTransform: 'uppercase',
   },
   instructorInfo: {

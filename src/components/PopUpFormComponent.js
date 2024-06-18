@@ -63,17 +63,17 @@ const PopUpFormComponent = (props) => {
             </View>
             <ScrollView style={{ flexGrow: 1 }}>
                 <Text style={styles.sectionTitle}>CLASS INFORMATION</Text>
-                <Text style={styles.infoNameText}>{offlinelessons.title}</Text>
-                <Text style={styles.infoInstructorText}>{offlinelessons.instructor}</Text>
+                {/* <Text style={styles.infoNameText}>{offlinelessons?.title}</Text> */}
+                <Text style={styles.infoInstructorText}>{offlinelessons?.instructor.name}</Text>
                 <View style={styles.rowContainer}>
                     <View style={{ flexDirection: 'row', alignItems: '' }}>
                         <Ionicons name="location" size={20} color="black" />
-                        <Text style={styles.infoText}>{offlinelessons.location}</Text>
+                        <Text style={styles.infoText}>{offlinelessons?.address}</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', marginRight: 10, marginTop: 10, }}>
                     <Ionicons name="calendar-number-outline" size={20} color="black" />
-                    <Text style={styles.infoText}>{offlinelessons.startDate}{offlinelessons.endDate ? ` - ${offlinelessons.endDate}` : ''}</Text>
+                    <Text style={styles.infoText}>{offlinelessons?.startDate}{offlinelessons?.endDate ? ` - ${offlinelessons?.endDate}` : ''}</Text>
                 </View>
                 <Text style={styles.sectionTitle}>YOUR INFORMATION</Text>
                 <TextInput

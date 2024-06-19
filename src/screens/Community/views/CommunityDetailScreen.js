@@ -41,12 +41,13 @@ const CommunityDetailScreen = props => {
   }, [JSON.stringify(_comments)]);
 
   const renderItem = ({item, index}) => {
+    console.log({item});
     return (
       <View style={styles.commentContainer}>
         <Image source={{uri: item.student?.photoUrl}} style={styles.avatar} />
         <View style={styles.commentContent}>
           <View style={styles.commentHeader}>
-            <Text style={styles.commentUser}>{item.student.name}</Text>
+            <Text style={styles.commentUser}>{item.student?.name}</Text>
             <Text style={styles.commentText}>{item.content}</Text>
           </View>
           {/* <TouchableOpacity style={styles.replyButton}>

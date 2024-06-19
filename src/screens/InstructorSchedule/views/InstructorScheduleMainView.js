@@ -20,7 +20,7 @@ const InstructorScheduleMainView = props => {
 
   const {id} = useAuth();
 
-  const {data: lessons} = useQuery({
+  const {data: lessons, refetch} = useQuery({
     queryKey: ['offline-lessons', id],
     queryFn: getOfflineLesson,
   });
@@ -30,7 +30,7 @@ const InstructorScheduleMainView = props => {
   };
 
   const handleNavAddNewClass = () => {
-    navigation.navigate('AddNewClass');
+    navigation.navigate('AddNewClass', {refetch});
   };
 
   return (

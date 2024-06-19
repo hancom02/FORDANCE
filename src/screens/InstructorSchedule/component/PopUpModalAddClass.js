@@ -20,7 +20,15 @@ const PopUpModalAddClass = ({onClose, lesson}) => {
   const [selectedStartDate, setSelectedStartDate] = useState(new Date());
   const [selectedEndDate, setSelectedEndDate] = useState(new Date());
 
-  const {mutate} = useMutation({mutationFn: updateLesson});
+  const {mutate} = useMutation({
+    mutationFn: updateLesson,
+    onSuccess: () => {
+      onClose();
+    },
+    onError: () => {
+      onClose();
+    },
+  });
 
   const onChangeStartDate = (event, selectedDate) => {
     setShowStartDatePicker(false);
@@ -105,8 +113,7 @@ const PopUpModalAddClass = ({onClose, lesson}) => {
               startDate: selectedStartDate,
               endDate: selectedEndDate,
             });
-          }
-          onClose();
+          } else onClose();
         }}>
         <Text style={styles.completeButtonText}>COMPLETE</Text>
       </TouchableOpacity>

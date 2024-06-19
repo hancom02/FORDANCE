@@ -10,7 +10,7 @@ const CommunityComponent = props => {
         <Image source={{uri: item.student?.photoUrl}} style={styles.avatar} />
         <View style={styles.commentContent}>
           <View style={styles.commentHeader}>
-            <Text style={styles.commentUser}>{item.student.name}</Text>
+            <Text style={styles.commentUser}>{item.student?.name}</Text>
             <Text style={styles.commentText}>{item.content}</Text>
           </View>
           {/* {item.replies && item.replies.map((reply, replyIndex) => (

@@ -17,7 +17,10 @@ import getDetailInstructor from '../../../api/instructor/getDetail';
 import {useAuth} from '../../../stores/auth.store';
 
 const AddNewOfflineClass = props => {
-  const {navigation} = props;
+  const {
+    navigation,
+    route: {params},
+  } = props;
   const [isModalVisible, setModalVisible] = useState(false);
 
   const {isStudent, id} = useAuth();
@@ -43,6 +46,7 @@ const AddNewOfflineClass = props => {
   };
 
   const handleCloseModal = () => {
+    params?.refetch?.();
     setModalVisible(false);
   };
 
